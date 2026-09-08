@@ -180,7 +180,9 @@
   .process__grid, .method__grid, .valueband, .ctahome__grid { grid-template-columns: 1fr; }
   .process__steps::before { display: none; }
   .foot3__main--wide { grid-template-columns: 1fr 1fr; }
-  .ctahome__figure { display: none; }
+  /* CTA image stacks below the copy and stays flush with the section bottom */
+  .ctahome__figure { display: block; margin-top: clamp(24px, 5vw, 40px); }
+  .ctahome__figure img { max-width: 460px; margin: 0 auto; }
 }
 @media (max-width: 720px) {
   .wwd2__head { grid-template-columns: 1fr; }
