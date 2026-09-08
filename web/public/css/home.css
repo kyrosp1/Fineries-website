@@ -160,7 +160,9 @@
 }
 @media (max-width: 720px) {
   .wwd2__head { grid-template-columns: 1fr; }
-  .svc3__grid { grid-template-columns: 1fr; }
+  .svc3__grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  /* odd card out (5th) spans full width so the grid stays balanced */
+  .svc3__grid > .svc3:last-child:nth-child(odd) { grid-column: 1 / -1; }
   .process__steps { grid-template-columns: 1fr 1fr; gap: 28px 16px; }
   .valueband__right { grid-template-columns: 1fr; }
   .venn { flex-direction: column; }
@@ -181,9 +183,15 @@
   .statement__rows p,
   .cta3__list p           { font-size: 18px; }
 
-  /* service cards */
-  .svc3__title            { font-size: 22px; }
-  .svc3__desc             { font-size: 15px; }
+  /* service cards — 2-up: compact so both columns stay clean + legible */
+  .svc3__panel            { padding: 16px 14px 16px; }
+  .svc3__num              { margin-bottom: 8px; }
+  .svc3__title            { font-size: 16px; margin-bottom: 7px; }
+  .svc3__desc             { font-size: 13px; margin-bottom: 14px; }
+  .svc3__arrow            { width: 34px; height: 34px; }
+  .svc3__arrow svg        { width: 14px; height: 14px; }
+  /* the full-width 5th card can breathe a little more */
+  .svc3__grid > .svc3:last-child:nth-child(odd) .svc3__title { font-size: 18px; }
 
   /* process steps */
   .pstep__title           { font-size: 21px; }
