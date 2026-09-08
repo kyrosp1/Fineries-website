@@ -2,12 +2,35 @@
 /**
  * Plugin Name: Fineries CMS
  * Description: Headless content model for the Fineries Digital site — custom post types (Services, Work), ACF field groups, options pages, and a clean REST endpoint for the Astro front-end.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Fineries
  * Requires Plugins: advanced-custom-fields-pro
  */
 
 if (!defined('ABSPATH')) exit;
+
+/* =========================================================
+   0) HEADLESS LOCKDOWN
+   This WordPress is a headless CMS only — nobody should browse it.
+   Front-end page views are redirected to the public site; the REST API,
+   wp-admin, login, AJAX/cron and media files keep working normally.
+   Set FINERIES_PUBLIC_URL in wp-config.php to change the destination.
+   ========================================================= */
+if (!defined('FINERIES_PUBLIC_URL')) define('FINERIES_PUBLIC_URL', 'https://fineries.net');
+
+add_action('template_redirect', function () {
+  // Never touch API calls, the admin, AJAX or cron.
+  if ((defined('REST_REQUEST') && REST_REQUEST) || is_admin() || wp_doing_ajax() || (defined('DOING_CRON') && DOING_CRON)) return;
+  // Let logged-in editors/admins still preview the raw WP if they want to.
+  if (is_user_logged_in()) return;
+  wp_redirect(FINERIES_PUBLIC_URL, 302);
+  exit;
+}, 0);
+
+// Ask search engines not to index the CMS domain.
+add_action('send_headers', function () {
+  if (!is_admin()) header('X-Robots-Tag: noindex, nofollow', true);
+});
 
 /* =========================================================
    1) CUSTOM POST TYPES  (repeatable cards)

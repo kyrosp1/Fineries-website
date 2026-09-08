@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/media/:path*",
+      "destination": "https://cms.fineries.net/wp-content/uploads/:path*"
+    }
+  ]
+}
