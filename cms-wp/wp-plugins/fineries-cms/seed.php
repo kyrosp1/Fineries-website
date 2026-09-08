@@ -68,6 +68,15 @@ update_field('work_eyebrow', 'Featured Work', 'option');
 update_field('work_heading', 'Real brands. Real impact.', 'option');
 update_field('work_cta_label', 'View All Work', 'option');
 
+update_field('logos_eyebrow', 'Selected Clients', 'option');
+update_field('logos_heading', 'Real brands. Real impact.', 'option');
+update_field('logos', [
+  ['name' => 'Meristem', 'link' => ''],
+  ['name' => 'CrusaderSterling', 'link' => ''],
+  ['name' => 'Farmfresh / reFresh', 'link' => ''],
+  ['name' => 'IBOM Air', 'link' => ''],
+], 'option');
+
 update_field('method_eyebrow', 'The Fineries Method', 'option');
 update_field('method_body', "Three disciplines. One integrated approach. So good ideas don't get lost between thinking and execution.", 'option');
 update_field('method_tagline', 'One team. Fewer gaps. Greater impact.', 'option');

@@ -17,6 +17,14 @@ const companyLinks = (settings.footer_company_links && settings.footer_company_l
 const legalLinks = (settings.legal_links && settings.legal_links.length) ? settings.legal_links : [
   { label: "Privacy", link: "#" }, { label: "Terms", link: "#" },
 ];
+const logos = (home.logos && home.logos.length) ? home.logos : [
+  { name: "Meristem" }, { name: "CrusaderSterling" },
+  { name: "Farmfresh / reFresh" }, { name: "IBOM Air" },
+];
+// Pad to enough items for a seamless loop on wide screens, then the template
+// renders this set twice and animates by -50%.
+let logoLoop = [];
+if (logos.length) { while (logoLoop.length < 12) logoLoop = logoLoop.concat(logos); }
 const heroImg = home.hero_image || "";
 const heroVideo = home.hero_video || "";
 const workImg = (w) => w.image || "";
@@ -35,8 +43,8 @@ const ringColor = ["blue", "magenta", "teal"];
 <title>Fineries Digital | We Build Brands, Products, Content People Love | Lagos, Nigeria</title>
 <meta name="description" content="Fineries Digital brings strategy, creativity and technology together to help ambitious organisations grow, connect and create what comes next." />
 <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
-<link rel="stylesheet" href="/css/v3.css?v=42" />
-<link rel="stylesheet" href="/css/home.css?v=42" />
+<link rel="stylesheet" href="/css/v3.css?v=45" />
+<link rel="stylesheet" href="/css/home.css?v=45" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
@@ -178,23 +186,20 @@ const ringColor = ["blue", "magenta", "teal"];
   </div>
 </section>
 
-<!-- FEATURED WORK -->
-<section class="sec" style="background:var(--v3-mist)">
-  <div class="wrap">
-    <div class="work3__head" data-rv>
-      <div>
-        <span class="eyebrow">{home.work_eyebrow || "Featured Work"}</span>
-        <h2 class="h-lg" style="margin-top:14px">{home.work_heading}</h2>
-      </div>
-      <a class="tlink" href="#">{home.work_cta_label || "View All Work"} <i data-lucide="arrow-right"></i></a>
-    </div>
-    <div class="work3__grid" data-rv-stagger>
-      {work.map((w) => (
-        <a class="wc3" href="#">
-          <div class="media wc3__figure"><img src={workImg(w)} alt={w.client} /></div>
-          <h3 class="wc3__name">{w.client}</h3>
-          <p class="wc3__desc">{w.category}</p>
-        </a>
+<!-- CLIENT LOGOS (sliding marquee) -->
+<section class="logos sec" style="background:var(--v3-mist)">
+  <div class="wrap logos__head" data-rv>
+    <span class="eyebrow">{home.logos_eyebrow || "Selected Clients"}</span>
+    <h2 class="h-lg" style="margin-top:12px">{home.logos_heading || "Real brands. Real impact."}</h2>
+  </div>
+  <div class="logos__viewport">
+    <div class="logos__track">
+      {[...logoLoop, ...logoLoop].map((l) => (
+        <div class="logos__item">
+          {l.image
+            ? <img src={l.image} alt={l.name || "Client logo"} />
+            : <span class="logos__word">{l.name}</span>}
+        </div>
       ))}
     </div>
   </div>
@@ -275,8 +280,7 @@ const ringColor = ["blue", "magenta", "teal"];
   <div class="wrap">
     <div class="foot3__main foot3__main--wide">
       <div>
-        <a class="foot3__logo" href="/"><img src="/assets/fineries-logo-white-3x.png" alt="Fineries Digital" /></a>
-        <p class="foot3__tag">{settings.footer_tagline}</p>
+        <a class="foot3__lockup" href="/"><img src="/assets/lockup-white.svg" alt="Fineries — We build brands people love" /></a>
         <div class="foot3__social">
           <a href={settings.social_linkedin || "#"} aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.76-2.05C20.4 8.65 21 11 21 14.1V21h-4v-6.1c0-1.45-.03-3.32-2.02-3.32-2.02 0-2.33 1.58-2.33 3.21V21H9z"/></svg></a>
           <a href={settings.social_instagram || "#"} aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>

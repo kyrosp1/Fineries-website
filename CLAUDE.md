@@ -99,6 +99,8 @@ Rotating-word spans (hero + CTA) are driven by any `[data-words]` element via `v
 Sections: hero (unchanged) → What We Do (5 COLOURED service cards: image + brand-colour
 panel; `services.image` + `services.color`) → The Truth (2 images + text) → Our Process
 (dark band, 4-step timeline `process_steps`) → Featured Work (4 cards) → The Fineries
+Client logo marquee (sliding, from the unlimited `logos` repeater; wordmark fallback
+when a logo has no image) → The Fineries
 Method (stacked heading + Venn circles from `philosophy_rings` + `method_tagline`) →
 Value band ("Good work should do something", gold left + dark right, 6 `bv_items`) →
 Final CTA (text + couple image) → footer (4 cols incl `site_settings.address`).

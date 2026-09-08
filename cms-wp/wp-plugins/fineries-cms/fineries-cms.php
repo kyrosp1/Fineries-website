@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fineries CMS
  * Description: Headless content model for the Fineries Digital site — custom post types (Services, Work), ACF field groups, options pages, and a clean REST endpoint for the Astro front-end.
- * Version: 1.3.0
+ * Version: 1.4.0
  * Author: Fineries
  * Requires Plugins: advanced-custom-fields-pro
  */
@@ -109,10 +109,18 @@ add_action('acf/init', function () {
       ['key' => 'f_process_steps', 'name' => 'process_steps', 'label' => 'Process steps', 'type' => 'repeater', 'layout' => 'block', 'sub_fields' => [
         $txt('num', 'Number'), $txt('icon', 'Icon (Lucide name)'), $txt('title', 'Title'), $area('description', 'Description'),
       ]],
-      // Featured Work
+      // Featured Work (legacy cards — kept for a future Work page)
       $txt('work_eyebrow', 'Work — eyebrow'),
       $txt('work_heading', 'Work — heading'),
       $txt('work_cta_label', 'Work — “view all” link label'),
+      // Client logos marquee (add as many as you like)
+      $txt('logos_eyebrow', 'Logos — eyebrow'),
+      $txt('logos_heading', 'Logos — heading'),
+      ['key' => 'f_logos', 'name' => 'logos', 'label' => 'Client logos (unlimited)', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Add logo', 'sub_fields' => [
+        $img('image', 'Logo image (SVG/PNG, ideally on transparent bg)'),
+        $txt('name', 'Name (shown as text if no image)'),
+        $txt('link', 'Link (optional)'),
+      ]],
       // The Fineries Method
       $txt('method_eyebrow', 'Method — eyebrow'),
       $area('method_body', 'Method — body'),

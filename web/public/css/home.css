@@ -139,7 +139,8 @@
 
 /* ---------- CTA with couple ---------- */
 .ctahome { overflow: hidden; background: var(--v3-blue); }
-.ctahome .cta3__inner { padding: clamp(64px,8vw,120px) 0; }
+/* explicit horizontal padding so copy never touches the screen edges on mobile */
+.ctahome .cta3__inner { padding: clamp(64px,8vw,120px) clamp(20px,4vw,56px); }
 /* heading matches the hero */
 .ctahome .cta3__title { font-size: clamp(24px, 3.6vw, 53px); line-height: 1.08; letter-spacing: -.03em; font-weight: 800; }
 .ctahome__grid { display: grid; grid-template-columns: minmax(0,7fr) minmax(0,5fr); gap: clamp(32px,5vw,60px); align-items: end; }
@@ -147,9 +148,29 @@
 .ctahome__figure { position: relative; align-self: end; margin-bottom: calc(-1 * clamp(64px,8vw,120px)); }
 .ctahome__figure img { width: 100%; height: auto; display: block; }
 
+/* ---------- Client logo marquee ---------- */
+.logos { overflow: hidden; }
+.logos__head { text-align: center; margin-bottom: clamp(28px, 4vw, 48px); }
+.logos__head .eyebrow { justify-content: center; }
+.logos__viewport {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.logos__track { display: flex; width: max-content; animation: logos-scroll 40s linear infinite; }
+.logos__viewport:hover .logos__track { animation-play-state: paused; }
+.logos__item { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; height: 56px; padding: 0 clamp(26px, 5vw, 60px); }
+.logos__item img { max-height: 100%; width: auto; object-fit: contain; filter: grayscale(1); opacity: .6; transition: filter .3s, opacity .3s; }
+.logos__item img:hover { filter: none; opacity: 1; }
+.logos__word { font-family: var(--font-display); font-weight: 800; font-size: clamp(20px, 2.4vw, 30px); letter-spacing: -.01em; color: var(--v3-text-2); white-space: nowrap; }
+@keyframes logos-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .logos__track { animation: none; } }
+
 /* ---------- Footer (wide) ---------- */
 .foot3__main--wide { grid-template-columns: minmax(0,4fr) minmax(0,2.4fr) minmax(0,2.4fr) minmax(0,3fr); }
 .foot3__addr { font-size: 14px; color: rgba(255,255,255,.55); margin: 8px 0; max-width: 26ch; line-height: 1.5; }
+.foot3__lockup { display: inline-block; }
+.foot3__lockup img { width: clamp(210px, 22vw, 290px); height: auto; display: block; margin-bottom: 24px; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1024px) {
@@ -208,6 +229,11 @@
 
   /* footer */
   .foot3__addr, .foot3__col a, .foot3__col span { font-size: 15.5px; }
+
+  /* client logo marquee */
+  .logos__item { height: 40px; padding: 0 24px; }
+  .logos__word { font-size: 21px; }
+  .logos__track { animation-duration: 26s; }
 
   /* What We Do — teal band for the INTRO only; the cards keep the light bg */
   .wwd-sec { padding-top: 0; }
