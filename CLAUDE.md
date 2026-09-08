@@ -77,6 +77,22 @@ Kept for reference only.
   `home.philosophy_rings` for the template. `PUBLIC_WP_URL` in `web/.env`.
 - `web/src/lib/directus.js` — LEGACY (unused).
 - `web/src/components/HomePage.astro` — the whole home page; every section reads from CMS.
+
+## ⚠️ Content convention — keep EVERYTHING CMS-editable
+All visible text and images on the site must be editable in WordPress. When asked to
+change/add any copy or image, wire it through the CMS — do NOT hardcode — unless the
+user explicitly says otherwise. The pattern for a new piece of text/image:
+1. Add an ACF field in `fineries-cms.php` (Home Content or Site Settings group; use a
+   repeater for lists like nav/footer links). Comma-string "words" fields are split to
+   arrays in the REST callback (see `hero_words`/`cta_words`).
+2. It flows through automatically via `get_fields('option')` in the REST route.
+3. Read it in `HomePage.astro` as `home.x || "current text"` (always keep the current
+   text as a fallback so the live site never goes blank before the field is populated).
+4. Add a default in `seed.php`.
+5. Bump the plugin `Version`, rebuild `fineries-cms.zip` (lean — exclude the .mp4), and
+   the user re-uploads it to Hostinger; new fields start empty (fallbacks show) until
+   filled or re-seeded.
+Rotating-word spans (hero + CTA) are driven by any `[data-words]` element via `v3.js`.
 - Styles: `web/public/css/v3.css` (base) + `web/public/css/home.css` (V3.1 home sections).
 
 ## Home layout V3.1 (current)

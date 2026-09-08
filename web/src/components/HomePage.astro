@@ -2,6 +2,21 @@
 const { home, settings, services = [], work = [], preview = false } = Astro.props;
 
 const heroWords = home.hero_words && home.hero_words.length ? home.hero_words : ["brands", "products", "content"];
+const ctaWords = home.cta_words && home.cta_words.length ? home.cta_words : ["a brand", "a product", "content"];
+const navItems = (settings.nav_items && settings.nav_items.length) ? settings.nav_items : [
+  { label: "Home", link: "/" },
+  { label: "What We Do", link: "#" },
+  { label: "Work", link: "#" },
+  { label: "About", link: "#" },
+  { label: "Insights", link: "#" },
+  { label: "Contact", link: "#" },
+];
+const companyLinks = (settings.footer_company_links && settings.footer_company_links.length) ? settings.footer_company_links : [
+  { label: "About", link: "#" }, { label: "Work", link: "#" }, { label: "Insights", link: "#" }, { label: "Careers", link: "#" }, { label: "Contact", link: "#" },
+];
+const legalLinks = (settings.legal_links && settings.legal_links.length) ? settings.legal_links : [
+  { label: "Privacy", link: "#" }, { label: "Terms", link: "#" },
+];
 const heroImg = home.hero_image || "";
 const heroVideo = home.hero_video || "";
 const workImg = (w) => w.image || "";
@@ -41,12 +56,9 @@ const ringColor = ["blue", "magenta", "teal"];
       <img class="logo-blue" src="/assets/fineries-logo-blue-3x.png" alt="Fineries Digital" />
     </a>
     <nav class="nav3__links" aria-label="Primary">
-      <a class="nav3__link nav3__link--active" href="/">Home</a>
-      <a class="nav3__link" href="#">What We Do</a>
-      <a class="nav3__link" href="#">Work</a>
-      <a class="nav3__link" href="#">About</a>
-      <a class="nav3__link" href="#">Insights</a>
-      <a class="nav3__link" href="#">Contact</a>
+      {navItems.map((n) => (
+        <a class={`nav3__link${(n.link === "/" ) ? " nav3__link--active" : ""}`} href={n.link || "#"}>{n.label}</a>
+      ))}
     </nav>
     <button class="nav3__burger" aria-label="Open menu" aria-expanded="false"><i data-lucide="menu"></i></button>
   </div>
@@ -62,12 +74,9 @@ const ringColor = ["blue", "magenta", "teal"];
       </button>
     </div>
     <nav class="mnav__links" aria-label="Mobile">
-      <a href="/"><span>Home</span><em>01</em></a>
-      <a href="#"><span>What We Do</span><em>02</em></a>
-      <a href="#"><span>Work</span><em>03</em></a>
-      <a href="#"><span>About</span><em>04</em></a>
-      <a href="#"><span>Insights</span><em>05</em></a>
-      <a href="#"><span>Contact</span><em>06</em></a>
+      {navItems.map((n, i) => (
+        <a href={n.link || "#"}><span>{n.label}</span><em>{String(i + 1).padStart(2, "0")}</em></a>
+      ))}
     </nav>
     <div class="mnav__foot">
       <span class="mnav__rule"></span>
@@ -89,9 +98,9 @@ const ringColor = ["blue", "magenta", "teal"];
 <section class="hero3" style={`--v3-hero-bg:${home.hero_bg_color || "#3C4099"}`}>
   <img class="hero3__couple" src={heroImg} alt="A couple in Nigerian formal wear sharing a dance" />
   <div class="wrap hero3__inner">
-    <h1 class="hero3__title">We build <span class="hero3__rot" id="hero-rot" data-words={JSON.stringify(heroWords)}>{heroWords[0]}</span> people love</h1>
+    <h1 class="hero3__title">{home.hero_lead_in || "We build"} <span class="hero3__rot" id="hero-rot" data-words={JSON.stringify(heroWords)}>{heroWords[0]}</span> {home.hero_lead_out || "people love"}</h1>
     <button class="hero3__watch" type="button" data-open-video>
-      <span>Watch our story</span>
+      <span>{home.hero_watch_label || "Watch our story"}</span>
       <span class="play"><i data-lucide="play"></i></span>
     </button>
   </div>
@@ -177,7 +186,7 @@ const ringColor = ["blue", "magenta", "teal"];
         <span class="eyebrow">{home.work_eyebrow || "Featured Work"}</span>
         <h2 class="h-lg" style="margin-top:14px">{home.work_heading}</h2>
       </div>
-      <a class="tlink" href="#">View All Work <i data-lucide="arrow-right"></i></a>
+      <a class="tlink" href="#">{home.work_cta_label || "View All Work"} <i data-lucide="arrow-right"></i></a>
     </div>
     <div class="work3__grid" data-rv-stagger>
       {work.map((w) => (
@@ -202,7 +211,7 @@ const ringColor = ["blue", "magenta", "teal"];
         ))}
       </h2>
       <p class="body" style="margin-top:8px;max-width:42ch">{home.method_body}</p>
-      <a class="tlink" href="#" style="margin-top:22px">Learn More <i data-lucide="arrow-right"></i></a>
+      <a class="tlink" href="#" style="margin-top:22px">{home.method_cta_label || "Learn More"} <i data-lucide="arrow-right"></i></a>
     </div>
     <div class="method__viz" data-rv>
       <div class="venn">
@@ -247,11 +256,11 @@ const ringColor = ["blue", "magenta", "teal"];
     <div class="ctahome__grid">
       <div data-rv>
         <span class="eyebrow">{home.cta_eyebrow || "Let's Build"}</span>
-        <h2 class="h-xl cta3__title" style="margin-top:18px">Ready to build <span class="hero3__rot cta3__rot" id="cta-rot" data-words={JSON.stringify(["a brand", "a product", "content"])}>a brand</span> people love?</h2>
-        <p class="body" style="margin-top:18px;max-width:44ch">Let's talk.</p>
+        <h2 class="h-xl cta3__title" style="margin-top:18px">{home.cta_lead_in || "Ready to build"} <span class="hero3__rot cta3__rot" id="cta-rot" data-words={JSON.stringify(ctaWords)}>{ctaWords[0]}</span> {home.cta_lead_out || "people love?"}</h2>
+        <p class="body" style="margin-top:18px;max-width:44ch">{home.cta_body || "Let's talk."}</p>
         <a class="cta3__action" href="#" style="margin-top:26px">
           <span class="circ"><i data-lucide="arrow-right"></i></span>
-          <span>Start a Conversation</span>
+          <span>{home.cta_button_label || "Start a Conversation"}</span>
         </a>
       </div>
       <div class="ctahome__figure" aria-hidden="true">
@@ -275,24 +284,23 @@ const ringColor = ["blue", "magenta", "teal"];
         </div>
       </div>
       <div class="foot3__col">
-        <h4>What We Do</h4>
+        <h4>{settings.footer_services_heading || "What We Do"}</h4>
         {services.map((s) => <a href={s.link || "#"} set:html={s.title}></a>)}
       </div>
       <div class="foot3__col">
-        <h4>Company</h4>
-        <a href="#">About</a><a href="#">Work</a><a href="#">Insights</a>
-        <a href="#">Careers</a><a href="#">Contact</a>
+        <h4>{settings.footer_company_heading || "Company"}</h4>
+        {companyLinks.map((l) => <a href={l.link || "#"}>{l.label}</a>)}
       </div>
       <div class="foot3__col">
-        <h4>Get in Touch</h4>
+        <h4>{settings.footer_contact_heading || "Get in Touch"}</h4>
         <p class="foot3__place">{settings.location}</p>
         {settings.address && <p class="foot3__addr">{settings.address}</p>}
         <a href={`mailto:${settings.contact_email}`}>{settings.contact_email}</a>
       </div>
     </div>
     <div class="foot3__bar">
-      <span>&copy; <span data-year>2025</span> Fineries Digital Limited. All rights reserved.</span>
-      <span class="foot3__bar-links"><a href="#">Privacy</a><a href="#">Terms</a></span>
+      <span>&copy; <span data-year>2025</span> {settings.footer_copyright || "Fineries Digital Limited. All rights reserved."}</span>
+      <span class="foot3__bar-links">{legalLinks.map((l) => <a href={l.link || "#"}>{l.label}</a>)}</span>
     </div>
   </div>
 </footer>

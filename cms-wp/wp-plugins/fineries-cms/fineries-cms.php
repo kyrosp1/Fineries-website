@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fineries CMS
  * Description: Headless content model for the Fineries Digital site — custom post types (Services, Work), ACF field groups, options pages, and a clean REST endpoint for the Astro front-end.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Fineries
  * Requires Plugins: advanced-custom-fields-pro
  */
@@ -87,6 +87,9 @@ add_action('acf/init', function () {
       ['key' => 'f_hero_bg_color', 'name' => 'hero_bg_color', 'label' => 'Hero background colour', 'type' => 'color_picker', 'default_value' => '#3C4099'],
       $img('hero_image', 'Hero couple image (PNG)'),
       $file('hero_video', 'Hero “Watch our story” video'),
+      $txt('hero_lead_in', 'Hero — lead-in (before rotating word)'),
+      $txt('hero_lead_out', 'Hero — lead-out (after rotating word)'),
+      $txt('hero_watch_label', 'Hero — watch button label'),
       // What We Do
       $txt('wwd_eyebrow', 'WWD — eyebrow'),
       $txt('wwd_heading', 'WWD — heading'),
@@ -109,10 +112,12 @@ add_action('acf/init', function () {
       // Featured Work
       $txt('work_eyebrow', 'Work — eyebrow'),
       $txt('work_heading', 'Work — heading'),
+      $txt('work_cta_label', 'Work — “view all” link label'),
       // The Fineries Method
       $txt('method_eyebrow', 'Method — eyebrow'),
       $area('method_body', 'Method — body'),
       $txt('method_tagline', 'Method — tagline'),
+      $txt('method_cta_label', 'Method — link label'),
       ['key' => 'f_method_circles', 'name' => 'method_circles', 'label' => 'Method circles', 'type' => 'repeater', 'layout' => 'block', 'sub_fields' => [
         $txt('title', 'Title'), $area('description', 'Description'),
       ]],
@@ -125,8 +130,11 @@ add_action('acf/init', function () {
       ]],
       // Final CTA
       $txt('cta_eyebrow', 'CTA — eyebrow'),
-      $txt('cta_heading', 'CTA — heading'),
+      $txt('cta_lead_in', 'CTA — lead-in (before rotating word)'),
+      $txt('cta_words', 'CTA — rotating words (comma-separated)'),
+      $txt('cta_lead_out', 'CTA — lead-out (after rotating word)'),
       $area('cta_body', 'CTA — body'),
+      $txt('cta_button_label', 'CTA — button label'),
     ],
   ]);
 
@@ -137,7 +145,23 @@ add_action('acf/init', function () {
     'show_in_rest' => 1,
     'location' => [[['param' => 'options_page', 'operator' => '==', 'value' => 'fineries-settings']]],
     'fields' => [
+      // Navigation (used by both the desktop and mobile menus)
+      ['key' => 'f_nav_items', 'name' => 'nav_items', 'label' => 'Navigation items', 'type' => 'repeater', 'layout' => 'table', 'sub_fields' => [
+        $txt('label', 'Label'), $txt('link', 'Link'),
+      ]],
+      // Footer
       $txt('footer_tagline', 'Footer tagline'),
+      $txt('footer_services_heading', 'Footer — services column heading'),
+      $txt('footer_company_heading', 'Footer — company column heading'),
+      ['key' => 'f_footer_company_links', 'name' => 'footer_company_links', 'label' => 'Footer — company links', 'type' => 'repeater', 'layout' => 'table', 'sub_fields' => [
+        $txt('label', 'Label'), $txt('link', 'Link'),
+      ]],
+      $txt('footer_contact_heading', 'Footer — contact column heading'),
+      $txt('footer_copyright', 'Footer — copyright (after the year)'),
+      ['key' => 'f_legal_links', 'name' => 'legal_links', 'label' => 'Footer — legal links', 'type' => 'repeater', 'layout' => 'table', 'sub_fields' => [
+        $txt('label', 'Label'), $txt('link', 'Link'),
+      ]],
+      // Contact + social
       $txt('contact_email', 'Contact email'),
       $txt('location', 'Location'),
       $area('address', 'Address'),
@@ -188,9 +212,11 @@ add_action('rest_api_init', function () {
       if (!function_exists('get_field')) return new WP_Error('acf_missing', 'ACF not active', ['status' => 500]);
 
       $home = get_fields('option') ?: [];
-      // hero_words: comma string → array
-      if (!empty($home['hero_words']) && is_string($home['hero_words'])) {
-        $home['hero_words'] = array_values(array_filter(array_map('trim', explode(',', $home['hero_words']))));
+      // comma strings → arrays (hero + CTA rotating words)
+      foreach (['hero_words', 'cta_words'] as $wf) {
+        if (!empty($home[$wf]) && is_string($home[$wf])) {
+          $home[$wf] = array_values(array_filter(array_map('trim', explode(',', $home[$wf]))));
+        }
       }
 
       $services = array_map(function ($p) {

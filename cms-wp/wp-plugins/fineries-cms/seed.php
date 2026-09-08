@@ -38,6 +38,9 @@ update_field('hero_words', 'brands, products, content', 'option');
 update_field('hero_bg_color', '#3C4099', 'option');
 if ($hero_img) update_field('hero_image', $hero_img, 'option');
 if ($hero_vid) update_field('hero_video', $hero_vid, 'option');
+update_field('hero_lead_in', 'We build', 'option');
+update_field('hero_lead_out', 'people love', 'option');
+update_field('hero_watch_label', 'Watch our story', 'option');
 
 update_field('wwd_eyebrow', 'What We Do', 'option');
 update_field('wwd_heading', 'Everything your brand needs', 'option');
@@ -63,10 +66,12 @@ update_field('process_steps', [
 
 update_field('work_eyebrow', 'Featured Work', 'option');
 update_field('work_heading', 'Real brands. Real impact.', 'option');
+update_field('work_cta_label', 'View All Work', 'option');
 
 update_field('method_eyebrow', 'The Fineries Method', 'option');
 update_field('method_body', "Three disciplines. One integrated approach. So good ideas don't get lost between thinking and execution.", 'option');
 update_field('method_tagline', 'One team. Fewer gaps. Greater impact.', 'option');
+update_field('method_cta_label', 'Learn More', 'option');
 update_field('method_circles', [
   ['title' => 'Strategy', 'description' => 'Find the problem worth solving.'],
   ['title' => 'Creativity', 'description' => 'Find the idea worth pursuing.'],
@@ -86,11 +91,37 @@ update_field('bv_items', [
 ], 'option');
 
 update_field('cta_eyebrow', "Let's Build", 'option');
-update_field('cta_heading', 'Have something worth building?', 'option');
-update_field('cta_body', "A brand to rethink. A campaign to launch. A product to create. An experience to improve. Let's talk.", 'option');
+update_field('cta_lead_in', 'Ready to build', 'option');
+update_field('cta_words', 'a brand, a product, content', 'option');
+update_field('cta_lead_out', 'people love?', 'option');
+update_field('cta_body', "Let's talk.", 'option');
+update_field('cta_button_label', 'Start a Conversation', 'option');
 
 // ---- Site settings (same option store) ----
+update_field('nav_items', [
+  ['label' => 'Home', 'link' => '/'],
+  ['label' => 'What We Do', 'link' => '#'],
+  ['label' => 'Work', 'link' => '#'],
+  ['label' => 'About', 'link' => '#'],
+  ['label' => 'Insights', 'link' => '#'],
+  ['label' => 'Contact', 'link' => '#'],
+], 'option');
 update_field('footer_tagline', 'We build brands, products, content people love.', 'option');
+update_field('footer_services_heading', 'What We Do', 'option');
+update_field('footer_company_heading', 'Company', 'option');
+update_field('footer_company_links', [
+  ['label' => 'About', 'link' => '#'],
+  ['label' => 'Work', 'link' => '#'],
+  ['label' => 'Insights', 'link' => '#'],
+  ['label' => 'Careers', 'link' => '#'],
+  ['label' => 'Contact', 'link' => '#'],
+], 'option');
+update_field('footer_contact_heading', 'Get in Touch', 'option');
+update_field('footer_copyright', 'Fineries Digital Limited. All rights reserved.', 'option');
+update_field('legal_links', [
+  ['label' => 'Privacy', 'link' => '#'],
+  ['label' => 'Terms', 'link' => '#'],
+], 'option');
 update_field('contact_email', 'info@fineries.net', 'option');
 update_field('location', 'Lagos, Nigeria', 'option');
 update_field('address', 'AHON Towers, 38 CIPM Road, Alausa, Lagos.', 'option');
