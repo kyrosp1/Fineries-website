@@ -203,4 +203,15 @@
 
   /* footer */
   .foot3__addr, .foot3__col a, .foot3__col span { font-size: 15.5px; }
+
+  /* What We Do — teal band with white intro text, breathing room */
+  .wwd-sec { background: var(--v3-teal) !important; padding: 72px 0 76px; }
+  .wwd-sec .eyebrow { color: #fff; }
+  .wwd-sec .wwd2__title,
+  .wwd-sec .wwd2__title .teal { color: #fff; }
+  .wwd-sec .wwd2__aside .body { color: rgba(255,255,255,.9); }
+  .wwd-sec .btn3--teal { border-color: rgba(255,255,255,.7); color: #fff; }
+  .wwd-sec .btn3--teal:hover { background: #fff; color: var(--v3-teal); border-color: #fff; }
+  .wwd-sec .btn3--teal svg { color: #fff; }
+  .wwd-sec .btn3--teal:hover svg { color: var(--v3-teal); }
 }
