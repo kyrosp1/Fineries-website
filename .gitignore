@@ -29,3 +29,7 @@ Thumbs.db
 
 # generated plugin bundle
 fineries-cms.zip
+
+# large media that should not be in git (served from WordPress / regenerated)
+site/assets/*.mp4
+web/public/media/
