@@ -167,3 +167,36 @@
   .venn__c + .venn__c { margin-left: 0; margin-top: clamp(-40px,-8vw,-28px); }
   .foot3__main--wide { grid-template-columns: 1fr; }
 }
+
+/* ---------- Mobile readability: bump headings + body copy (hero unaffected) ---------- */
+@media (max-width: 640px) {
+  /* section headlines */
+  .wwd2__title            { font-size: 28px; }
+  .h-lg, .truth__text .h-lg { font-size: 26px; }
+  .method__tagline        { font-size: 18px; }
+
+  /* body / lead copy */
+  .body                   { font-size: 17px; line-height: 1.7; }
+  .lead                   { font-size: 17px; }
+  .statement__rows p,
+  .cta3__list p           { font-size: 18px; }
+
+  /* service cards */
+  .svc3__title            { font-size: 22px; }
+  .svc3__desc             { font-size: 15px; }
+
+  /* process steps */
+  .pstep__title           { font-size: 21px; }
+  .pstep__desc            { font-size: 15px; }
+
+  /* value band */
+  .bv-item__title, .vitem__title { font-size: 18px; }
+  .bv-item__desc, .vitem__desc   { font-size: 15px; }
+
+  /* featured work cards */
+  .wc3__name              { font-size: 22px; }
+  .wc3__desc              { font-size: 15px; }
+
+  /* footer */
+  .foot3__addr, .foot3__col a, .foot3__col span { font-size: 15.5px; }
+}
