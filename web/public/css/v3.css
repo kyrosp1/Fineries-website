@@ -257,11 +257,7 @@ button { font-family: inherit; }
 }
 .mnav__foot { margin-top: auto; padding-top: 34px; }
 .mnav__rule { display: block; width: 40px; height: 2px; background: rgba(255,255,255,.45); margin-bottom: 20px; }
-.mnav__tag {
-  font-family: var(--font-display); font-style: italic; font-weight: 500;
-  font-size: 15px; line-height: 1.45; color: rgba(255,255,255,.9);
-  white-space: pre-line; margin-bottom: 24px;
-}
+.mnav__lockup { display: block; width: clamp(200px, 66vw, 280px); height: auto; margin-bottom: 26px; }
 .mnav__social { display: flex; gap: 20px; align-items: center; }
 .mnav__social a { color: rgba(255,255,255,.85); display: inline-flex; transition: color .2s; }
 .mnav__social a:hover { color: #fff; }
