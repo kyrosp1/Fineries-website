@@ -331,7 +331,9 @@ button { font-family: inherit; }
   /* Couple is a normal-flow, full-width image so it DEFINES the hero height and
      ends flush at the hero's bottom (never floating). The copy is overlaid on the
      lower portion — over the hands/torso, clear of the faces. */
-  .hero3 { min-height: 0; display: block; }
+  /* padding-top adds blue headroom above the couple so the hero is taller,
+     while the couple stays bottom-anchored and the copy stays clear of the faces */
+  .hero3 { min-height: 0; display: block; padding-top: 22vh; }
   .hero3__couple {
     position: static; display: block;
     width: 100%; height: auto; max-width: none;
