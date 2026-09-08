@@ -225,7 +225,7 @@ button { font-family: inherit; }
   position: fixed; inset: 0; z-index: 300;
   color: #fff;
   visibility: hidden;
-  transition: visibility 0s linear .62s;
+  transition: visibility 0s linear .72s;
 }
 .mnav.open { visibility: visible; transition: visibility 0s; }
 /* dark scrim — the page shows through, darkened, on the left ~10% */
@@ -234,10 +234,12 @@ button { font-family: inherit; }
   background: rgba(18, 19, 42, .55);
   -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
   opacity: 0;
-  transition: opacity .45s var(--v3-ease);
+  /* CLOSING: fade out only after the panel has slid away */
+  transition: opacity .35s var(--v3-ease) .34s;
 }
-.mnav.open .mnav__backdrop { opacity: 1; }
-/* blue panel — 90% width, follows a beat behind the yellow */
+/* OPENING: scrim darkens the screen first */
+.mnav.open .mnav__backdrop { opacity: 1; transition: opacity .3s var(--v3-ease) 0s; }
+/* blue panel — 90% width */
 .mnav__panel {
   position: absolute; top: 0; right: 0; bottom: 0; width: 90%;
   background: var(--v3-blue);
@@ -246,9 +248,11 @@ button { font-family: inherit; }
   overflow-y: auto;
   box-shadow: -18px 0 50px rgba(27, 29, 69, .28);
   transform: translateX(100%);
-  transition: transform .55s var(--v3-ease) .08s;
+  /* CLOSING: panel slides out first, no delay */
+  transition: transform .45s var(--v3-ease) 0s;
 }
-.mnav.open .mnav__panel { transform: none; }
+/* OPENING: panel slides in after the scrim has darkened */
+.mnav.open .mnav__panel { transform: none; transition: transform .5s var(--v3-ease) .24s; }
 .mnav__top { display: flex; align-items: center; justify-content: space-between; }
 .mnav__logo img { height: 26px; width: auto; display: block; }
 .mnav__close { background: none; border: none; color: #fff; cursor: pointer; padding: 6px; margin: -6px; line-height: 0; }

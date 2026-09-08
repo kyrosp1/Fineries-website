@@ -181,13 +181,13 @@
   .statement__rows p,
   .cta3__list p           { font-size: 18px; }
 
-  /* service cards — 2-up: compact so both columns stay clean + legible */
-  .svc3__panel            { padding: 16px 14px 16px; }
-  .svc3__num              { margin-bottom: 8px; }
-  .svc3__title            { font-size: 16px; margin-bottom: 7px; }
-  .svc3__desc             { font-size: 13px; margin-bottom: 14px; }
-  .svc3__arrow            { width: 34px; height: 34px; }
-  .svc3__arrow svg        { width: 14px; height: 14px; }
+  /* service cards — 2-up, larger type for readability */
+  .svc3__panel            { padding: 18px 15px 18px; }
+  .svc3__num              { font-size: 13px; margin-bottom: 9px; }
+  .svc3__title            { font-size: 19px; margin-bottom: 9px; }
+  .svc3__desc             { font-size: 15px; margin-bottom: 16px; }
+  .svc3__arrow            { width: 36px; height: 36px; }
+  .svc3__arrow svg        { width: 15px; height: 15px; }
 
   /* process steps */
   .pstep__title           { font-size: 21px; }
@@ -204,14 +204,20 @@
   /* footer */
   .foot3__addr, .foot3__col a, .foot3__col span { font-size: 15.5px; }
 
-  /* What We Do — teal band with white intro text, breathing room */
-  .wwd-sec { background: var(--v3-teal) !important; padding: 72px 0 76px; }
-  .wwd-sec .eyebrow { color: #fff; }
+  /* What We Do — teal band for the INTRO only; the cards keep the light bg */
+  .wwd-sec { padding-top: 0; }
+  .wwd-sec .wwd2__head {
+    background: var(--v3-teal);
+    margin-inline: calc(-1 * clamp(20px, 4vw, 56px));   /* full-bleed to screen edges */
+    padding: 60px clamp(20px, 4vw, 56px) 56px;
+    margin-bottom: clamp(32px, 7vw, 48px);
+  }
+  .wwd-sec .wwd2__head .eyebrow { color: #fff; }
   .wwd-sec .wwd2__title,
   .wwd-sec .wwd2__title .teal { color: #fff; }
   .wwd-sec .wwd2__aside .body { color: rgba(255,255,255,.9); }
-  .wwd-sec .btn3--teal { border-color: rgba(255,255,255,.7); color: #fff; }
-  .wwd-sec .btn3--teal:hover { background: #fff; color: var(--v3-teal); border-color: #fff; }
-  .wwd-sec .btn3--teal svg { color: #fff; }
-  .wwd-sec .btn3--teal:hover svg { color: var(--v3-teal); }
+  .wwd-sec .wwd2__head .btn3--teal { border-color: rgba(255,255,255,.7); color: #fff; }
+  .wwd-sec .wwd2__head .btn3--teal:hover { background: #fff; color: var(--v3-teal); border-color: #fff; }
+  .wwd-sec .wwd2__head .btn3--teal svg { color: #fff; }
+  .wwd-sec .wwd2__head .btn3--teal:hover svg { color: var(--v3-teal); }
 }
