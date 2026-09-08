@@ -330,9 +330,13 @@ button { font-family: inherit; }
 @media (max-width: 640px) {
   .hero3 { min-height: 100svh; }
   .hero3__title { font-size: clamp(34px, 9.2vw, 46px); line-height: 1.06; max-width: 100%; }
-  /* push copy down onto the couple's chest/hands so it never covers their faces */
+  /* couple centred (70% size) so faces stay clear and there's no big top gap;
+     copy sits over the chest/hands */
   .hero3__inner { padding: 46vh 0 40px; }
-  .hero3__couple { height: 88vh; width: auto; max-width: none; }
+  .hero3__couple {
+    height: 44vh; width: auto; max-width: none;
+    bottom: auto; top: 9vh; transform: translateX(-50%); animation: none;
+  }
 }
 
 /* ---------- Video modal ---------- */
