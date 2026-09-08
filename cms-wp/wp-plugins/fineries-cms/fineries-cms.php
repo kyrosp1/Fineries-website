@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fineries CMS
  * Description: Headless content model for the Fineries Digital site — custom post types (Services, Work), ACF field groups, options pages, and a clean REST endpoint for the Astro front-end.
- * Version: 1.2.0
+ * Version: 1.3.0
  * Author: Fineries
  * Requires Plugins: advanced-custom-fields-pro
  */
@@ -135,6 +135,7 @@ add_action('acf/init', function () {
       $txt('cta_lead_out', 'CTA — lead-out (after rotating word)'),
       $area('cta_body', 'CTA — body'),
       $txt('cta_button_label', 'CTA — button label'),
+      $img('cta_image', 'CTA — image (defaults to the hero image if empty)'),
     ],
   ]);
 

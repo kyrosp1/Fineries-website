@@ -96,6 +96,7 @@ update_field('cta_words', 'a brand, a product, content', 'option');
 update_field('cta_lead_out', 'people love?', 'option');
 update_field('cta_body', "Let's talk.", 'option');
 update_field('cta_button_label', 'Start a Conversation', 'option');
+if ($hero_img) update_field('cta_image', $hero_img, 'option');
 
 // ---- Site settings (same option store) ----
 update_field('nav_items', [
