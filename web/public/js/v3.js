@@ -46,17 +46,30 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  /* ---- Mobile menu ---- */
+  /* ---- Mobile menu (full-screen overlay) ---- */
   var burger = document.querySelector(".nav3__burger");
-  var mobile = document.querySelector(".nav3__mobile");
+  var mobile = document.querySelector(".mnav");
   if (burger && mobile) {
-    burger.addEventListener("click", function () {
-      var open = mobile.classList.toggle("open");
-      burger.setAttribute("aria-expanded", open ? "true" : "false");
-      if (open && nav) nav.classList.add("is-solid");
+    var closeBtn = mobile.querySelector("[data-mnav-close]");
+    function openMenu() {
+      mobile.classList.add("open");
+      mobile.setAttribute("aria-hidden", "false");
+      burger.setAttribute("aria-expanded", "true");
+      document.body.classList.add("mnav-open");
+    }
+    function closeMenu() {
+      mobile.classList.remove("open");
+      mobile.setAttribute("aria-hidden", "true");
+      burger.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("mnav-open");
+    }
+    burger.addEventListener("click", openMenu);
+    if (closeBtn) closeBtn.addEventListener("click", closeMenu);
+    mobile.querySelectorAll(".mnav__links a").forEach(function (a) {
+      a.addEventListener("click", closeMenu);
     });
-    mobile.querySelectorAll("a").forEach(function (a) {
-      a.addEventListener("click", function () { mobile.classList.remove("open"); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && mobile.classList.contains("open")) closeMenu();
     });
   }
 

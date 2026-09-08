@@ -20,8 +20,8 @@ const ringColor = ["blue", "magenta", "teal"];
 <title>Fineries Digital | We Build Brands, Products, Content People Love | Lagos, Nigeria</title>
 <meta name="description" content="Fineries Digital brings strategy, creativity and technology together to help ambitious organisations grow, connect and create what comes next." />
 <link rel="icon" type="image/png" href="/assets/fineries-logo-blue-3x.png" />
-<link rel="stylesheet" href="/css/v3.css?v=30" />
-<link rel="stylesheet" href="/css/home.css?v=30" />
+<link rel="stylesheet" href="/css/v3.css?v=32" />
+<link rel="stylesheet" href="/css/home.css?v=32" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
@@ -50,9 +50,33 @@ const ringColor = ["blue", "magenta", "teal"];
     </nav>
     <button class="nav3__burger" aria-label="Open menu" aria-expanded="false"><i data-lucide="menu"></i></button>
   </div>
-  <div class="nav3__mobile">
-    <a href="/">Home</a><a href="#">What We Do</a><a href="#">Work</a>
-    <a href="#">About</a><a href="#">Insights</a><a href="#">Contact</a>
+  <div class="mnav" data-mnav aria-hidden="true">
+    <div class="mnav__top">
+      <a class="mnav__logo" href="/" aria-label="Fineries Digital home">
+        <img src="/assets/fineries-logo-white-3x.png" alt="Fineries Digital" />
+      </a>
+      <button class="mnav__close" type="button" data-mnav-close aria-label="Close menu">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <nav class="mnav__links" aria-label="Mobile">
+      <a href="/"><span>Home</span><em>01</em></a>
+      <a href="#"><span>What We Do</span><em>02</em></a>
+      <a href="#"><span>Work</span><em>03</em></a>
+      <a href="#"><span>About</span><em>04</em></a>
+      <a href="#"><span>Insights</span><em>05</em></a>
+      <a href="#"><span>Contact</span><em>06</em></a>
+    </nav>
+    <div class="mnav__foot">
+      <span class="mnav__rule"></span>
+      <p class="mnav__tag">{settings.menu_tagline || "Different perspectives.\nBetter solutions."}</p>
+      <div class="mnav__social">
+        <a href={settings.social_linkedin || "#"} aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.76-2.05C20.4 8.65 21 11 21 14.1V21h-4v-6.1c0-1.45-.03-3.32-2.02-3.32-2.02 0-2.33 1.58-2.33 3.21V21H9z"/></svg></a>
+        <a href={settings.social_instagram || "#"} aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+        <a href={settings.social_x || "#"} aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor" width="17" height="17" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.65l-5.22-6.82-5.97 6.82H1.66l7.73-8.84L1.25 2.25h6.82l4.71 6.23zm-1.16 17.52h1.83L7.01 4.13H5.05z"/></svg></a>
+        <a href={settings.social_youtube || "#"} aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2 31.4 31.4 0 000 12a31.4 31.4 0 00.5 5.8 3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1A31.4 31.4 0 0024 12a31.4 31.4 0 00-.5-5.8zM9.6 15.6V8.4l6.2 3.6z"/></svg></a>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -272,6 +296,6 @@ const ringColor = ["blue", "magenta", "teal"];
 
 </main>
 
-<script src="/js/v3.js?v=22" is:inline defer></script>
+<script src="/js/v3.js?v=23" is:inline defer></script>
 </body>
 </html>
