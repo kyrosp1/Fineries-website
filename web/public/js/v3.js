@@ -89,12 +89,11 @@
 
   if (hasGsap && !reduced) {
 
-    /* ---- Rotating hero word ---- */
-    var rot = document.getElementById("hero-rot");
-    if (rot) {
+    /* ---- Rotating words (hero + CTA; any [data-words] element) ---- */
+    document.querySelectorAll("[data-words]").forEach(function (rot) {
       var words;
       try { words = JSON.parse(rot.getAttribute("data-words") || ""); } catch (e) { words = null; }
-      if (!words || !words.length) words = ["brands", "products", "content"];
+      if (!words || !words.length) return;
       var i = 0;
       setInterval(function () {
         gsap.to(rot, {
@@ -106,7 +105,7 @@
           }
         });
       }, 2600);
-    }
+    });
 
     /* ---- Parallax figures ---- */
     document.querySelectorAll("[data-para]").forEach(function (frame) {
