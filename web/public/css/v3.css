@@ -242,12 +242,25 @@ button { font-family: inherit; }
   font-family: var(--font-display); font-weight: 700;
   font-size: clamp(30px, 8.6vw, 40px); line-height: 1.05; letter-spacing: -.02em;
   color: #fff;
+  /* reveal: items ease in from the right (echoing the panel slide) + fade */
+  opacity: 0; transform: translateX(40px);
 }
+.mnav.open .mnav__links a {
+  opacity: 1; transform: none;
+  transition: opacity .6s var(--v3-ease), transform .7s var(--v3-ease);
+}
+.mnav.open .mnav__links a:nth-child(1) { transition-delay: .20s; }
+.mnav.open .mnav__links a:nth-child(2) { transition-delay: .27s; }
+.mnav.open .mnav__links a:nth-child(3) { transition-delay: .34s; }
+.mnav.open .mnav__links a:nth-child(4) { transition-delay: .41s; }
+.mnav.open .mnav__links a:nth-child(5) { transition-delay: .48s; }
+.mnav.open .mnav__links a:nth-child(6) { transition-delay: .55s; }
 .mnav__links a em {
   font-family: var(--font-text); font-style: normal; font-weight: 500;
   font-size: 13px; letter-spacing: .06em; color: rgba(255,255,255,.4);
 }
-.mnav__foot { margin-top: auto; padding-top: 34px; }
+.mnav__foot { margin-top: auto; padding-top: 34px; opacity: 0; transform: translateY(14px); }
+.mnav.open .mnav__foot { opacity: 1; transform: none; transition: opacity .6s var(--v3-ease) .55s, transform .6s var(--v3-ease) .55s; }
 .mnav__rule { display: block; width: 40px; height: 2px; background: rgba(255,255,255,.45); margin-bottom: 20px; }
 .mnav__lockup { display: block; width: clamp(190px, 58vw, 250px); height: auto; margin-bottom: 26px; }
 .mnav__social { display: flex; gap: 20px; align-items: center; }
@@ -637,4 +650,6 @@ body.mnav-open { overflow: hidden; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero3__watch .play::before { animation: none; }
+  .mnav__links a { opacity: 1; transform: none; }
+  .mnav__foot { opacity: 1; transform: none; }
 }
