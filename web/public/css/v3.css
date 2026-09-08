@@ -333,7 +333,7 @@ button { font-family: inherit; }
      lower portion — over the hands/torso, clear of the faces. */
   /* padding-top adds blue headroom above the couple so the hero is taller,
      while the couple stays bottom-anchored and the copy stays clear of the faces */
-  .hero3 { min-height: 0; display: block; padding-top: 22vh; }
+  .hero3 { min-height: 0; display: block; padding-top: 11vh; }
   .hero3__couple {
     position: static; display: block;
     width: 100%; height: auto; max-width: none;
