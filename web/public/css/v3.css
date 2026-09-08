@@ -328,15 +328,23 @@ button { font-family: inherit; }
 /* Mobile hero: full-bleed couple with the headline overlaid (like desktop),
    but sized by width so both are visible (not cropped), and a bigger headline */
 @media (max-width: 640px) {
-  .hero3 { min-height: 100svh; }
-  .hero3__title { font-size: clamp(34px, 9.2vw, 46px); line-height: 1.06; max-width: 100%; }
-  /* couple centred (70% size) so faces stay clear and there's no big top gap;
-     copy sits over the chest/hands */
-  .hero3__inner { padding: 46vh 0 40px; }
+  /* Couple is a normal-flow, full-width image so it DEFINES the hero height and
+     ends flush at the hero's bottom (never floating). The copy is overlaid on the
+     lower portion — over the hands/torso, clear of the faces. */
+  .hero3 { min-height: 0; display: block; }
   .hero3__couple {
-    height: 44vh; width: auto; max-width: none;
-    bottom: auto; top: 9vh; transform: translateX(-50%); animation: none;
+    position: static; display: block;
+    width: 100%; height: auto; max-width: none;
+    transform: none; animation: none;
   }
+  .hero3__inner {
+    position: absolute; left: 0; bottom: 0; z-index: 2;
+    width: 100%; padding: 0 16px 32px;
+  }
+  .hero3__title { font-size: clamp(34px, 9.2vw, 46px); line-height: 1.06; max-width: 100%; }
+  .hero3__sub { margin-top: 12px; }
+  .hero3__watch { margin-top: 18px; gap: 12px; }
+  .hero3__watch .play { width: 64px; height: 64px; }
 }
 
 /* ---------- Video modal ---------- */
