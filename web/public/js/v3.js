@@ -50,7 +50,6 @@
   var burger = document.querySelector(".nav3__burger");
   var mobile = document.querySelector(".mnav");
   if (burger && mobile) {
-    var closeBtn = mobile.querySelector("[data-mnav-close]");
     function openMenu() {
       mobile.classList.add("open");
       mobile.setAttribute("aria-hidden", "false");
@@ -64,7 +63,9 @@
       document.body.classList.remove("mnav-open");
     }
     burger.addEventListener("click", openMenu);
-    if (closeBtn) closeBtn.addEventListener("click", closeMenu);
+    mobile.querySelectorAll("[data-mnav-close]").forEach(function (el) {
+      el.addEventListener("click", closeMenu);
+    });
     mobile.querySelectorAll(".mnav__links a").forEach(function (a) {
       a.addEventListener("click", closeMenu);
     });

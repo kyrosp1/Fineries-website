@@ -220,18 +220,33 @@ button { font-family: inherit; }
 .nav3.is-solid .nav3__burger { color: var(--v3-ink); }
 .nav3.is-hidden { transform: translateY(-100%); }
 
-/* ---------- Full-screen mobile menu ---------- */
+/* ---------- Mobile menu: 90% blue panel over a brand-yellow backing ---------- */
 .mnav {
   position: fixed; inset: 0; z-index: 300;
-  background: var(--v3-blue);
   color: #fff;
-  display: flex; flex-direction: column;
-  padding: 20px clamp(24px, 7vw, 44px) calc(env(safe-area-inset-bottom, 0px) + 34px);
-  overflow-y: auto;
-  visibility: hidden; transform: translateX(100%);
-  transition: transform .5s var(--v3-ease), visibility 0s linear .5s;
+  visibility: hidden;
+  transition: visibility 0s linear .62s;
 }
-.mnav.open { visibility: visible; transform: none; transition: transform .5s var(--v3-ease); }
+.mnav.open { visibility: visible; transition: visibility 0s; }
+/* yellow backing — leads the reveal, peeks on the left ~10% */
+.mnav__backdrop {
+  position: absolute; inset: 0; background: var(--v3-gold);
+  transform: translateX(100%);
+  transition: transform .55s var(--v3-ease);
+}
+.mnav.open .mnav__backdrop { transform: none; }
+/* blue panel — 90% width, follows a beat behind the yellow */
+.mnav__panel {
+  position: absolute; top: 0; right: 0; bottom: 0; width: 90%;
+  background: var(--v3-blue);
+  display: flex; flex-direction: column;
+  padding: 20px clamp(22px, 6vw, 40px) calc(env(safe-area-inset-bottom, 0px) + 34px);
+  overflow-y: auto;
+  box-shadow: -18px 0 50px rgba(27, 29, 69, .28);
+  transform: translateX(100%);
+  transition: transform .55s var(--v3-ease) .08s;
+}
+.mnav.open .mnav__panel { transform: none; }
 .mnav__top { display: flex; align-items: center; justify-content: space-between; }
 .mnav__logo img { height: 26px; width: auto; display: block; }
 .mnav__close { background: none; border: none; color: #fff; cursor: pointer; padding: 6px; margin: -6px; line-height: 0; }

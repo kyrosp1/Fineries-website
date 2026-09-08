@@ -20,8 +20,8 @@ const ringColor = ["blue", "magenta", "teal"];
 <title>Fineries Digital | We Build Brands, Products, Content People Love | Lagos, Nigeria</title>
 <meta name="description" content="Fineries Digital brings strategy, creativity and technology together to help ambitious organisations grow, connect and create what comes next." />
 <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
-<link rel="stylesheet" href="/css/v3.css?v=35" />
-<link rel="stylesheet" href="/css/home.css?v=35" />
+<link rel="stylesheet" href="/css/v3.css?v=36" />
+<link rel="stylesheet" href="/css/home.css?v=36" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
@@ -51,6 +51,8 @@ const ringColor = ["blue", "magenta", "teal"];
     <button class="nav3__burger" aria-label="Open menu" aria-expanded="false"><i data-lucide="menu"></i></button>
   </div>
   <div class="mnav" data-mnav aria-hidden="true">
+    <div class="mnav__backdrop" data-mnav-close aria-hidden="true"></div>
+    <div class="mnav__panel">
     <div class="mnav__top">
       <a class="mnav__logo" href="/" aria-label="Fineries Digital home">
         <img src="/assets/fineries-logo-white-3x.png" alt="Fineries Digital" />
@@ -76,6 +78,7 @@ const ringColor = ["blue", "magenta", "teal"];
         <a href={settings.social_x || "#"} aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor" width="17" height="17" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.65l-5.22-6.82-5.97 6.82H1.66l7.73-8.84L1.25 2.25h6.82l4.71 6.23zm-1.16 17.52h1.83L7.01 4.13H5.05z"/></svg></a>
         <a href={settings.social_youtube || "#"} aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2 31.4 31.4 0 000 12a31.4 31.4 0 00.5 5.8 3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1A31.4 31.4 0 0024 12a31.4 31.4 0 00-.5-5.8zM9.6 15.6V8.4l6.2 3.6z"/></svg></a>
       </div>
+    </div>
     </div>
   </div>
 </header>
@@ -296,6 +299,6 @@ const ringColor = ["blue", "magenta", "teal"];
 
 </main>
 
-<script src="/js/v3.js?v=23" is:inline defer></script>
+<script src="/js/v3.js?v=24" is:inline defer></script>
 </body>
 </html>
