@@ -89,9 +89,16 @@ user explicitly says otherwise. The pattern for a new piece of text/image:
 3. Read it in `HomePage.astro` as `home.x || "current text"` (always keep the current
    text as a fallback so the live site never goes blank before the field is populated).
 4. Add a default in `seed.php`.
-5. Bump the plugin `Version`, rebuild `fineries-cms.zip` (lean — exclude the .mp4), and
-   the user re-uploads it to Hostinger; new fields start empty (fallbacks show) until
-   filled or re-seeded.
+5. Bump the plugin `Version`, then deploy: **`bash cms-wp/deploy-plugin.sh`** pushes the
+   plugin to the live WordPress over SSH (tar-over-ssh into
+   `…/cms/wp-content/plugins/fineries-cms/`, then `wp plugin activate` + rewrite flush).
+   Auth is a local key `~/.ssh/fineries_deploy` (private key never leaves the machine;
+   its public key is installed on Hostinger). Host/port/user are in the script. New
+   fields start empty (fallbacks show) until filled in WP admin. (The old manual path —
+   rebuild `fineries-cms.zip` and upload in wp-admin — still works as a fallback.)
+   To set option values on the live CMS without wiping others, run a **targeted**
+   `wp eval-file` over SSH (never re-run the full `seed.php` on prod — it overwrites all
+   Home options and would clobber the client's edits).
 Rotating-word spans (hero + CTA) are driven by any `[data-words]` element via `v3.js`.
 - Styles: `web/public/css/v3.css` (base) + `web/public/css/home.css` (V3.1 home sections).
 
