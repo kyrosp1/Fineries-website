@@ -43,8 +43,8 @@ const ringColor = ["blue", "magenta", "teal"];
 <title>Fineries Digital | We Build Brands, Products, Content People Love | Lagos, Nigeria</title>
 <meta name="description" content="Fineries Digital brings strategy, creativity and technology together to help ambitious organisations grow, connect and create what comes next." />
 <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
-<link rel="stylesheet" href="/css/v3.css?v=46" />
-<link rel="stylesheet" href="/css/home.css?v=46" />
+<link rel="stylesheet" href="/css/v3.css?v=47" />
+<link rel="stylesheet" href="/css/home.css?v=47" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
@@ -202,56 +202,6 @@ const ringColor = ["blue", "magenta", "teal"];
         </div>
       ))}
     </div>
-  </div>
-</section>
-
-<!-- THE FINERIES METHOD -->
-<section class="sec">
-  <div class="wrap method__grid">
-    <div data-rv>
-      <span class="eyebrow">{home.method_eyebrow || "The Fineries Method"}</span>
-      <h2 class="method__title">
-        {rings.map((r, i) => (
-          <span class={`m-${ringColor[i] || "blue"}`}>{r.title}.<br /></span>
-        ))}
-      </h2>
-      <p class="body" style="margin-top:8px;max-width:42ch">{home.method_body}</p>
-      <a class="tlink" href="#" style="margin-top:22px">{home.method_cta_label || "Learn More"} <i data-lucide="arrow-right"></i></a>
-    </div>
-    <div class="method__viz" data-rv>
-      <div class="venn">
-        {rings.map((r, i) => (
-          <div class={`venn__c venn__c--${ringColor[i] || "blue"}`}>
-            <div class="venn__inner">
-              <h4>{r.title}</h4>
-              <p>{r.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-      <p class="method__tagline">{home.method_tagline}</p>
-    </div>
-  </div>
-</section>
-
-<!-- VALUE BAND -->
-<section class="valueband">
-  <div class="valueband__left" data-rv>
-    <span class="eyebrow">{home.bv_eyebrow || "The Value"}</span>
-    <h2 class="h-lg" style="margin:16px 0 18px">{home.bv_heading}</h2>
-    <p class="body">{home.bv_intro}</p>
-    <a class="circ valueband__arrow" href="#" aria-label="See more"><i data-lucide="arrow-right"></i></a>
-  </div>
-  <div class="valueband__right" data-rv-stagger>
-    {bvItems.map((it) => (
-      <div class="vitem">
-        <div class="vitem__icon"><i data-lucide={it.icon || "sparkles"}></i></div>
-        <div>
-          <h4 class="vitem__title">{it.title}</h4>
-          <p class="vitem__desc">{it.description}</p>
-        </div>
-      </div>
-    ))}
   </div>
 </section>
 
