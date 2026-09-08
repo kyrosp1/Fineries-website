@@ -138,10 +138,13 @@
 .vitem__desc { font-size: 13px; line-height: 1.5; color: rgba(255,255,255,.65); }
 
 /* ---------- CTA with couple ---------- */
-.ctahome { overflow: hidden; }
+.ctahome { overflow: hidden; background: var(--v3-blue); }
 .ctahome .cta3__inner { padding: clamp(64px,8vw,120px) 0; }
-.ctahome__grid { display: grid; grid-template-columns: minmax(0,7fr) minmax(0,5fr); gap: clamp(32px,5vw,60px); align-items: center; }
-.ctahome__figure { position: relative; align-self: end; }
+/* heading matches the hero */
+.ctahome .cta3__title { font-size: clamp(24px, 3.6vw, 53px); line-height: 1.08; letter-spacing: -.03em; font-weight: 800; }
+.ctahome__grid { display: grid; grid-template-columns: minmax(0,7fr) minmax(0,5fr); gap: clamp(32px,5vw,60px); align-items: end; }
+/* couple sits flush on the bottom edge of the section */
+.ctahome__figure { position: relative; align-self: end; margin-bottom: calc(-1 * clamp(64px,8vw,120px)); }
 .ctahome__figure img { width: 100%; height: auto; display: block; }
 
 /* ---------- Footer (wide) ---------- */
@@ -180,6 +183,8 @@
   .lead                   { font-size: 17px; }
   .statement__rows p,
   .cta3__list p           { font-size: 18px; }
+  /* CTA heading matches the hero on mobile too */
+  .ctahome .cta3__title   { font-size: clamp(34px, 9.2vw, 46px); line-height: 1.06; }
 
   /* service cards — 2-up, larger type for readability */
   .svc3__panel            { padding: 18px 15px 18px; }
