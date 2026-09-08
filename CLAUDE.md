@@ -98,11 +98,18 @@ Venn circles.)
 ## Status
 - DONE: **home page is fully driven by headless WordPress** (all text, images, hero
   video, rotating words, bg colour, services, work). Astro reads WP via `wp.js`.
+- DONE: **LIVE IN PRODUCTION.**
+  - Front-end (Astro SSR) on Vercel: **https://fineries-website.vercel.app**
+    (GitHub repo `kyrosp1/Fineries-website`, branch `main` → auto-deploys on push).
+    Vercel env var `PUBLIC_WP_URL=https://cms.fineries.net`. Root Directory = `web`.
+  - CMS: **https://cms.fineries.net** (WordPress + ACF Pro + fineries-cms plugin;
+    content migrated from local via All-in-One WP Migration).
+  - Custom domain (fineries.net) not pointed yet — user will add in Vercel later.
 - Directus is retired from the live path (kept in `cms/` for reference).
-- NOT DONE: inner pages (What We Do, Work, About, Insights, Contact) are still the old
-  static `site/*.html`; not in Astro/WP yet. Home nav links point to `#`.
-- NOT DONE: production deploy (WordPress → Hostinger, Astro → Vercel). See CMS model
-  section for the outline.
+- NOT DONE: inner pages (What We Do, Work, About, Insights, Contact) — still old static
+  `site/*.html`; not in Astro/WP yet. Home nav links point to `#`. **Next phase.**
+- Repo hygiene: large media (videos, `web/public/media/`) are git-ignored; they remain
+  in early history — an optional `git filter-repo`/BFG pass could slim the clone.
 
 ## Gotchas
 - Directus rejects emails with non-real TLDs (e.g. `.local`) at login — use real TLDs.
