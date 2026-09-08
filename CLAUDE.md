@@ -4,6 +4,40 @@ Bespoke marketing website with a self-hosted headless CMS. This file is the
 handoff/context for any session or model continuing the work. Full run/setup
 details are in `README.md`.
 
+## 🔒 Production safety boundaries — ANY model/session MUST follow these
+The client (owner: kkksweet@yahoo.ca) granted SSH access to the live WordPress
+(cms.fineries.net on Hostinger) for automated **plugin** deploys. These rules are
+non-negotiable and apply regardless of which model is running:
+
+1. **Credentials.** Never ask for, accept, type, or store the client's WordPress or
+   hosting **password** or any account credential. Live-server auth is ONLY the local
+   SSH key `~/.ssh/fineries_deploy` (private key stays on the machine; never print,
+   copy, commit, or transmit it). If a task seems to need a password, stop and tell the
+   user to do that part themselves.
+2. **Scope of live writes.** Automated deploys touch ONLY the `fineries-cms` **plugin
+   folder** (`…/cms/wp-content/plugins/fineries-cms/`). Never modify, deactivate, or
+   delete ACF Pro or any other plugin, WordPress core, themes, the database schema, the
+   uploads/media library, or server/system/hosting settings.
+3. **NEVER re-run the full `seed.php` on production.** It overwrites every Home Content
+   and Site Settings option with code defaults and would wipe the client's own edits
+   (text, the uploaded CTA image, logos, etc.). `seed.php` is for fresh/local installs
+   only. To change live content, edit in wp-admin, or run a **targeted** `wp eval-file`
+   over SSH that writes only the specific field(s) — after reading current values first.
+4. **Treat live content as the client's.** Read before you overwrite; never bulk-write
+   option fields; preserve their uploaded media and edits. Before overwriting or
+   deleting anything you did not create, inspect it and surface any conflict instead of
+   proceeding.
+5. **Never delete data on prod** — no emptying trash, hard-deleting posts/media, or
+   dropping/altering DB tables. These are irreversible.
+6. **Confirm before hard-to-reverse or wide-reaching live actions** (deleting content,
+   DB writes beyond a single targeted field, permalink/settings changes, deactivating
+   plugins). Deploying the plugin is additive and reversible (redeploy the prior
+   version), so it may proceed — but always report exactly what you did and verify
+   (`/wp-json/fineries/v1/home` returns 200; the Vercel site returns 200).
+7. **Content stays in the CMS, code stays in git.** Don't hardcode site content (see the
+   Content convention below). The repo is the source of truth for code; WordPress is the
+   source of truth for content.
+
 ## Architecture
 - **web/** — Astro front-end, SSR (`@astrojs/node`, `output: "server"`). Renders the
   hand-built design from CMS data. Dev server on **http://localhost:4321**.
