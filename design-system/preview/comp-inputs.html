@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Components" name="Form inputs" subtitle="Text fields + focus state" viewport="700x150" --><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../colors_and_type.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font-text);background:var(--bg-surface);color:var(--fg-1);padding:20px 22px;-webkit-font-smoothing:antialiased}
+  .lbl{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mist)}
+  
+ .grid{display:flex;gap:16px;flex-wrap:wrap}
+ .f{display:flex;flex-direction:column;gap:6px;width:300px}
+ .f label{font-size:12px;font-weight:700;color:var(--slate)}
+ .f input,.f select{font-family:var(--font-text);font-size:15px;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);outline:none}
+ .f input:focus{border-color:var(--blue)}
+ .f.focus input{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-100)}
+ .hint{font-size:11px;color:var(--mist)}
+
+</style></head><body><div class="lbl" style="margin-bottom:14px">Form inputs</div>
+ <div class="grid">
+   <div class="f"><label>Your name</label><input value="Ada Obi"></div>
+   <div class="f focus"><label>Work email</label><input value="ada@brand.com"><span class="hint">Focused state · blue ring</span></div>
+ </div><script>lucide.createIcons();</script></body></html>

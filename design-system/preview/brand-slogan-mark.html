@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Brand" name="Slogan mark" subtitle="Full-color slogan (teal people, gold tag, magenta heart) + mono fallbacks" viewport="700x280" --><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+ *{box-sizing:border-box;margin:0;padding:0}
+ body{font-family:var(--font-text);background:var(--bg-surface);color:var(--fg-1);padding:20px 22px}
+ .lbl{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mist);margin-bottom:6px}
+ .sub{font-size:11px;color:var(--mist);margin-bottom:14px}
+ .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+ .cell{border-radius:12px;display:flex;align-items:center;justify-content:center;padding:24px 18px;border:1px solid var(--line);min-height:108px}
+ .cell img{width:86%}
+ .mono{grid-template-columns:1fr 1fr}
+ .mono .cell img{width:74%}
+</style></head><body>
+<div class="lbl">Slogan mark</div>
+<div class="sub">Full color on light + dark. Mono blue / white for single-color contexts.</div>
+<div class="grid">
+  <div class="cell" style="background:#fff"><img src="../assets/slogan-color.svg"></div>
+  <div class="cell" style="background:var(--blue)"><img src="../assets/slogan-color-dark.svg"></div>
+</div>
+<div class="grid mono">
+  <div class="cell" style="background:var(--cloud)"><img src="../assets/slogan-blue.svg"></div>
+  <div class="cell" style="background:var(--blue)"><img src="../assets/slogan-white.svg"></div>
+</div>
+</body></html>

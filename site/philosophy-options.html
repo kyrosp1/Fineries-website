@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Philosophy Section — Design Options | Fineries Digital</title>
+<link rel="stylesheet" href="css/site.css?v=4.0">
+<script src="https://unpkg.com/lucide@latest" defer></script>
+<style>
+  body { background: var(--paper); }
+
+  /* option divider label */
+  .opt-label {
+    background: var(--ink);
+    color: #fff;
+    padding: 14px 32px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .opt-label strong {
+    font-family: var(--font-display);
+    font-size: 15px;
+    letter-spacing: .04em;
+  }
+  .opt-label span { font-size: 13px; color: #9EA0B8; }
+
+  /* ============ OPTION 1: Three pillars ============ */
+  .p1-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 64px; }
+  .p1-item { border-top: 3px solid var(--line); padding-top: 28px; position: relative; }
+  .p1-item::before {
+    content: "";
+    position: absolute;
+    top: -3px; left: 0;
+    width: 56px; height: 3px;
+  }
+  .p1-item--blue::before    { background: var(--blue); }
+  .p1-item--magenta::before { background: var(--magenta); }
+  .p1-item--teal::before    { background: var(--teal); }
+  .p1-num {
+    font-family: var(--font-mono, monospace);
+    font-size: 13px;
+    letter-spacing: .14em;
+    color: var(--mist);
+    display: block;
+    margin-bottom: 18px;
+  }
+  .p1-word {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(24px, 2.6vw, 32px);
+    letter-spacing: -.02em;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .p1-copy { font-size: 15.5px; line-height: 1.65; color: var(--slate); max-width: 34ch; }
+  @media (max-width: 860px) { .p1-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+  /* ============ OPTION 2: Blue field statement ============ */
+  .p2 { background: var(--field-blue); color: #fff; position: relative; overflow: hidden; }
+  .p2-inner { padding: 120px 0; position: relative; z-index: 2; }
+  .p2-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(32px, 5vw, 56px);
+    line-height: 1.12;
+    letter-spacing: -.02em;
+    max-width: 22ch;
+  }
+  .p2-title em { font-style: normal; color: var(--gold); }
+  .p2-copy {
+    font-size: 18px;
+    line-height: 1.7;
+    color: rgba(255,255,255,.85);
+    max-width: 60ch;
+    margin-top: 28px;
+  }
+  .p2-copy strong { color: #fff; }
+  .p2-wm {
+    position: absolute;
+    right: -60px; bottom: -40px;
+    width: 560px; max-width: 55%;
+    opacity: .05;
+    pointer-events: none;
+  }
+
+  /* ============ OPTION 3: Editorial split ============ */
+  .p3-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 72px;
+    align-items: start;
+  }
+  .p3-lines {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(30px, 3.8vw, 44px);
+    line-height: 1.16;
+    letter-spacing: -.02em;
+    color: var(--ink);
+  }
+  .p3-lines .l { display: block; }
+  .p3-lines .k-blue    { color: var(--blue); }
+  .p3-lines .k-magenta { color: var(--magenta); }
+  .p3-lines .k-teal    { color: var(--teal); }
+  .p3-side { border-left: 3px solid var(--gold); padding-left: 32px; align-self: center; }
+  .p3-side p { font-size: 16.5px; line-height: 1.75; color: var(--slate); }
+  .p3-side p strong { color: var(--ink); }
+  @media (max-width: 860px) {
+    .p3-grid { grid-template-columns: 1fr; gap: 40px; }
+    .p3-side { padding-left: 24px; }
+  }
+
+  /* ============ OPTION 4: Gold field typographic ============ */
+  .p4 { background: var(--field-gold); position: relative; overflow: hidden; }
+  .p4-inner { padding: 112px 0; text-align: center; }
+  .p4-eyebrow {
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 26px;
+  }
+  .p4-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(30px, 4.6vw, 52px);
+    line-height: 1.12;
+    letter-spacing: -.02em;
+    color: var(--blue);
+    max-width: 20ch;
+    margin: 0 auto;
+  }
+  .p4-title .w { color: #fff; }
+  .p4-copy {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--blue-900);
+    opacity: .85;
+    max-width: 62ch;
+    margin: 26px auto 0;
+  }
+
+  /* ============ OPTION 5: Kinetic stacked statements ============ */
+  .p5-stack { display: grid; gap: 6px; }
+  .p5-line {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(34px, 5.4vw, 64px);
+    line-height: 1.08;
+    letter-spacing: -.025em;
+    color: var(--blue-200);
+    transition: color .35s cubic-bezier(.22,.61,.36,1), transform .35s cubic-bezier(.22,.61,.36,1);
+    cursor: default;
+  }
+  .p5-line:hover, .p5-line.lit { color: var(--ink); transform: translateX(10px); }
+  .p5-line:hover .p5-k, .p5-line.lit .p5-k { opacity: 1; }
+  .p5-k { transition: opacity .35s; opacity: .35; }
+  .p5-k--blue    { color: var(--blue); }
+  .p5-k--magenta { color: var(--magenta); }
+  .p5-k--teal    { color: var(--teal); }
+  .p5-copy {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--slate);
+    max-width: 56ch;
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<div style="padding:64px 32px 48px;max-width:1200px;margin:0 auto">
+  <p class="eyebrow">Design exploration</p>
+  <h1 style="font-family:var(--font-display);font-weight:800;font-size:clamp(28px,3.6vw,40px);letter-spacing:-.02em">Philosophy Section. Five Options.</h1>
+  <p style="font-size:16px;color:var(--slate);margin-top:14px;max-width:64ch">Same content, five treatments. Scroll through and pick one. Each is built with the live site CSS, so what you approve is what ships.</p>
+</div>
+
+<!-- ═══════════════ OPTION 1 ═══════════════ -->
+<div class="opt-label"><strong>OPTION 1</strong><span>Three pillars. Quiet, structured, editorial. Strategy, creativity, technology each get their own column and accent.</span></div>
+<section class="section">
+  <div class="container">
+    <p class="eyebrow">How we work</p>
+    <h2 class="section__title" style="max-width:16ch">One philosophy. Three disciplines.</h2>
+    <div class="p1-grid">
+      <div class="p1-item p1-item--blue">
+        <span class="p1-num">01</span>
+        <h3 class="p1-word">Grounded in strategy.</h3>
+        <p class="p1-copy">Most agencies give you output. We give you direction. Every engagement begins with clear strategic thinking.</p>
+      </div>
+      <div class="p1-item p1-item--magenta">
+        <span class="p1-num">02</span>
+        <h3 class="p1-word">Fuelled by creativity.</h3>
+        <p class="p1-copy">Creativity follows the thinking. Work that moves people because it was made with intention.</p>
+      </div>
+      <div class="p1-item p1-item--teal">
+        <span class="p1-num">03</span>
+        <h3 class="p1-word">Built with technology.</h3>
+        <p class="p1-copy">Technology executes. The result is a brand that does not just look good. It performs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ OPTION 2 ═══════════════ -->
+<div class="opt-label"><strong>OPTION 2</strong><span>Blue field statement. The signature brand device. Bold, confident, high contrast with gold keywords.</span></div>
+<section class="p2">
+  <img class="p2-wm" src="assets/fineries-logo-white-3x.png" alt="" aria-hidden="true">
+  <div class="container p2-inner">
+    <span class="band__rule"></span>
+    <h2 class="p2-title">Grounded in <em>strategy</em>. Fuelled by <em>creativity</em>. Built with <em>technology</em>.</h2>
+    <p class="p2-copy">Most agencies give you output. <strong>We give you direction.</strong> At Fineries Digital, every engagement begins with clear strategic thinking. Creativity follows. Technology executes. The result is a brand that does not just look good. It performs.</p>
+  </div>
+</section>
+
+<!-- ═══════════════ OPTION 3 ═══════════════ -->
+<div class="opt-label"><strong>OPTION 3</strong><span>Editorial split. Big left-aligned type with brand-color keywords, supporting copy beside a gold rule.</span></div>
+<section class="section">
+  <div class="container">
+    <div class="p3-grid">
+      <h2 class="p3-lines">
+        <span class="l">Grounded in <span class="k-blue">strategy</span>.</span>
+        <span class="l">Fuelled by <span class="k-magenta">creativity</span>.</span>
+        <span class="l">Built with <span class="k-teal">technology</span>.</span>
+      </h2>
+      <div class="p3-side">
+        <p>Most agencies give you output. <strong>We give you direction.</strong> At Fineries Digital, every engagement begins with clear strategic thinking. Creativity follows. Technology executes. The result is a brand that does not just look good. It performs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ OPTION 4 ═══════════════ -->
+<div class="opt-label"><strong>OPTION 4</strong><span>Gold field. The Core Values brand device. A loud typographic moment that breaks the page rhythm.</span></div>
+<section class="p4">
+  <div class="container p4-inner">
+    <p class="p4-eyebrow">Our philosophy</p>
+    <h2 class="p4-title">Grounded in strategy. Fuelled by creativity. <span class="w">Built with technology.</span></h2>
+    <p class="p4-copy">Most agencies give you output. We give you direction. Every engagement begins with clear strategic thinking. Creativity follows. Technology executes. The result is a brand that does not just look good. It performs.</p>
+  </div>
+</section>
+
+<!-- ═══════════════ OPTION 5 ═══════════════ -->
+<div class="opt-label"><strong>OPTION 5</strong><span>Kinetic stack. Oversized lines that light up as you scroll. The most modern, most "creative agency" of the five.</span></div>
+<section class="section">
+  <div class="container">
+    <div class="p5-stack">
+      <div class="p5-line">Grounded in <span class="p5-k p5-k--blue">strategy</span>.</div>
+      <div class="p5-line">Fuelled by <span class="p5-k p5-k--magenta">creativity</span>.</div>
+      <div class="p5-line">Built with <span class="p5-k p5-k--teal">technology</span>.</div>
+    </div>
+    <p class="p5-copy">Most agencies give you output. <strong style="color:var(--ink)">We give you direction.</strong> At Fineries Digital, every engagement begins with clear strategic thinking. Creativity follows. Technology executes. The result is a brand that does not just look good. It performs.</p>
+  </div>
+</section>
+
+<div style="padding:56px 32px 96px;max-width:1200px;margin:0 auto;border-top:1px solid var(--line)">
+  <p style="font-size:15px;color:var(--slate)">Tell me the option number and I will drop it into the home page. Mixing is fine too, for example Option 5 type with Option 2's blue field.</p>
+</div>
+
+<script>
+  // Option 5: light lines up sequentially as they scroll into view
+  var lines = document.querySelectorAll('.p5-line');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          var els = Array.prototype.slice.call(lines);
+          els.forEach(function (el, i) {
+            setTimeout(function () { el.classList.add('lit'); }, i * 220);
+          });
+          io.disconnect();
+        }
+      });
+    }, { threshold: 0.5 });
+    if (lines.length) io.observe(lines[0]);
+  }
+</script>
+</body>
+</html>

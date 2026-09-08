@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Components" name="Badges & chips" subtitle="Category coding + status" viewport="700x160" --><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../colors_and_type.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font-text);background:var(--bg-surface);color:var(--fg-1);padding:20px 22px;-webkit-font-smoothing:antialiased}
+  .lbl{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mist)}
+  
+ .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+ .chip{font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;display:inline-flex;align-items:center;gap:6px}
+ .chip svg{width:13px;height:13px}
+ .tab{font-weight:700;font-size:13px;padding:8px 16px;border-radius:999px}
+
+</style></head><body><div class="lbl" style="margin-bottom:14px">Badges & category chips</div>
+ <div class="row">
+   <span class="chip" style="background:var(--blue-100);color:var(--blue-700)">Strategy</span>
+   <span class="chip" style="background:var(--gold-100);color:#8a6d00">Creative</span>
+   <span class="chip" style="background:var(--magenta-100);color:var(--magenta-700)">Social</span>
+   <span class="chip" style="background:var(--teal-100);color:var(--teal-700)">Experience</span>
+ </div>
+ <div class="row">
+   <span class="chip" style="background:var(--blue);color:#fff"><i data-lucide="check"></i> Active</span>
+   <span class="chip" style="background:#E7F6EF;color:#1E9E6A"><i data-lucide="trending-up"></i> +48% growth</span>
+   <span class="chip" style="background:var(--cloud);color:var(--slate)">Web · Mobile</span>
+ </div><script>lucide.createIcons();</script></body></html>

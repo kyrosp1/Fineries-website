@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Colors" name="Semantic status colors" subtitle="Success, warning, danger, info" viewport="700x130" --><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font-text);background:var(--bg-surface);color:var(--fg-1);padding:20px 22px;-webkit-font-smoothing:antialiased}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .col{display:flex;flex-direction:column}
+  .lbl{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mist)}
+  .hex{font-family:var(--font-mono);font-size:11px;color:var(--slate)}
+  
+ .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+ .c{border-radius:10px;padding:10px 12px;color:#fff}
+ .c .n{font-weight:700;font-size:13px}.c .h{font-family:var(--font-mono);font-size:10px;opacity:.85}
+
+</style></head><body><div class="lbl" style="margin-bottom:10px">Semantic status</div><div class="grid">
+ <div class="c" style="background:#1E9E6A"><div class="n">Success</div><div class="h">#1E9E6A</div></div>
+ <div class="c" style="background:#C79A00"><div class="n">Warning</div><div class="h">#C79A00</div></div>
+ <div class="c" style="background:#D8385A"><div class="n">Danger</div><div class="h">#D8385A</div></div>
+ <div class="c" style="background:#068A83"><div class="n">Info</div><div class="h">#068A83</div></div>
+</div></body></html>

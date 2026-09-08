@@ -1,0 +1,277 @@
+---
+const { home, settings, services = [], work = [], preview = false } = Astro.props;
+
+const heroWords = home.hero_words && home.hero_words.length ? home.hero_words : ["brands", "products", "content"];
+const heroImg = home.hero_image || "";
+const heroVideo = home.hero_video || "";
+const workImg = (w) => w.image || "";
+const svcImg = (s) => s.image || "";
+const truth1 = home.truth_image_1 || "";
+const bvItems = Array.isArray(home.bv_items) ? home.bv_items : [];
+const rings = Array.isArray(home.philosophy_rings) ? home.philosophy_rings : [];
+const steps = Array.isArray(home.process_steps) ? home.process_steps : [];
+const ringColor = ["blue", "magenta", "teal"];
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fineries Digital | We Build Brands, Products, Content People Love | Lagos, Nigeria</title>
+<meta name="description" content="Fineries Digital brings strategy, creativity and technology together to help ambitious organisations grow, connect and create what comes next." />
+<link rel="icon" type="image/png" href="/assets/fineries-logo-blue-3x.png" />
+<link rel="stylesheet" href="/css/v3.css?v=23" />
+<link rel="stylesheet" href="/css/home.css?v=23" />
+<script src="https://unpkg.com/lucide@latest" is:inline defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" is:inline defer></script>
+</head>
+<body>
+
+{preview && (
+  <div class="preview-badge">Preview mode — showing unpublished content</div>
+)}
+
+<!-- NAV -->
+<header class="nav3">
+  <div class="nav3__inner">
+    <a class="nav3__logo" href="/" aria-label="Fineries Digital home">
+      <img class="logo-white" src="/assets/fineries-logo-white-3x.png" alt="Fineries Digital" />
+      <img class="logo-blue" src="/assets/fineries-logo-blue-3x.png" alt="Fineries Digital" />
+    </a>
+    <nav class="nav3__links" aria-label="Primary">
+      <a class="nav3__link nav3__link--active" href="/">Home</a>
+      <a class="nav3__link" href="#">What We Do</a>
+      <a class="nav3__link" href="#">Work</a>
+      <a class="nav3__link" href="#">About</a>
+      <a class="nav3__link" href="#">Insights</a>
+      <a class="nav3__link" href="#">Contact</a>
+    </nav>
+    <button class="nav3__burger" aria-label="Open menu" aria-expanded="false"><i data-lucide="menu"></i></button>
+  </div>
+  <div class="nav3__mobile">
+    <a href="/">Home</a><a href="#">What We Do</a><a href="#">Work</a>
+    <a href="#">About</a><a href="#">Insights</a><a href="#">Contact</a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO (unchanged) -->
+<section class="hero3" style={`--v3-hero-bg:${home.hero_bg_color || "#3C4099"}`}>
+  <img class="hero3__couple" src={heroImg} alt="A couple in Nigerian formal wear sharing a dance" />
+  <div class="wrap hero3__inner">
+    <h1 class="hero3__title">We build <span class="hero3__rot" id="hero-rot" data-words={JSON.stringify(heroWords)}>{heroWords[0]}</span> people love</h1>
+    <button class="hero3__watch" type="button" data-open-video>
+      <span>Watch our story</span>
+      <span class="play"><i data-lucide="play"></i></span>
+    </button>
+  </div>
+</section>
+
+<div class="vmodal" data-video-modal aria-hidden="true">
+  <div class="vmodal__frame">
+    <button class="vmodal__close" type="button" data-close-video aria-label="Close video">&times;</button>
+    <video controls playsinline preload="none">
+      {heroVideo && <source src={heroVideo} type="video/mp4" />}
+    </video>
+  </div>
+</div>
+
+<!-- WHAT WE DO — service cards -->
+<section class="sec" style="background:#f5f5f5">
+  <div class="wrap">
+    <div class="wwd2__head" data-rv>
+      <div>
+        <span class="eyebrow">{home.wwd_eyebrow || "What We Do"}</span>
+        <h2 class="h-lg wwd2__title">{home.wwd_heading} <span class="teal">{home.wwd_heading_accent}</span></h2>
+      </div>
+      <div class="wwd2__aside">
+        <p class="body">{home.wwd_body}</p>
+        <a class="btn3 btn3--teal" href="#">{home.wwd_cta_label || "Explore our capabilities"} <i data-lucide="arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="svc3__grid" data-rv-stagger>
+      {services.map((s) => (
+        <a class={`svc3 svc3--${s.color || "blue"}`} href={s.link || "#"}>
+          <div class="svc3__img media"><img src={svcImg(s)} alt={s.title} /></div>
+          <div class="svc3__panel">
+            <span class="svc3__num">{s.num}</span>
+            <h3 class="svc3__title" set:html={s.title}></h3>
+            <p class="svc3__desc">{s.description}</p>
+            <span class="svc3__arrow"><i data-lucide="arrow-right"></i></span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- THE TRUTH -->
+<section class="truth">
+  <div class="truth__media" data-rv>
+    <div class="media"><img src={truth1} alt="" /></div>
+  </div>
+  <div class="truth__text" data-rv>
+    <span class="eyebrow">{home.truth_eyebrow || "The Truth"}</span>
+    <h2 class="h-lg">{home.truth_heading}</h2>
+    <div class="truth__body body" set:html={home.truth_body}></div>
+  </div>
+</section>
+
+<!-- OUR PROCESS -->
+<section class="process on-blue">
+  <div class="wrap process__grid">
+    <div data-rv>
+      <span class="eyebrow">{home.process_eyebrow || "Our Process"}</span>
+      <h2 class="h-lg" style="color:#fff;margin:16px 0 20px">{home.process_heading}</h2>
+      <p class="body">{home.process_body}</p>
+      <a class="btn3" href="#" style="margin-top:26px">{home.process_cta_label || "See how we work"} <i data-lucide="arrow-right"></i></a>
+    </div>
+    <div class="process__steps" data-rv-stagger>
+      {steps.map((st) => (
+        <div class="pstep">
+          <div class="pstep__icon"><i data-lucide={st.icon || "circle"}></i></div>
+          <span class="pstep__num">{st.num}</span>
+          <h4 class="pstep__title">{st.title}</h4>
+          <p class="pstep__desc">{st.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED WORK -->
+<section class="sec" style="background:var(--v3-mist)">
+  <div class="wrap">
+    <div class="work3__head" data-rv>
+      <div>
+        <span class="eyebrow">{home.work_eyebrow || "Featured Work"}</span>
+        <h2 class="h-lg" style="margin-top:14px">{home.work_heading}</h2>
+      </div>
+      <a class="tlink" href="#">View All Work <i data-lucide="arrow-right"></i></a>
+    </div>
+    <div class="work3__grid" data-rv-stagger>
+      {work.map((w) => (
+        <a class="wc3" href="#">
+          <div class="media wc3__figure"><img src={workImg(w)} alt={w.client} /></div>
+          <h3 class="wc3__name">{w.client}</h3>
+          <p class="wc3__desc">{w.category}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- THE FINERIES METHOD -->
+<section class="sec">
+  <div class="wrap method__grid">
+    <div data-rv>
+      <span class="eyebrow">{home.method_eyebrow || "The Fineries Method"}</span>
+      <h2 class="method__title">
+        {rings.map((r, i) => (
+          <span class={`m-${ringColor[i] || "blue"}`}>{r.title}.<br /></span>
+        ))}
+      </h2>
+      <p class="body" style="margin-top:8px;max-width:42ch">{home.method_body}</p>
+      <a class="tlink" href="#" style="margin-top:22px">Learn More <i data-lucide="arrow-right"></i></a>
+    </div>
+    <div class="method__viz" data-rv>
+      <div class="venn">
+        {rings.map((r, i) => (
+          <div class={`venn__c venn__c--${ringColor[i] || "blue"}`}>
+            <div class="venn__inner">
+              <h4>{r.title}</h4>
+              <p>{r.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p class="method__tagline">{home.method_tagline}</p>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE BAND -->
+<section class="valueband">
+  <div class="valueband__left" data-rv>
+    <span class="eyebrow">{home.bv_eyebrow || "The Value"}</span>
+    <h2 class="h-lg" style="margin:16px 0 18px">{home.bv_heading}</h2>
+    <p class="body">{home.bv_intro}</p>
+    <a class="circ valueband__arrow" href="#" aria-label="See more"><i data-lucide="arrow-right"></i></a>
+  </div>
+  <div class="valueband__right" data-rv-stagger>
+    {bvItems.map((it) => (
+      <div class="vitem">
+        <div class="vitem__icon"><i data-lucide={it.icon || "sparkles"}></i></div>
+        <div>
+          <h4 class="vitem__title">{it.title}</h4>
+          <p class="vitem__desc">{it.description}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta3 ctahome">
+  <div class="wrap cta3__inner on-blue">
+    <div class="ctahome__grid">
+      <div data-rv>
+        <span class="eyebrow">{home.cta_eyebrow || "Let's Build"}</span>
+        <h2 class="h-xl cta3__title" style="margin-top:18px">{home.cta_heading}</h2>
+        <p class="body" style="margin-top:18px;max-width:44ch">{home.cta_body}</p>
+        <a class="cta3__action" href="#" style="margin-top:26px">
+          <span class="circ"><i data-lucide="arrow-right"></i></span>
+          <span>Start a Conversation</span>
+        </a>
+      </div>
+      <div class="ctahome__figure" aria-hidden="true">
+        <img src={heroImg} alt="" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot3">
+  <div class="wrap">
+    <div class="foot3__main foot3__main--wide">
+      <div>
+        <a class="foot3__logo" href="/"><img src="/assets/fineries-logo-white-3x.png" alt="Fineries Digital" /></a>
+        <p class="foot3__tag">{settings.footer_tagline}</p>
+        <div class="foot3__social">
+          <a href={settings.social_linkedin || "#"} aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.76-2.05C20.4 8.65 21 11 21 14.1V21h-4v-6.1c0-1.45-.03-3.32-2.02-3.32-2.02 0-2.33 1.58-2.33 3.21V21H9z"/></svg></a>
+          <a href={settings.social_instagram || "#"} aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+          <a href={settings.social_x || "#"} aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.65l-5.22-6.82-5.97 6.82H1.66l7.73-8.84L1.25 2.25h6.82l4.71 6.23zm-1.16 17.52h1.83L7.01 4.13H5.05z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot3__col">
+        <h4>What We Do</h4>
+        {services.map((s) => <a href={s.link || "#"} set:html={s.title}></a>)}
+      </div>
+      <div class="foot3__col">
+        <h4>Company</h4>
+        <a href="#">About</a><a href="#">Work</a><a href="#">Insights</a>
+        <a href="#">Careers</a><a href="#">Contact</a>
+      </div>
+      <div class="foot3__col">
+        <h4>Get in Touch</h4>
+        <p class="foot3__place">{settings.location}</p>
+        {settings.address && <p class="foot3__addr">{settings.address}</p>}
+        <a href={`mailto:${settings.contact_email}`}>{settings.contact_email}</a>
+      </div>
+    </div>
+    <div class="foot3__bar">
+      <span>&copy; <span data-year>2025</span> Fineries Digital Limited. All rights reserved.</span>
+      <span class="foot3__bar-links"><a href="#">Privacy</a><a href="#">Terms</a></span>
+    </div>
+  </div>
+</footer>
+
+</main>
+
+<script src="/js/v3.js?v=22" is:inline defer></script>
+</body>
+</html>

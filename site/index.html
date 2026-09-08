@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fineries Digital | We Build Brands, Products, Content People Love | Lagos, Nigeria</title>
+<meta name="description" content="Fineries Digital brings strategy, creativity and technology together to help ambitious organisations grow, connect and create what comes next. A creative group in Lagos, Nigeria.">
+<meta name="keywords" content="creative group Lagos Nigeria, brand strategy Nigeria, digital products Africa, marketing Lagos, technology development Nigeria, executive personal branding Africa">
+<meta property="og:title" content="Fineries Digital | We Build Brands, Products, Content People Love">
+<meta property="og:description" content="Strategy, creativity and technology together. A creative group in Lagos, Nigeria.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="assets/fineries-logo-blue-3x.png">
+<link rel="stylesheet" href="css/v3.css?v=1">
+<script src="https://unpkg.com/lucide@latest" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
+</head>
+<body>
+
+<div class="cur" aria-hidden="true"></div>
+
+<!-- ================= NAV ================= -->
+<header class="nav3">
+  <div class="nav3__inner">
+    <a class="nav3__logo" href="index.html" aria-label="Fineries Digital home">
+      <img class="logo-white" src="assets/fineries-logo-white-3x.png" alt="Fineries Digital">
+      <img class="logo-blue" src="assets/fineries-logo-blue-3x.png" alt="Fineries Digital">
+    </a>
+    <nav class="nav3__links" aria-label="Primary">
+      <a class="nav3__link nav3__link--active" href="index.html">Home</a>
+      <a class="nav3__link" href="services.html">What We Do</a>
+      <a class="nav3__link" href="work.html">Work</a>
+      <a class="nav3__link" href="about.html">About</a>
+      <a class="nav3__link" href="insights.html">Insights</a>
+      <a class="nav3__link" href="contact.html">Contact</a>
+    </nav>
+    <button class="nav3__burger" aria-label="Open menu" aria-expanded="false"><i data-lucide="menu"></i></button>
+  </div>
+  <div class="nav3__mobile">
+    <a href="index.html">Home</a>
+    <a href="services.html">What We Do</a>
+    <a href="work.html">Work</a>
+    <a href="about.html">About</a>
+    <a href="insights.html">Insights</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<section class="hero3">
+  <img class="hero3__couple" src="assets/hero-couple.png" alt="A couple in Nigerian formal wear sharing a dance">
+  <div class="wrap hero3__inner">
+    <h1 class="hero3__title">We build <span class="hero3__rot" id="hero-rot">brands</span> people love</h1>
+    <button class="hero3__watch" type="button" data-open-video>
+      <span>Watch our story</span>
+      <span class="play"><i data-lucide="play"></i></span>
+    </button>
+  </div>
+</section>
+
+<!-- video modal -->
+<div class="vmodal" data-video-modal aria-hidden="true">
+  <div class="vmodal__frame">
+    <button class="vmodal__close" type="button" data-close-video aria-label="Close video">&times;</button>
+    <video controls playsinline preload="none">
+      <source src="assets/fineries-story.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>
+
+<!-- ================= WHAT WE DO ================= -->
+<section class="sec">
+  <div class="wrap">
+    <div class="wwd__grid">
+      <div class="wwd__intro" data-rv>
+        <span class="eyebrow">What We Do</span>
+        <h2 class="h-lg">Everything your brand needs. Under one roof.</h2>
+        <p class="body">The right work rarely fits neatly into one discipline. A brand may need a clearer position. A business may need more customers. A team may need a better way to work. A new idea may need to become a product.</p>
+        <p class="body">We bring the thinking, creativity and technology together to make those things happen.</p>
+        <a class="btn3 btn3--teal" href="services.html">Explore Our Capabilities <i data-lucide="arrow-right"></i></a>
+      </div>
+
+      <div class="media duo duo--teal wwd__figure" data-para data-rv>
+        <img src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=800&q=75" alt="Fineries creative">
+      </div>
+
+      <div class="wwd__list" data-rv-stagger>
+        <a class="svc-item" href="services.html#brand-strategy">
+          <span class="svc-item__num">01</span>
+          <span>
+            <span class="svc-item__title">Brand &amp; Strategy</span>
+            <span class="svc-item__desc">Find the right position. Build a brand with something to say.</span>
+          </span>
+          <span class="svc-item__arrow"><i data-lucide="arrow-right"></i></span>
+        </a>
+        <a class="svc-item" href="services.html#digital-marketing">
+          <span class="svc-item__num">02</span>
+          <span>
+            <span class="svc-item__title">Marketing &amp; Growth</span>
+            <span class="svc-item__desc">Reach the right people. Turn attention into action.</span>
+          </span>
+          <span class="svc-item__arrow"><i data-lucide="arrow-right"></i></span>
+        </a>
+        <a class="svc-item" href="services.html#content-production">
+          <span class="svc-item__num">03</span>
+          <span>
+            <span class="svc-item__title">Content &amp; Production</span>
+            <span class="svc-item__desc">Create work worth noticing, remembering and sharing.</span>
+          </span>
+          <span class="svc-item__arrow"><i data-lucide="arrow-right"></i></span>
+        </a>
+        <a class="svc-item" href="technology.html">
+          <span class="svc-item__num">04</span>
+          <span>
+            <span class="svc-item__title">Digital Products &amp; Technology</span>
+            <span class="svc-item__desc">Build digital experiences, products and systems that make the business better.</span>
+          </span>
+          <span class="svc-item__arrow"><i data-lucide="arrow-right"></i></span>
+        </a>
+        <a class="svc-item" href="services.html#executive-branding">
+          <span class="svc-item__num">05</span>
+          <span>
+            <span class="svc-item__title">Executive &amp; Personal Branding</span>
+            <span class="svc-item__desc">Help leaders become known for what they know and what they stand for.</span>
+          </span>
+          <span class="svc-item__arrow"><i data-lucide="arrow-right"></i></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PHILOSOPHY ================= -->
+<section class="philo3">
+  <div class="philo3__panel" data-rv>
+    <span class="eyebrow">Our Philosophy</span>
+    <h2 class="h-lg">One philosophy. Three disciplines.</h2>
+    <p class="body">Strategy gives us direction. <strong>Creativity</strong> gives us expression. Technology gives us scale. The best work happens when all three work together, not in separate rooms.</p>
+    <a class="tlink" href="services.html">Our Approach <i data-lucide="arrow-right"></i></a>
+  </div>
+  <div class="philo3__visual">
+    <div class="media" aria-hidden="true" data-para>
+      <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1400&q=75" alt="">
+    </div>
+    <div class="philo3__rings">
+      <div class="ring">
+        <h4>Strategy</h4>
+        <p>Find the opportunity. Make the plan.</p>
+      </div>
+      <span class="ring__plus">+</span>
+      <div class="ring">
+        <h4>Creativity</h4>
+        <p>Turn ideas into impact.</p>
+      </div>
+      <span class="ring__plus">+</span>
+      <div class="ring">
+        <h4>Technology</h4>
+        <p>Build what matters.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BUSINESS VALUE ================= -->
+<section class="sec" style="background:var(--v3-mist)">
+  <div class="wrap">
+    <div class="bv__head">
+      <div data-rv>
+        <span class="eyebrow">The Business Value</span>
+        <h2 class="h-lg" style="margin-top:18px">Real solutions. Tangible impact.</h2>
+      </div>
+      <p class="lead" data-rv>We help organisations build stronger brands, reach more people, create better experiences and work more efficiently.</p>
+    </div>
+    <div class="bv__grid" data-rv-stagger>
+      <div class="bv-item">
+        <div class="bv-item__icon"><i data-lucide="trending-up"></i></div>
+        <h3 class="bv-item__title">Grow</h3>
+        <p class="bv-item__desc">Reach new markets, expand your audience and increase revenue.</p>
+      </div>
+      <div class="bv-item">
+        <div class="bv-item__icon"><i data-lucide="user-round-check"></i></div>
+        <h3 class="bv-item__title">Convert</h3>
+        <p class="bv-item__desc">Turn interest into action and attention into loyal customers.</p>
+      </div>
+      <div class="bv-item">
+        <div class="bv-item__icon"><i data-lucide="heart-handshake"></i></div>
+        <h3 class="bv-item__title">Serve Better</h3>
+        <p class="bv-item__desc">Make it easier for your customers to find, buy and get the most from you.</p>
+      </div>
+      <div class="bv-item">
+        <div class="bv-item__icon"><i data-lucide="settings-2"></i></div>
+        <h3 class="bv-item__title">Work Smarter</h3>
+        <p class="bv-item__desc">Replace manual work with systems that save time and reduce friction.</p>
+      </div>
+      <div class="bv-item">
+        <div class="bv-item__icon"><i data-lucide="sparkles"></i></div>
+        <h3 class="bv-item__title">Build Something New<sup>+</sup></h3>
+        <p class="bv-item__desc">Explore new models, new products and new opportunities.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= A DIFFERENT KIND OF AGENCY ================= -->
+<section class="sec statement">
+  <div class="wrap" data-rv>
+    <span class="eyebrow eyebrow--center">A Different Kind of Agency</span>
+    <h2 class="h-lg">We don't believe strategy, creativity and technology should live in separate rooms.</h2>
+    <div class="statement__rows">
+      <p>A sharper strategy makes <strong>better creative</strong> possible.</p>
+      <p>Better creative makes <strong>technology more useful</strong>.</p>
+      <p>Better technology makes <strong>ideas more powerful</strong>.</p>
+      <p>That's how we work.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SELECTED WORK ================= -->
+<section class="sec" style="background:var(--v3-mist)">
+  <div class="wrap">
+    <div class="work3__head" data-rv>
+      <div>
+        <span class="eyebrow">Selected Work</span>
+        <h2 class="h-lg" style="margin-top:18px">Brands. Products. Experiences.</h2>
+        <p class="body" style="margin-top:12px">A few of the things we've helped organisations build, launch and grow.</p>
+      </div>
+      <a class="tlink" href="work.html">View All Work <i data-lucide="arrow-right"></i></a>
+    </div>
+    <div class="work3__grid" data-rv-stagger>
+      <a class="wc3" href="work.html">
+        <div class="media duo duo--teal wc3__figure"><img src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?auto=format&fit=crop&w=700&q=75" alt="Meristem campaign"></div>
+        <h3 class="wc3__name">Meristem</h3>
+        <p class="wc3__desc">Brand &amp; digital for a leading investment firm.</p>
+        <span class="wc3__link">View Case Study <i data-lucide="arrow-right"></i></span>
+      </a>
+      <a class="wc3" href="work.html">
+        <div class="media duo duo--blue wc3__figure"><img src="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?auto=format&fit=crop&w=700&q=75" alt="CrusaderSterling communications"></div>
+        <h3 class="wc3__name">CrusaderSterling</h3>
+        <p class="wc3__desc">Communications for a financial services organisation.</p>
+        <span class="wc3__link">View Case Study <i data-lucide="arrow-right"></i></span>
+      </a>
+      <a class="wc3" href="work.html">
+        <div class="media gs wc3__figure"><img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=700&q=75" alt="Farmfresh / reFresh brand"></div>
+        <h3 class="wc3__name">Farmfresh / reFresh</h3>
+        <p class="wc3__desc">Brand and marketing for iconic yoghurt brands.</p>
+        <span class="wc3__link">View Case Study <i data-lucide="arrow-right"></i></span>
+      </a>
+      <a class="wc3" href="work.html">
+        <div class="media gs wc3__figure"><img src="https://images.unsplash.com/photo-1529074963764-98f45c47344b?auto=format&fit=crop&w=700&q=75" alt="IBOM Air"></div>
+        <h3 class="wc3__name">IBOM Air</h3>
+        <p class="wc3__desc">Creative and communications for a Nigerian airline brand.</p>
+        <span class="wc3__link">View Case Study <i data-lucide="arrow-right"></i></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DIGITAL ================= -->
+<section class="sec">
+  <div class="wrap">
+    <div class="digital">
+      <div class="media duo duo--blue digital__figure" data-para data-rv>
+        <img src="https://images.unsplash.com/photo-1552168324-d612d77725e3?auto=format&fit=crop&w=1000&q=75" alt="Building a digital product">
+      </div>
+      <div data-rv>
+        <span class="eyebrow">Digital</span>
+        <h2 class="h-lg">Your digital experience is part of your business.</h2>
+        <p class="body">Customers don't separate your website from your brand. Your app from your service. Or your digital experience from the business itself.</p>
+        <p class="body" style="margin-top:14px">We design and build digital experiences that help organisations attract customers, serve them better, operate smarter and create new opportunities.</p>
+        <a class="btn3 btn3--teal" href="technology.html">Explore Digital Products &amp; Technology <i data-lucide="arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHY FINERIES ================= -->
+<section class="sec" style="background:var(--v3-mist)">
+  <div class="wrap">
+    <div class="why3">
+      <div data-rv>
+        <span class="eyebrow">Why Fineries</span>
+        <h2 class="h-lg" style="margin-top:18px">Big enough to think broadly. Close enough to care about the details.</h2>
+      </div>
+      <div class="why3__body" data-rv>
+        <p class="body">We work across strategy, brand, marketing, content and technology without handing the work from one disconnected team to another.</p>
+        <p class="body">One team. One understanding of the problem. One standard for the work.</p>
+        <a class="tlink why3__link" href="about.html">Learn More About Us <i data-lucide="arrow-right"></i></a>
+      </div>
+      <div class="media gs why3__figure" data-para data-rv>
+        <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=800&q=75" alt="Lagos cityscape at dusk">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="cta3">
+  <img class="cta3__wm" src="assets/fineries-logo-white-3x.png" alt="" aria-hidden="true">
+  <div class="wrap cta3__inner on-blue">
+    <div class="cta3__grid">
+      <div data-rv>
+        <span class="eyebrow">Let's Build</span>
+        <h2 class="h-xl cta3__title" style="margin-top:20px">Have something worth building?</h2>
+      </div>
+      <div data-rv>
+        <div class="cta3__list">
+          <p>A brand to rethink.</p>
+          <p>A business problem to solve.</p>
+          <p>A product to create.</p>
+          <p>An opportunity to explore.</p>
+        </div>
+        <a class="cta3__action" href="contact.html">
+          <span class="circ"><i data-lucide="arrow-right"></i></span>
+          <span>Start a Conversation</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="foot3">
+  <div class="wrap">
+    <div class="foot3__main">
+      <div>
+        <a class="foot3__logo" href="index.html"><img src="assets/fineries-logo-white-3x.png" alt="Fineries Digital"></a>
+        <p class="foot3__tag">We build brands, products, content people love.</p>
+        <div class="foot3__social">
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.76-2.05C20.4 8.65 21 11 21 14.1V21h-4v-6.1c0-1.45-.03-3.32-2.02-3.32-2.02 0-2.33 1.58-2.33 3.21V21H9z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.65l-5.22-6.82-5.97 6.82H1.66l7.73-8.84L1.25 2.25h6.82l4.71 6.23zm-1.16 17.52h1.83L7.01 4.13H5.05z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot3__cols">
+        <div class="foot3__col">
+          <h4>Explore</h4>
+          <a href="index.html">Home</a>
+          <a href="services.html">What We Do</a>
+          <a href="work.html">Work</a>
+          <a href="about.html">About</a>
+          <a href="insights.html">Insights</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="foot3__col">
+          <h4>Get in Touch</h4>
+          <a href="mailto:info@fineries.net">info@fineries.net</a>
+          <p class="foot3__place" style="margin-top:12px">Lagos, Nigeria<span>&amp; Beyond</span></p>
+        </div>
+      </div>
+    </div>
+    <div class="foot3__bar">
+      <span>&copy; <span data-year>2025</span> Fineries Digital Limited. All rights reserved.</span>
+      <span class="foot3__bar-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+</main>
+
+<script src="js/v3.js?v=1" defer></script>
+</body>
+</html>

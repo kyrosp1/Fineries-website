@@ -1,0 +1,234 @@
+/* ============================================================
+   FINERIES DIGITAL — Colors & Type Foundations
+   Lagos-based digital advertising & experience agency.
+   Brand palette sourced from supplied logo + color sheet.
+   Fonts: Sora (display) + Manrope (text) — Google Fonts.
+   NOTE: substitute fonts, flagged to client. See README.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* ---- BRAND CORE (the four brand colors + logo) ---- */
+  --blue:   #3C4099;  /* primary — logo wordmark */
+  --gold:     #FFC80C;  /* accent — energy / highlight */
+  --magenta:  #C01891;  /* accent — bold / creative */
+  --teal:     #08BCB3;  /* accent — fresh / digital */
+
+  /* ---- BLUE RAMP (primary) ---- */
+  --blue-900: #1B1D45;
+  --blue-800: #262A66;
+  --blue-700: #313589;
+  --blue-600: #3C4099;  /* base */
+  --blue-500: #5256AC;
+  --blue-400: #7B7EC4;
+  --blue-300: #A8AADA;
+  --blue-200: #D2D3EC;
+  --blue-100: #E9EAF6;
+  --blue-50:  #F4F4FB;
+
+  /* ---- ACCENT TINTS ---- */
+  --gold-700:    #C79A00;
+  --gold-300:    #FFDD63;
+  --gold-100:    #FFF3C9;
+  --magenta-700: #930F6E;
+  --magenta-300: #D964B5;
+  --magenta-100: #F6D6EC;
+  --teal-700:    #068A83;
+  --teal-300:    #58D5CE;
+  --teal-100:    #CDF1EF;
+
+  /* ---- NEUTRALS (cool, blue-tinted) ---- */
+  --ink:    #16172B;   /* near-black text */
+  --slate:  #4A4C63;   /* secondary text */
+  --mist:   #84869B;   /* tertiary / captions */
+  --line:   #E4E5EE;   /* hairline borders */
+  --cloud:  #F1F2F8;   /* subtle fills */
+  --paper:  #FAFAFD;   /* page background */
+  --white:  #FFFFFF;
+
+  /* ---- SEMANTIC FOREGROUND ---- */
+  --fg-1: var(--ink);     /* primary text */
+  --fg-2: var(--slate);   /* secondary text */
+  --fg-3: var(--mist);    /* muted / meta */
+  --fg-on-dark: #FFFFFF;
+  --fg-on-dark-2: #BFC1D9;
+
+  /* ---- SEMANTIC BACKGROUND ---- */
+  --bg-page:    var(--paper);
+  --bg-surface: var(--white);
+  --bg-subtle:  var(--cloud);
+  --bg-dark:    var(--blue-600);   /* approved blue field #3C4099 */
+  --bg-brand:   var(--blue-600);
+  --field-blue: var(--blue-600);   /* #3C4099 — THE Fineries blue, used as full-bleed field */
+  --field-gold: var(--gold);         /* #FFC80C — gold field (e.g. Core Values) */
+
+  /* ---- SEMANTIC ACTION ---- */
+  --accent:        var(--blue-600);
+  --accent-hover:  var(--blue-700);
+  --accent-press:  var(--blue-800);
+  --accent-soft:   var(--blue-100);
+
+  /* ---- STATUS ---- */
+  --success: #1E9E6A;
+  --warning: var(--gold-700);
+  --danger:  #D8385A;
+  --info:    var(--teal-700);
+
+  /* ---- TYPE FAMILIES ---- */
+  --font-display: 'Sora', 'Segoe UI', system-ui, sans-serif;
+  --font-text:    'Manrope', 'Segoe UI', system-ui, sans-serif;
+  --font-mono:    'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  /* ---- TYPE SCALE (1.25 major-third-ish) ---- */
+  --fs-display: 64px;
+  --fs-h1: 48px;
+  --fs-h2: 36px;
+  --fs-h3: 27px;
+  --fs-h4: 21px;
+  --fs-body-lg: 18px;
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-caption: 12px;
+
+  --lh-tight: 1.05;
+  --lh-snug: 1.2;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.65;
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.08em;   /* eyebrows / labels */
+  --tracking-wider: 0.18em;
+
+  /* ---- RADII ---- */
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --r-xl: 32px;
+  --r-pill: 999px;
+
+  /* ---- SPACING (8pt) ---- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 96px;
+  --sp-10: 128px;
+
+  /* ---- SHADOWS (cool blue-tinted, soft) ---- */
+  --shadow-sm: 0 1px 2px rgba(27,29,69,.06), 0 1px 3px rgba(27,29,69,.08);
+  --shadow-md: 0 4px 12px rgba(27,29,69,.08), 0 2px 4px rgba(27,29,69,.06);
+  --shadow-lg: 0 12px 32px rgba(27,29,69,.12), 0 4px 8px rgba(27,29,69,.06);
+  --shadow-xl: 0 24px 60px rgba(27,29,69,.16);
+  --shadow-brand: 0 12px 28px rgba(60,64,153,.32);
+}
+
+/* ============================================================
+   SEMANTIC ELEMENT STYLES — apply with utility classes
+   ============================================================ */
+
+.fnr-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-1);
+}
+.fnr-h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h1);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-1);
+}
+.fnr-h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-1);
+}
+.fnr-h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-h3);
+  line-height: var(--lh-snug);
+  color: var(--fg-1);
+}
+.fnr-h4 {
+  font-family: var(--font-text);
+  font-weight: 700;
+  font-size: var(--fs-h4);
+  line-height: var(--lh-normal);
+  color: var(--fg-1);
+}
+.fnr-eyebrow {
+  font-family: var(--font-text);
+  font-weight: 700;
+  font-size: var(--fs-caption);
+  line-height: 1;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.fnr-lead {
+  font-family: var(--font-text);
+  font-weight: 500;
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-2);
+}
+.fnr-body {
+  font-family: var(--font-text);
+  font-weight: 400;
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-2);
+}
+.fnr-small {
+  font-family: var(--font-text);
+  font-weight: 500;
+  font-size: var(--fs-small);
+  line-height: var(--lh-normal);
+  color: var(--fg-3);
+}
+.fnr-mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  letter-spacing: 0;
+  color: var(--fg-2);
+}
+
+/* ============================================================
+   IMAGERY — high-contrast B&W photos on the brand blue field.
+   Subjects are knocked out / cut out so the blue surrounds them.
+   Gold keyword + white copy overlaid. Optional single-color pop.
+   ============================================================ */
+.fnr-photo {            /* apply to any <img> to get the brand B&W look */
+  filter: grayscale(1) contrast(1.08) brightness(1.02);
+}
+.fnr-image-field {      /* the solid blue field a knockout photo sits on */
+  background: var(--field-blue);
+}
+.fnr-image-field--gold {
+  background: var(--field-gold);
+}
+.fnr-image-keyword {    /* the big gold headline word over imagery */
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: var(--tracking-tight);
+}
+.fnr-image-copy {       /* supporting white copy over imagery */
+  font-family: var(--font-text);
+  color: #fff;
+}

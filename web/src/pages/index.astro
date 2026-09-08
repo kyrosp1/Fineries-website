@@ -1,0 +1,8 @@
+---
+import HomePage from "../components/HomePage.astro";
+import { getHomeBundle } from "../lib/wp.js";
+
+// Content from headless WordPress (fineries-cms REST endpoint).
+const { home, settings, services, work } = await getHomeBundle();
+---
+<HomePage home={home} settings={settings} services={services} work={work} />

@@ -1,0 +1,28 @@
+# dependencies
+node_modules/
+**/node_modules/
+
+# secrets & env
+.env
+**/.env
+
+# astro / vercel build output
+web/dist/
+web/.astro/
+web/.vercel/
+web/src/data/home.json
+
+# ACF Pro is a paid plugin — never commit it
+cms-wp/wp-plugins/advanced-custom-fields-pro/
+
+# large media originals & seed video (migrate content via WP, not git)
+content/
+cms-wp/wp-plugins/fineries-cms/seed-assets/*.mp4
+
+# docker local data (volumes are external anyway)
+cms/uploads/
+cms-wp/uploads/
+
+# os
+.DS_Store
+Thumbs.db

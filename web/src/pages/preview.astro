@@ -1,0 +1,7 @@
+---
+import HomePage from "../components/HomePage.astro";
+import { getHomeBundle } from "../lib/wp.js";
+
+const { home, settings, services, work } = await getHomeBundle();
+---
+<HomePage home={home} settings={settings} services={services} work={work} preview={true} />
