@@ -100,7 +100,7 @@ const pageDesc = home.wwd_seo_description || "Brand & strategy, marketing & grow
 <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
 <link rel="stylesheet" href="/css/v3.css?v=47" />
 <link rel="stylesheet" href="/css/home.css?v=47" />
-<link rel="stylesheet" href="/css/wwd.css?v=4" />
+<link rel="stylesheet" href="/css/wwd.css?v=6" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
@@ -123,7 +123,7 @@ const pageDesc = home.wwd_seo_description || "Brand & strategy, marketing & grow
     </div>
     <div class="wwdhero__text on-blue" data-rv>
       <span class="eyebrow">{home.wwd_hero_eyebrow || "What We Do"}</span>
-      <h1 class="wwdhero__title">{home.wwd_hero_heading || "Different problems need different answers."}</h1>
+      <h1 class="wwdhero__title" set:html={home.wwd_hero_heading || "Different problems need different answers."}></h1>
       <div class="wwdhero__body">
         {home.wwd_hero_body
           ? <Fragment set:html={home.wwd_hero_body} />
@@ -140,7 +140,7 @@ const pageDesc = home.wwd_seo_description || "Brand & strategy, marketing & grow
 <!-- STRATEGY BEFORE SERVICES (blue band) -->
 <section class="wwdstrat">
   <div class="wrap wwdstrat__grid on-blue" data-rv>
-    <h2 class="h-lg wwdstrat__title">{home.wwd_intro_heading || "Strategy before services."}</h2>
+    <h2 class="h-lg wwdstrat__title" set:html={home.wwd_intro_heading || "Strategy before services."}></h2>
     <div class="wwdstrat__body">
       {home.wwd_intro_body
         ? <Fragment set:html={home.wwd_intro_body} />
