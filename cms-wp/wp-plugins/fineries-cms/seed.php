@@ -108,6 +108,8 @@ update_field('cta_button_label', 'Start a Conversation', 'option');
 if ($hero_img) update_field('cta_image', $hero_img, 'option');
 
 // ---- Site settings (same option store) ----
+update_field('seo_title', 'Fineries Digital | We Build Brands, Products, Content People Love | Lagos, Nigeria', 'option');
+update_field('seo_description', 'Fineries Digital brings strategy, creativity and technology together to help ambitious organisations grow, connect and create what comes next.', 'option');
 update_field('nav_items', [
   ['label' => 'Home', 'link' => '/'],
   ['label' => 'What We Do', 'link' => '#'],
