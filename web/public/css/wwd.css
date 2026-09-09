@@ -106,79 +106,9 @@
 .capcard--magenta:hover .capcard__arrow { background: var(--v3-magenta); border-color: var(--v3-magenta); color: #fff; }
 .capcard--teal:hover    .capcard__arrow { background: var(--v3-teal);    border-color: var(--v3-teal);    color: #fff; }
 
-/* ---------- Our capabilities — ALT layout (rows) ---------- */
-.capsB__eyebrow { display: inline-flex; margin-bottom: clamp(24px,3vw,36px); }
-.capsB__list { display: flex; flex-direction: column; gap: 12px; }
-.caprow {
-  display: grid; grid-template-columns: clamp(64px,7vw,100px) 1fr minmax(200px, 32%);
-  align-items: stretch; min-height: 112px;
-  border-radius: 14px; overflow: hidden; background: #f3f4f6;
-  transition: transform .3s var(--v3-ease), box-shadow .3s var(--v3-ease), background-color .3s var(--v3-ease);
-}
-.caprow:hover { transform: translateY(-3px); box-shadow: 0 20px 44px rgba(27,29,69,.12); }
-.caprow__num {
-  align-self: center; justify-self: center;
-  font-family: var(--font-display); font-weight: 800;
-  font-size: clamp(26px, 3.4vw, 45px); line-height: 1; letter-spacing: -.02em;
-  color: #33343b; transition: color .25s var(--v3-ease);
-}
-.caprow__text { align-self: center; padding: 16px 20px 16px 4px; }
-.caprow__title {
-  font-family: var(--font-display); font-weight: 800;
-  font-size: clamp(17px, 1.8vw, 21px); line-height: 1.1; letter-spacing: -.01em;
-  color: #33343b; margin: 0 0 5px; transition: color .25s var(--v3-ease);
-}
-/* title takes the row's brand colour on hover */
-.caprow--blue:hover    .caprow__title { color: var(--v3-blue); }
-.caprow--teal:hover    .caprow__title { color: var(--v3-teal); }
-.caprow--magenta:hover .caprow__title { color: var(--v3-magenta); }
-.caprow--gold:hover    .caprow__title { color: #C79A00; }
-.caprow__tagline { font-size: 14px; line-height: 1.5; color: var(--v3-text-2); margin: 0; max-width: 42ch; }
-.caprow__media { position: relative; min-height: 112px; }
-.caprow__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.caprow__media::after { content: ""; position: absolute; inset: 0; }
-.caprow__arrow {
-  position: absolute; right: clamp(16px,2vw,26px); top: 50%; transform: translateY(-50%); z-index: 2;
-  width: 36px; height: 36px; border-radius: 50%;
-  border: 1.5px solid rgba(255,255,255,.85); color: #fff;
-  display: flex; align-items: center; justify-content: center;
-  transition: background .25s, color .25s;
-}
-.caprow__arrow svg { width: 15px; height: 15px; }
-.caprow:hover .caprow__arrow { background: #fff; }
-
-/* per-capability colour: neutral by default, brand tint on hover */
-.caprow--blue:hover    { background: rgba(60,64,153,.07); }
-.caprow--teal:hover    { background: rgba(8,188,179,.10); }
-.caprow--magenta:hover { background: rgba(192,24,145,.06); }
-.caprow--gold:hover    { background: rgba(255,200,12,.14); }
-.caprow--blue:hover    .caprow__num { color: var(--v3-blue); }
-.caprow--teal:hover    .caprow__num { color: var(--v3-teal); }
-.caprow--magenta:hover .caprow__num { color: var(--v3-magenta); }
-.caprow--gold:hover    .caprow__num { color: #C79A00; }
-.caprow--blue    .caprow__media { background: var(--v3-blue); }
-.caprow--teal    .caprow__media { background: var(--v3-teal); }
-.caprow--magenta .caprow__media { background: var(--v3-magenta); }
-.caprow--gold    .caprow__media { background: var(--v3-gold); }
-.caprow--blue    .caprow__media::after { background: linear-gradient(90deg, transparent 34%, var(--v3-blue) 100%); }
-.caprow--teal    .caprow__media::after { background: linear-gradient(90deg, transparent 34%, var(--v3-teal) 100%); }
-.caprow--magenta .caprow__media::after { background: linear-gradient(90deg, transparent 34%, var(--v3-magenta) 100%); }
-.caprow--gold    .caprow__media::after { background: linear-gradient(90deg, transparent 34%, var(--v3-gold) 100%); }
-.caprow--blue:hover    .caprow__arrow { color: var(--v3-blue); }
-.caprow--teal:hover    .caprow__arrow { color: var(--v3-teal); }
-.caprow--magenta:hover .caprow__arrow { color: var(--v3-magenta); }
-.caprow--gold:hover    .caprow__arrow { color: #C79A00; }
-.caprow--gold .caprow__arrow { border-color: rgba(27,29,69,.5); color: var(--v3-ink); }
-
 /* ---------- Responsive ---------- */
 @media (max-width: 1100px) {
   .wwdcaps__grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 680px) {
-  .caprow { grid-template-columns: 64px 1fr; }
-  .caprow__num { font-size: 34px; }
-  .caprow__text { padding: 18px 16px 18px 0; }
-  .caprow__media { grid-column: 1 / -1; grid-row: 2; min-height: 130px; }
 }
 @media (max-width: 900px) {
   /* hero merges into one: image is the full background, copy overlaid on top */
