@@ -189,7 +189,7 @@ if (!get_posts(['post_type' => 'service', 'numberposts' => 1])) {
     ['Brand & Strategy', '01', 'Find the right position. Build a brand with something to say.', '/services', 'blue', 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=800&q=75'],
     ['Marketing & Growth', '02', 'Reach the right people. Turn attention into action.', '/services', 'gold', 'https://images.unsplash.com/photo-1573497019236-17f8177b81e8?auto=format&fit=crop&w=800&q=75'],
     ['Content & Production', '03', 'Create work worth noticing, remembering and sharing.', '/services', 'magenta', 'https://images.unsplash.com/photo-1594751543129-6701ad444259?auto=format&fit=crop&w=800&q=75'],
-    ['Digital Products & Technology', '04', 'Build digital experiences, products and systems that make the business better.', '/web-and-app-development', 'teal', 'https://images.unsplash.com/photo-1573167243872-43c6433b9d40?auto=format&fit=crop&w=800&q=75'],
+    ['Digital Products & Technology', '04', 'Build digital experiences, products and systems that make the business better.', '/digital-and-tech', 'teal', 'https://images.unsplash.com/photo-1573167243872-43c6433b9d40?auto=format&fit=crop&w=800&q=75'],
     ['Executive & Personal Branding', '05', 'Help leaders become known for what they know and what they stand for.', '/services', 'blue', 'https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?auto=format&fit=crop&w=800&q=75'],
   ];
   $o = 1;

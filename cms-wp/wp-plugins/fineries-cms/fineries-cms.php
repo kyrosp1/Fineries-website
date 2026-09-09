@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fineries CMS
  * Description: Headless content model for the Fineries Digital site — custom post types (Services, Work), ACF field groups, options pages, and a clean REST endpoint for the Astro front-end.
- * Version: 1.8.0
+ * Version: 1.8.1
  * Author: Fineries
  * Requires Plugins: advanced-custom-fields-pro
  */
