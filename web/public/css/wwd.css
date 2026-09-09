@@ -31,7 +31,7 @@
 .wwdhero__body { margin-top: clamp(20px,2.6vw,30px); max-width: 52ch; }
 .wwdhero__body p { font-size: clamp(16px,1.4vw,19px); line-height: 1.7; color: rgba(255,255,255,.82); }
 .wwdhero__body p + p { margin-top: 14px; }
-.wwdhero__cta { margin-top: clamp(28px,3.5vw,40px); }
+.wwdhero__cta { margin-top: clamp(28px,3.5vw,40px); align-self: flex-start; }
 
 /* ---------- Strategy before services (blue band) ---------- */
 .wwdstrat { background: var(--v3-blue-d, #2E3178); color: #fff; }
