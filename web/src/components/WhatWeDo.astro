@@ -5,6 +5,11 @@ const { home = {}, settings = {}, services = [] } = Astro.props;
 
 const ctaWords = home.cta_words && home.cta_words.length ? home.cta_words : ["a brand", "a product", "content"];
 const heroImg = home.hero_image || "";
+const wwdHeroImg = home.wwd_hero_image || heroImg;
+const heroTags = (home.wwd_hero_tags && typeof home.wwd_hero_tags === "string")
+  ? home.wwd_hero_tags.split(",").map((t) => t.trim()).filter(Boolean)
+  : ["Brands", "Products", "People", "Possibilities"];
+
 const navItems = (settings.nav_items && settings.nav_items.length) ? settings.nav_items : [
   { label: "Home", link: "/" },
   { label: "What We Do", link: "/what-we-do" },
@@ -20,38 +25,37 @@ const legalLinks = (settings.legal_links && settings.legal_links.length) ? setti
   { label: "Privacy", link: "#" }, { label: "Terms", link: "#" },
 ];
 
-// Fallback capability content (used when the service's CMS fields are empty),
-// keyed by the service number.
+// Fallback capability content (used when a service's CMS fields are empty), keyed by number.
 const capData = {
   "01": {
     tagline: "Build a brand people understand, remember and choose.",
     overview: "We help organisations define who they are, where they belong and why people should care.",
     skills: ["Research & Insights", "Brand Strategy", "Brand Positioning", "Brand Architecture", "Brand Identity", "Visual Identity Systems", "Naming", "Brand Messaging", "Verbal Identity", "Brand Guidelines"],
-    explore: "Explore Brand & Strategy",
+    explore: "Explore Brand & Strategy", icon: "box",
   },
   "02": {
     tagline: "Turn attention into action.",
     overview: "We create integrated marketing programmes that help brands reach the right audiences, create demand and drive measurable growth.",
     skills: ["Marketing Strategy", "Campaign Strategy", "Digital Marketing", "Performance Advertising", "Social Media Marketing", "Influencer Marketing", "SEO", "Content Marketing", "Media Planning & Buying", "Campaign Management"],
-    explore: "Explore Marketing & Growth",
+    explore: "Explore Marketing & Growth", icon: "megaphone",
   },
   "03": {
     tagline: "Make something worth paying attention to.",
     overview: "From an idea on a page to something people watch, read, share and remember.",
     skills: ["Creative Direction", "Campaign Concepts", "Video Production", "Photography", "Motion Design", "Animation", "Social Content", "Copywriting", "Branded Content", "AI-assisted Content Production"],
-    explore: "Explore Content & Production",
+    explore: "Explore Content & Production", icon: "play-circle",
   },
   "04": {
     tagline: "Build what the business needs next.",
     overview: "We design and build digital products, experiences and systems that help organisations serve customers better, operate more efficiently and create new opportunities.",
     skills: ["Websites", "Web Applications", "Mobile Applications", "Digital Platforms", "E-commerce", "Customer Portals", "Internal Tools", "Business Systems", "UI/UX Design", "AI Solutions", "Workflow Automation", "Systems Integration"],
-    explore: "Explore Digital Products & Technology",
+    explore: "Explore Digital Products & Technology", icon: "monitor",
   },
   "05": {
     tagline: "Become known for what you know.",
     overview: "We help founders, executives and leaders turn their expertise and perspective into influence.",
     skills: ["Executive Positioning", "Personal Brand Strategy", "Thought Leadership", "Content Strategy", "LinkedIn Strategy", "Executive Content", "Visual Identity", "Reputation Building"],
-    explore: "Explore Executive & Personal Branding",
+    explore: "Explore Executive & Personal Branding", icon: "user",
   },
 };
 const capColor = { "01": "blue", "02": "gold", "03": "magenta", "04": "teal", "05": "blue" };
@@ -65,7 +69,6 @@ const fallbackCaps = [
 ];
 const capsRaw = (services && services.length) ? services : fallbackCaps;
 
-// Merge CMS service data with the fallback capability content.
 const caps = capsRaw.map((s) => {
   const num = s.num || "01";
   const d = capData[num] || {};
@@ -77,7 +80,7 @@ const caps = capsRaw.map((s) => {
     title: s.title || "",
     color: s.color || capColor[num] || "blue",
     link: s.link || "#",
-    tagline: s.cap_tagline || d.tagline || "",
+    icon: s.cap_icon || d.icon || "circle",
     overview: s.cap_overview || d.overview || "",
     skills: skillsFromCms || d.skills || [],
     explore: s.cap_explore || d.explore || (s.title ? `Explore ${s.title}` : "Explore"),
@@ -97,7 +100,7 @@ const pageDesc = home.wwd_seo_description || "Brand & strategy, marketing & grow
 <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
 <link rel="stylesheet" href="/css/v3.css?v=47" />
 <link rel="stylesheet" href="/css/home.css?v=47" />
-<link rel="stylesheet" href="/css/wwd.css?v=1" />
+<link rel="stylesheet" href="/css/wwd.css?v=2" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
@@ -109,59 +112,67 @@ const pageDesc = home.wwd_seo_description || "Brand & strategy, marketing & grow
 
 <main id="main">
 
-<!-- PAGE HERO -->
-<section class="pagehero">
-  <div class="wrap pagehero__inner on-blue" data-rv>
-    <span class="eyebrow">{home.wwd_hero_eyebrow || "What We Do"}</span>
-    <h1 class="pagehero__title">{home.wwd_hero_heading || "Different problems need different answers."}</h1>
-    <div class="pagehero__body">
-      {home.wwd_hero_body
-        ? <Fragment set:html={home.wwd_hero_body} />
-        : (<>
-            <p>Sometimes you need to rethink the brand. Sometimes you need to reach more people. Sometimes you need a campaign people can't ignore. Sometimes you need to build an entirely new product.</p>
-            <p>We bring the capabilities together to help you figure out what needs to happen, then make it happen.</p>
-          </>)}
+<!-- HERO (split: image + text on blue) -->
+<section class="wwdhero">
+  <div class="wwdhero__grid">
+    <div class="wwdhero__media">
+      {wwdHeroImg && <img src={wwdHeroImg} alt="" />}
+      <ul class="wwdhero__tags" aria-hidden="true">
+        {heroTags.map((t) => <li>{t}</li>)}
+      </ul>
+    </div>
+    <div class="wwdhero__text on-blue" data-rv>
+      <span class="eyebrow">{home.wwd_hero_eyebrow || "What We Do"}</span>
+      <h1 class="wwdhero__title">{home.wwd_hero_heading || "Different problems need different answers."}</h1>
+      <div class="wwdhero__body">
+        {home.wwd_hero_body
+          ? <Fragment set:html={home.wwd_hero_body} />
+          : (<>
+              <p>Sometimes you need to rethink the brand. Sometimes you need to reach more people. Sometimes you need a campaign people can't ignore. Sometimes you need to build an entirely new product.</p>
+              <p>We bring the capabilities together to help you figure out what needs to happen, then make it happen.</p>
+            </>)}
+      </div>
+      <a class="btn3 btn3--solid wwdhero__cta" href="#capabilities">{home.wwd_hero_cta_label || "Explore our capabilities"} <i data-lucide="arrow-right"></i></a>
     </div>
   </div>
 </section>
 
-<!-- INTRO -->
-<section class="sec wwdintro">
-  <div class="wrap wwdintro__grid" data-rv>
-    <div>
-      <span class="eyebrow">{home.wwd_intro_eyebrow || "How we work"}</span>
-      <h2 class="h-lg wwdintro__title">{home.wwd_intro_heading || "Strategy before services."}</h2>
-    </div>
-    <div class="wwdintro__body">
+<!-- STRATEGY BEFORE SERVICES (blue band) -->
+<section class="wwdstrat">
+  <div class="wrap wwdstrat__grid on-blue" data-rv>
+    <h2 class="h-lg wwdstrat__title">{home.wwd_intro_heading || "Strategy before services."}</h2>
+    <div class="wwdstrat__body">
       {home.wwd_intro_body
         ? <Fragment set:html={home.wwd_intro_body} />
         : (<>
             <p>We don't start by asking which service we can sell you. We start with the problem.</p>
             <p>What needs to change? What are we trying to achieve? Who are we trying to move? What's getting in the way?</p>
-            <p class="wwdintro__kicker">The answer determines what we do next.</p>
+            <p class="wwdstrat__kicker">The answer determines what we do next.</p>
           </>)}
     </div>
   </div>
 </section>
 
-<!-- CAPABILITIES -->
-<section class="sec caps" style="background:#f5f5f5">
+<!-- OUR CAPABILITIES (5 cards) -->
+<section class="sec wwdcaps" id="capabilities" style="background:#f5f5f5">
   <div class="wrap">
-    <span class="eyebrow caps__eyebrow">{home.wwd_caps_eyebrow || "Capabilities"}</span>
-    <div class="caps__list">
+    <div class="wwdcaps__head" data-rv>
+      <h2 class="h-lg wwdcaps__heading">{home.wwd_caps_heading || "Our capabilities"}</h2>
+      <span class="wwdcaps__tagline">{home.wwd_caps_tagline || "Five disciplines. One purpose."}</span>
+    </div>
+    <div class="wwdcaps__grid" data-rv-stagger>
       {caps.map((c) => (
-        <article class={`cap cap--${c.color}`} data-rv>
-          <div class="cap__head">
-            <span class="cap__num">{c.num}</span>
-            <h3 class="cap__title" set:html={c.title}></h3>
-            <p class="cap__tagline">{c.tagline}</p>
-            <p class="cap__overview">{c.overview}</p>
-            <a class="cap__explore" href={c.link}>{c.explore} <i data-lucide="arrow-right"></i></a>
-          </div>
-          <ul class="cap__skills">
-            {c.skills.map((sk) => <li class="skill">{sk}</li>)}
+        <a class={`capcard capcard--${c.color}`} href={c.link}>
+          <span class="capcard__icon"><i data-lucide={c.icon}></i></span>
+          <span class="capcard__num">{c.num}</span>
+          <h3 class="capcard__title" set:html={c.title}></h3>
+          <p class="capcard__overview">{c.overview}</p>
+          <ul class="capcard__skills">
+            {c.skills.slice(0, 5).map((sk) => <li>{sk}</li>)}
+            {c.skills.length > 5 && <li class="capcard__more">+ {c.skills.length - 5} more</li>}
           </ul>
-        </article>
+          <span class="capcard__arrow"><i data-lucide="arrow-right"></i></span>
+        </a>
       ))}
     </div>
   </div>

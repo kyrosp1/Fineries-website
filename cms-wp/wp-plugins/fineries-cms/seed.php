@@ -111,10 +111,14 @@ if ($hero_img) update_field('cta_image', $hero_img, 'option');
 update_field('wwd_hero_eyebrow', 'What We Do', 'option');
 update_field('wwd_hero_heading', 'Different problems need different answers.', 'option');
 update_field('wwd_hero_body', "<p>Sometimes you need to rethink the brand. Sometimes you need to reach more people. Sometimes you need a campaign people can't ignore. Sometimes you need to build an entirely new product.</p><p>We bring the capabilities together to help you figure out what needs to happen, then make it happen.</p>", 'option');
+update_field('wwd_hero_cta_label', 'Explore our capabilities', 'option');
+update_field('wwd_hero_tags', 'Brands, Products, People, Possibilities', 'option');
 update_field('wwd_intro_eyebrow', 'How we work', 'option');
 update_field('wwd_intro_heading', 'Strategy before services.', 'option');
 update_field('wwd_intro_body', "<p>We don't start by asking which service we can sell you. We start with the problem.</p><p>What needs to change? What are we trying to achieve? Who are we trying to move? What's getting in the way?</p><p><strong>The answer determines what we do next.</strong></p>", 'option');
 update_field('wwd_caps_eyebrow', 'Capabilities', 'option');
+update_field('wwd_caps_heading', 'Our capabilities', 'option');
+update_field('wwd_caps_tagline', 'Five disciplines. One purpose.', 'option');
 update_field('wwd_seo_title', 'What We Do | Fineries Digital', 'option');
 update_field('wwd_seo_description', 'Brand & strategy, marketing & growth, content & production, digital products & technology, and executive branding — the capabilities Fineries brings together to solve the right problem.', 'option');
 

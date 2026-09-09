@@ -1,96 +1,126 @@
 /* ============================================================
-   FINERIES — What We Do page
-   (loads after v3.css + home.css; reuses their tokens)
+   FINERIES — What We Do page (split hero + capability cards)
+   loads after v3.css + home.css; reuses their tokens
    ============================================================ */
 
-/* ---------- Page hero (brand blue) ---------- */
-.pagehero { background: var(--v3-blue); color: #fff; }
-.pagehero__inner { padding: clamp(120px, 16vw, 200px) 0 clamp(64px, 8vw, 110px); max-width: 62rem; }
-.pagehero__title {
-  font-family: var(--font-display); font-weight: 800;
-  font-size: clamp(38px, 6vw, 78px); line-height: 1.02; letter-spacing: -.03em;
-  margin: 18px 0 0; max-width: 18ch;
-}
-.pagehero__body { margin-top: clamp(22px, 3vw, 34px); max-width: 60ch; }
-.pagehero__body p { font-size: clamp(16px, 1.5vw, 20px); line-height: 1.7; color: rgba(255,255,255,.82); }
-.pagehero__body p + p { margin-top: 16px; }
-
-/* ---------- Intro (strategy before services) ---------- */
-.wwdintro__grid {
+/* ---------- Split hero ---------- */
+.wwdhero { background: var(--v3-blue); color: #fff; overflow: hidden; }
+.wwdhero__grid {
   display: grid; grid-template-columns: minmax(0,5fr) minmax(0,7fr);
-  gap: clamp(28px, 5vw, 80px); align-items: start;
+  align-items: stretch; min-height: min(78vh, 760px);
 }
-.wwdintro__title { margin-top: 12px; color: #000; }
-.wwdintro__body p { font-size: clamp(17px, 1.6vw, 21px); line-height: 1.7; color: var(--v3-text); }
-.wwdintro__body p + p { margin-top: 16px; }
-.wwdintro__kicker { font-family: var(--font-display); font-weight: 700; color: var(--v3-ink) !important; }
-
-/* ---------- Capabilities ---------- */
-.caps__eyebrow { display: inline-flex; margin-bottom: clamp(28px, 4vw, 48px); }
-.caps__list { display: flex; flex-direction: column; gap: 0; }
-.cap {
-  display: grid; grid-template-columns: minmax(0,5fr) minmax(0,7fr);
-  gap: clamp(28px, 5vw, 72px);
-  padding: clamp(40px, 5vw, 64px) 0;
-  border-top: 1px solid var(--v3-line);
+.wwdhero__media { position: relative; min-height: 320px; }
+.wwdhero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.wwdhero__media::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 60%, var(--v3-blue) 100%);
 }
-.cap:last-child { border-bottom: 1px solid var(--v3-line); }
-.cap__num {
-  font-family: var(--font-mono, monospace); font-size: 14px; font-weight: 700;
-  letter-spacing: .08em; display: inline-block; margin-bottom: 14px;
+.wwdhero__tags {
+  position: absolute; left: clamp(20px,4vw,44px); bottom: clamp(24px,4vw,40px);
+  z-index: 2; list-style: none; margin: 0; padding: 0; display: grid; gap: 6px;
 }
-.cap__title {
+.wwdhero__tags li {
+  font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(255,255,255,.8);
+}
+.wwdhero__text {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: clamp(56px,7vw,110px) clamp(28px,5vw,90px) clamp(56px,7vw,110px) clamp(28px,4vw,72px);
+}
+.wwdhero__title {
   font-family: var(--font-display); font-weight: 800;
-  font-size: clamp(26px, 3.4vw, 42px); line-height: 1.05; letter-spacing: -.02em;
-  color: var(--v3-ink); margin: 0 0 14px;
+  font-size: clamp(32px, 3.8vw, 56px); line-height: 1.04; letter-spacing: -.03em;
+  margin: 16px 0 0; max-width: 15ch;
 }
-.cap__tagline {
-  font-family: var(--font-display); font-weight: 700;
-  font-size: clamp(17px, 1.8vw, 22px); line-height: 1.3; color: var(--v3-ink);
-  margin: 0 0 12px; max-width: 24ch;
+.wwdhero__body { margin-top: clamp(20px,2.6vw,30px); max-width: 52ch; }
+.wwdhero__body p { font-size: clamp(16px,1.4vw,19px); line-height: 1.7; color: rgba(255,255,255,.82); }
+.wwdhero__body p + p { margin-top: 14px; }
+.wwdhero__cta { margin-top: clamp(28px,3.5vw,40px); }
+
+/* ---------- Strategy before services (blue band) ---------- */
+.wwdstrat { background: var(--v3-blue-d, #2E3178); color: #fff; }
+.wwdstrat__grid {
+  display: grid; grid-template-columns: minmax(0,5fr) minmax(0,7fr);
+  gap: clamp(28px,5vw,80px); align-items: start;
+  padding: clamp(48px,6vw,90px) 0;
 }
-.cap__overview { font-size: 16px; line-height: 1.65; color: var(--v3-text-2); max-width: 46ch; }
-.cap__explore {
-  display: inline-flex; align-items: center; gap: 10px; margin-top: 22px;
+.wwdstrat__title { color: #fff; margin: 0; }
+.wwdstrat__body p { font-size: clamp(16px,1.5vw,19px); line-height: 1.7; color: rgba(255,255,255,.8); }
+.wwdstrat__body p + p { margin-top: 14px; }
+.wwdstrat__kicker { color: #fff !important; font-family: var(--font-display); font-weight: 700; }
+
+/* ---------- Our capabilities (cards) ---------- */
+.wwdcaps__head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 24px;
+  margin-bottom: clamp(30px,4vw,52px); flex-wrap: wrap;
+}
+.wwdcaps__heading { color: #000; margin: 0; }
+.wwdcaps__tagline {
   font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--v3-ink); transition: gap .25s var(--v3-ease), color .25s;
+  color: var(--v3-teal);
 }
-.cap__explore svg { width: 16px; height: 16px; }
-.cap__explore:hover { gap: 16px; }
+.wwdcaps__grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+.capcard {
+  display: flex; flex-direction: column; background: #fff;
+  border: 1px solid var(--v3-line); border-radius: 14px;
+  padding: 24px 20px 22px;
+  transition: transform .3s var(--v3-ease), box-shadow .3s var(--v3-ease);
+}
+.capcard:hover { transform: translateY(-6px); box-shadow: 0 24px 50px rgba(27,29,69,.14); }
+.capcard__icon {
+  width: 46px; height: 46px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--v3-mist); margin-bottom: 18px;
+}
+.capcard__icon svg { width: 22px; height: 22px; }
+.capcard__num { font-family: var(--font-mono, monospace); font-size: 12px; font-weight: 700; color: var(--v3-text-2); }
+.capcard__title {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 19px; line-height: 1.14; letter-spacing: -.01em; color: var(--v3-ink);
+  margin: 6px 0 10px;
+}
+.capcard__overview { font-size: 14px; line-height: 1.55; color: var(--v3-text-2); margin: 0 0 16px; }
+.capcard__skills {
+  list-style: none; margin: 0 0 18px; padding: 16px 0 0; border-top: 1px solid var(--v3-line);
+  display: grid; gap: 7px;
+}
+.capcard__skills li { font-size: 13.5px; line-height: 1.35; color: var(--v3-ink); font-weight: 500; }
+.capcard__more { color: var(--v3-text-2) !important; font-weight: 600 !important; }
+.capcard__arrow {
+  margin-top: auto; width: 38px; height: 38px; border-radius: 50%;
+  border: 1.5px solid var(--v3-line); color: var(--v3-ink);
+  display: flex; align-items: center; justify-content: center;
+  transition: background .25s, color .25s, border-color .25s;
+}
+.capcard__arrow svg { width: 15px; height: 15px; }
 
-.cap__skills {
-  list-style: none; margin: 0; padding: 0;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(20px, 3vw, 48px);
-  align-content: start;
-}
-.skill {
-  display: flex; align-items: flex-start; gap: 12px;
-  padding: 13px 0; border-bottom: 1px solid var(--v3-line);
-  font-size: clamp(15px, 1.5vw, 17px); font-weight: 500; color: var(--v3-ink); line-height: 1.35;
-}
-.skill::before {
-  content: ""; flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%;
-  background: var(--v3-teal); margin-top: 8px;
-}
-
-/* per-capability accent colour (number, tagline emphasis, skill dots) */
-.cap--blue    .cap__num, .cap--blue    .cap__tagline { color: var(--v3-blue); }
-.cap--gold    .cap__num, .cap--gold    .cap__tagline { color: #C79A00; }
-.cap--magenta .cap__num, .cap--magenta .cap__tagline { color: var(--v3-magenta); }
-.cap--teal    .cap__num, .cap--teal    .cap__tagline { color: var(--v3-teal); }
-.cap--blue    .skill::before { background: var(--v3-blue); }
-.cap--gold    .skill::before { background: var(--v3-gold); }
-.cap--magenta .skill::before { background: var(--v3-magenta); }
-.cap--teal    .skill::before { background: var(--v3-teal); }
-.cap--blue    .cap__explore:hover, .cap--gold .cap__explore:hover,
-.cap--magenta .cap__explore:hover, .cap--teal .cap__explore:hover { color: var(--v3-ink); }
+/* per-capability accent (icon + number + hover arrow) */
+.capcard--blue    .capcard__icon { color: var(--v3-blue); }
+.capcard--gold    .capcard__icon { color: #C79A00; }
+.capcard--magenta .capcard__icon { color: var(--v3-magenta); }
+.capcard--teal    .capcard__icon { color: var(--v3-teal); }
+.capcard--blue    .capcard__num { color: var(--v3-blue); }
+.capcard--gold    .capcard__num { color: #C79A00; }
+.capcard--magenta .capcard__num { color: var(--v3-magenta); }
+.capcard--teal    .capcard__num { color: var(--v3-teal); }
+.capcard--blue:hover    .capcard__arrow { background: var(--v3-blue);    border-color: var(--v3-blue);    color: #fff; }
+.capcard--gold:hover    .capcard__arrow { background: var(--v3-gold);    border-color: var(--v3-gold);    color: var(--v3-ink); }
+.capcard--magenta:hover .capcard__arrow { background: var(--v3-magenta); border-color: var(--v3-magenta); color: #fff; }
+.capcard--teal:hover    .capcard__arrow { background: var(--v3-teal);    border-color: var(--v3-teal);    color: #fff; }
 
 /* ---------- Responsive ---------- */
-@media (max-width: 900px) {
-  .wwdintro__grid { grid-template-columns: 1fr; }
-  .cap { grid-template-columns: 1fr; gap: clamp(24px, 6vw, 36px); }
+@media (max-width: 1100px) {
+  .wwdcaps__grid { grid-template-columns: repeat(3, 1fr); }
 }
-@media (max-width: 560px) {
-  .cap__skills { grid-template-columns: 1fr; }
-  .pagehero__title { font-size: clamp(34px, 10vw, 46px); }
+@media (max-width: 900px) {
+  .wwdhero__grid { grid-template-columns: 1fr; min-height: 0; }
+  .wwdhero__media { min-height: 300px; }
+  .wwdhero__media::after { background: linear-gradient(0deg, var(--v3-blue) 0%, transparent 40%); }
+  .wwdstrat__grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .wwdcaps__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .wwdcaps__grid { grid-template-columns: 1fr; }
 }

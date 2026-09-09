@@ -165,12 +165,16 @@ Venn circles.)
     content migrated from local via All-in-One WP Migration).
   - Custom domain (fineries.net) not pointed yet — user will add in Vercel later.
 - Directus is retired from the live path (kept in `cms/` for reference).
-- DONE: **What We Do** page — `web/src/pages/what-we-do.astro` → `WhatWeDo.astro`. Hero +
-  intro + 5 capabilities (from the `service` CPT, extended with `cap_tagline`,
-  `cap_overview`, `cap_skills` [one per line], `cap_explore`) + shared CTA. Page copy in
-  the ACF **What We Do Page** options group (`wwd_*`). Nav/footer are now shared
-  components: `web/src/components/SiteNav.astro` + `SiteFooter.astro` (used by both
-  HomePage and WhatWeDo). Page styles: `web/public/css/wwd.css`.
+- DONE: **What We Do** page — `web/src/pages/what-we-do.astro` → `WhatWeDo.astro`.
+  Layout: split hero (portrait image left `wwd_hero_image` + text on blue, with
+  `wwd_hero_tags` overlay and `wwd_hero_cta_label` button) → "Strategy before services"
+  blue band (`wwd_intro_*`) → "Our capabilities" (`wwd_caps_heading`/`wwd_caps_tagline`)
+  as a 5-CARD grid → shared CTA. Cards come from the `service` CPT, extended with
+  `cap_tagline`, `cap_overview`, `cap_skills` [one per line], `cap_explore`, `cap_icon`
+  (Lucide); the card shows the top 5 skills + "+N more". Page copy in the ACF **What We
+  Do Page** options group (`wwd_*`). Nav/footer are shared components
+  (`web/src/components/SiteNav.astro` + `SiteFooter.astro`). Page styles:
+  `web/public/css/wwd.css`.
 - NOT DONE: remaining inner pages (Work, About, Insights, Contact) — still old static
   `site/*.html`; not in Astro/WP yet. Those nav links point to `#`. **Next phase.**
 - Repo hygiene: large media (videos, `web/public/media/`) are git-ignored; they remain

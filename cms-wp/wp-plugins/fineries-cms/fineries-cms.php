@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fineries CMS
  * Description: Headless content model for the Fineries Digital site — custom post types (Services, Work), ACF field groups, options pages, and a clean REST endpoint for the Astro front-end.
- * Version: 1.6.0
+ * Version: 1.7.0
  * Author: Fineries
  * Requires Plugins: advanced-custom-fields-pro
  */
@@ -159,12 +159,17 @@ add_action('acf/init', function () {
       $txt('wwd_hero_eyebrow', 'Hero — eyebrow'),
       $txt('wwd_hero_heading', 'Hero — heading'),
       $wys('wwd_hero_body', 'Hero — body'),
+      $img('wwd_hero_image', 'Hero — image (portrait; defaults to home hero image)'),
+      $txt('wwd_hero_tags', 'Hero — image tags (comma-separated)'),
+      $txt('wwd_hero_cta_label', 'Hero — button label'),
       // Intro
       $txt('wwd_intro_eyebrow', 'Intro — eyebrow'),
       $txt('wwd_intro_heading', 'Intro — heading'),
       $wys('wwd_intro_body', 'Intro — body'),
       // Capabilities
       $txt('wwd_caps_eyebrow', 'Capabilities — eyebrow'),
+      $txt('wwd_caps_heading', 'Capabilities — heading'),
+      $txt('wwd_caps_tagline', 'Capabilities — tagline (right of heading)'),
       // SEO
       $txt('wwd_seo_title', 'SEO — browser/tab title'),
       $area('wwd_seo_description', 'SEO — meta description'),
@@ -224,6 +229,7 @@ add_action('acf/init', function () {
       $area('cap_overview', 'WWD — overview paragraph'),
       $area('cap_skills', 'WWD — skills (one per line)'),
       $txt('cap_explore', 'WWD — “explore” link label'),
+      $txt('cap_icon', 'WWD — card icon (Lucide name, e.g. box, megaphone)'),
     ],
   ]);
 
@@ -273,6 +279,7 @@ add_action('rest_api_init', function () {
           'cap_overview' => get_field('cap_overview', $p->ID),
           'cap_skills' => get_field('cap_skills', $p->ID),
           'cap_explore' => get_field('cap_explore', $p->ID),
+          'cap_icon' => get_field('cap_icon', $p->ID),
         ];
       }, get_posts(['post_type' => 'service', 'numberposts' => -1, 'orderby' => 'menu_order', 'order' => 'ASC']));
 
