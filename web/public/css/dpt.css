@@ -1,0 +1,72 @@
+/* ============================================================
+   FINERIES — Web & App Development (Digital Products & Technology)
+   loads after v3.css + home.css; reuses their tokens
+   ============================================================ */
+
+/* ---------- Hero ---------- */
+.dpthero { background: var(--v3-blue); color: #fff; }
+.dpthero__inner {
+  padding: clamp(120px, 16vh, 190px) 0 clamp(64px, 9vw, 110px);
+  max-width: 60rem;
+}
+.dpthero__title {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(32px, 4vw, 58px); line-height: 1.04; letter-spacing: -.03em;
+  margin: 16px 0 0; max-width: 18ch;
+}
+.dpthero__body { margin-top: clamp(20px,2.6vw,30px); max-width: 58ch; font-size: clamp(16px,1.5vw,20px); line-height: 1.7; color: rgba(255,255,255,.85); }
+.dpthero__cta { display: inline-flex; align-self: flex-start; margin-top: clamp(28px,3.5vw,40px); border-color: transparent; }
+
+/* ---------- The shift (digital experience is the business) ---------- */
+.dptde__grid { display: grid; grid-template-columns: minmax(0,6fr) minmax(0,5fr); gap: clamp(28px,5vw,72px); align-items: center; }
+.dptde__title { color: #000; margin: 12px 0 18px; }
+.dptde__body p { font-size: 16px; line-height: 1.75; color: var(--v3-text); }
+.dptde__body p + p { margin-top: 14px; }
+.dptde__media { border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; background: var(--v3-mist); }
+.dptde__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ---------- Where our solutions create value ---------- */
+.dptvalue__head { max-width: 60ch; margin-bottom: clamp(30px,4vw,48px); }
+.dptvalue__head .body { margin-top: 10px; }
+.dptvalue__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.vcard { background: #fff; border: 1px solid var(--v3-line); border-radius: 14px; padding: 26px 22px; }
+.vcard__icon {
+  width: 46px; height: 46px; border-radius: 12px; background: var(--v3-mist);
+  display: flex; align-items: center; justify-content: center; color: var(--v3-teal); margin-bottom: 18px;
+}
+.vcard__icon svg { width: 22px; height: 22px; }
+.vcard__title { font-family: var(--font-display); font-weight: 800; font-size: 19px; letter-spacing: -.01em; color: var(--v3-ink); margin: 0 0 8px; }
+.vcard__desc { font-size: 14px; line-height: 1.55; color: var(--v3-text-2); margin: 0; }
+
+/* ---------- What we build ---------- */
+.dptbuild__head { margin-bottom: clamp(30px,4vw,48px); }
+.dptbuild__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.bcard { background: var(--v3-mist); border-radius: 16px; padding: clamp(28px,3vw,40px); }
+.bcard__icon {
+  width: 50px; height: 50px; border-radius: 12px; background: #fff;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+}
+.bcard__icon svg { width: 24px; height: 24px; }
+.bcard__title { font-family: var(--font-display); font-weight: 800; font-size: clamp(20px,2vw,24px); letter-spacing: -.01em; color: var(--v3-ink); margin: 0 0 10px; }
+.bcard__desc { font-size: 15px; line-height: 1.6; color: var(--v3-text-2); margin: 0 0 20px; max-width: 46ch; }
+.bcard__services { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.bcard__services li {
+  font-size: 13px; font-weight: 600; color: var(--v3-ink);
+  background: #fff; border: 1px solid var(--v3-line); border-radius: 999px; padding: 7px 14px;
+}
+.bcard--blue    .bcard__icon { color: var(--v3-blue); }
+.bcard--magenta .bcard__icon { color: var(--v3-magenta); }
+.bcard--teal    .bcard__icon { color: var(--v3-teal); }
+.bcard--gold    .bcard__icon { color: #C79A00; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .dptvalue__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 800px) {
+  .dptde__grid { grid-template-columns: 1fr; }
+  .dptbuild__grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .dptvalue__grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,181 @@
+---
+import SiteNav from "./SiteNav.astro";
+import SiteFooter from "./SiteFooter.astro";
+const { home = {}, settings = {}, services = [] } = Astro.props;
+
+const ctaWords = home.cta_words && home.cta_words.length ? home.cta_words : ["a brand", "a product", "content"];
+const heroImg = home.hero_image || "";
+
+const navItems = (settings.nav_items && settings.nav_items.length) ? settings.nav_items : [
+  { label: "Home", link: "/" },
+  { label: "What We Do", link: "/what-we-do" },
+  { label: "Work", link: "#" },
+  { label: "About", link: "#" },
+  { label: "Insights", link: "#" },
+  { label: "Contact", link: "#" },
+];
+const companyLinks = (settings.footer_company_links && settings.footer_company_links.length) ? settings.footer_company_links : [
+  { label: "About", link: "#" }, { label: "Work", link: "#" }, { label: "Insights", link: "#" }, { label: "Careers", link: "#" }, { label: "Contact", link: "#" },
+];
+const legalLinks = (settings.legal_links && settings.legal_links.length) ? settings.legal_links : [
+  { label: "Privacy", link: "#" }, { label: "Terms", link: "#" },
+];
+
+// "Where our solutions create value" — fallback items
+const valueItemsFallback = [
+  { icon: "trending-up", title: "Grow revenue", description: "Create better pathways from awareness to consideration to conversion." },
+  { icon: "user-plus", title: "Acquire customers", description: "Build digital experiences that attract the right audiences and turn attention into action." },
+  { icon: "star", title: "Strengthen the brand", description: "Translate your brand promise into every digital interaction." },
+  { icon: "rocket", title: "Create new business", description: "Turn new ideas into digital products, platforms and entirely new revenue opportunities." },
+];
+const valueItems = (Array.isArray(home.dpt_value_items) && home.dpt_value_items.length)
+  ? home.dpt_value_items.map((v) => ({ icon: v.icon || "circle", title: v.title, description: v.description }))
+  : valueItemsFallback;
+
+// "What we build" — fallback blocks (services stored one-per-line in CMS)
+const buildFallback = [
+  { icon: "globe", title: "Digital experiences", description: "Websites and digital platforms that communicate value, build trust and drive action.", services: ["Corporate websites", "E-commerce", "Campaign platforms", "Landing pages", "Digital redesigns"] },
+  { icon: "layout-dashboard", title: "Digital products", description: "Web applications that transform processes, services and business models.", services: ["Customer portals", "Dashboards", "SaaS", "Marketplaces", "Business systems", "Platforms"] },
+  { icon: "smartphone", title: "Mobile experiences", description: "Mobile apps that put products, services and communities directly in customers' hands.", services: ["Customer apps", "Fintech", "Commerce", "Service platforms"] },
+  { icon: "rocket", title: "New digital ventures", description: "Turn new ideas into digital products and platforms — from concept to launch.", services: ["Product strategy", "MVPs", "Prototyping", "Product design", "Development", "Launch"] },
+];
+const buildItems = (Array.isArray(home.dpt_build_items) && home.dpt_build_items.length)
+  ? home.dpt_build_items.map((b) => ({
+      icon: b.icon || "circle",
+      title: b.title,
+      description: b.description,
+      services: typeof b.services === "string" && b.services.trim()
+        ? b.services.split(/\r?\n/).map((s) => s.trim()).filter(Boolean)
+        : [],
+    }))
+  : buildFallback;
+const buildColor = ["blue", "magenta", "teal", "gold"];
+
+const deImg = home.dpt_de_image || heroImg;
+
+const pageTitle = home.dpt_seo_title || "Web & App Development | Fineries Digital";
+const pageDesc = home.dpt_seo_description || "We use strategy, creativity and technology to build websites, web apps, mobile apps and new digital ventures that move businesses forward.";
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{pageTitle}</title>
+<meta name="description" content={pageDesc} />
+<link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
+<link rel="stylesheet" href="/css/v3.css?v=47" />
+<link rel="stylesheet" href="/css/home.css?v=47" />
+<link rel="stylesheet" href="/css/dpt.css?v=1" />
+<script src="https://unpkg.com/lucide@latest" is:inline defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" is:inline defer></script>
+</head>
+<body>
+
+<SiteNav navItems={navItems} settings={settings} active="/what-we-do" />
+
+<main id="main">
+
+<!-- HERO -->
+<section class="dpthero">
+  <div class="wrap dpthero__inner on-blue" data-rv>
+    <span class="eyebrow">{home.dpt_hero_eyebrow || "Digital Products & Technology"}</span>
+    <h1 class="dpthero__title">{home.dpt_hero_heading || "What if technology could do more for your business?"}</h1>
+    <p class="dpthero__body">{home.dpt_hero_body || "From winning more customers to improving operations, we use strategy, creativity and technology to build solutions that move businesses forward."}</p>
+    <a class="btn3 btn3--solid dpthero__cta" href="#contact">{home.dpt_hero_cta_label || "Start a Project"} <i data-lucide="arrow-right"></i></a>
+  </div>
+</section>
+
+<!-- DIGITAL EXPERIENCE IS THE BUSINESS -->
+<section class="sec dptde">
+  <div class="wrap dptde__grid">
+    <div data-rv>
+      <span class="eyebrow">{home.dpt_de_eyebrow || "The shift"}</span>
+      <h2 class="h-lg dptde__title">{home.dpt_de_heading || "The digital experience is now part of the business."}</h2>
+      <div class="dptde__body body">
+        {home.dpt_de_body
+          ? <Fragment set:html={home.dpt_de_body} />
+          : (<>
+              <p>Your digital experience shapes how people see your business. A slow website. A confusing journey. A manual process. A fragmented experience.</p>
+              <p>Small digital problems can become big business problems. The question is: is your digital experience creating value, or getting in the way?</p>
+            </>)}
+      </div>
+    </div>
+    <div class="dptde__media media" data-rv>
+      {deImg && <img src={deImg} alt="" />}
+    </div>
+  </div>
+</section>
+
+<!-- WHERE OUR SOLUTIONS CREATE VALUE -->
+<section class="sec dptvalue" style="background:#f5f5f5">
+  <div class="wrap">
+    <div class="dptvalue__head" data-rv>
+      <h2 class="h-lg">{home.dpt_value_heading || "Where our solutions create value"}</h2>
+      <p class="body">{home.dpt_value_intro || "We focus on the business outcomes behind the technology."}</p>
+    </div>
+    <div class="dptvalue__grid" data-rv-stagger>
+      {valueItems.map((v) => (
+        <div class="vcard">
+          <span class="vcard__icon"><i data-lucide={v.icon}></i></span>
+          <h3 class="vcard__title">{v.title}</h3>
+          <p class="vcard__desc">{v.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE BUILD -->
+<section class="sec dptbuild">
+  <div class="wrap">
+    <div class="dptbuild__head" data-rv>
+      <span class="eyebrow">{home.dpt_build_eyebrow || "What We Build"}</span>
+      <h2 class="h-lg" style="margin-top:12px">{home.dpt_build_heading || "From websites to entirely new ventures."}</h2>
+    </div>
+    <div class="dptbuild__grid" data-rv-stagger>
+      {buildItems.map((b, i) => (
+        <article class={`bcard bcard--${buildColor[i % buildColor.length]}`}>
+          <span class="bcard__icon"><i data-lucide={b.icon}></i></span>
+          <h3 class="bcard__title">{b.title}</h3>
+          <p class="bcard__desc">{b.description}</p>
+          {b.services && b.services.length > 0 && (
+            <ul class="bcard__services">
+              {b.services.map((s) => <li>{s}</li>)}
+            </ul>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA (shared with home) -->
+<section class="cta3 ctahome" id="contact">
+  <div class="wrap cta3__inner on-blue">
+    <div class="ctahome__grid">
+      <div data-rv>
+        <span class="eyebrow">{home.cta_eyebrow || "Let's Build"}</span>
+        <h2 class="h-xl cta3__title" style="margin-top:18px">{home.cta_lead_in || "Ready to build"} <span class="hero3__rot cta3__rot" id="cta-rot" data-words={JSON.stringify(ctaWords)}>{ctaWords[0]}</span> {home.cta_lead_out || "people love?"}</h2>
+        <p class="body" style="margin-top:18px;max-width:44ch">{home.cta_body || "Let's talk."}</p>
+        <a class="cta3__action" href="#" style="margin-top:26px">
+          <span class="circ"><i data-lucide="arrow-right"></i></span>
+          <span>{home.cta_button_label || "Start a Conversation"}</span>
+        </a>
+      </div>
+      <div class="ctahome__figure" aria-hidden="true">
+        <img src={home.cta_image || heroImg} alt="" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<SiteFooter settings={settings} services={services} companyLinks={companyLinks} legalLinks={legalLinks} />
+
+</main>
+
+<script src="/js/v3.js?v=25" is:inline defer></script>
+</body>
+</html>

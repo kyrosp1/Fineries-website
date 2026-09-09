@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fineries CMS
  * Description: Headless content model for the Fineries Digital site — custom post types (Services, Work), ACF field groups, options pages, and a clean REST endpoint for the Astro front-end.
- * Version: 1.7.0
+ * Version: 1.8.0
  * Author: Fineries
  * Requires Plugins: advanced-custom-fields-pro
  */
@@ -61,6 +61,7 @@ add_action('acf/init', function () {
   if (!function_exists('acf_add_options_page')) return;
   acf_add_options_page(['page_title' => 'Home Content', 'menu_title' => 'Home Content', 'menu_slug' => 'fineries-home', 'icon_url' => 'dashicons-admin-home', 'position' => 2]);
   acf_add_options_page(['page_title' => 'What We Do Page', 'menu_title' => 'What We Do Page', 'menu_slug' => 'fineries-wwd', 'icon_url' => 'dashicons-screenoptions', 'position' => 3]);
+  acf_add_options_page(['page_title' => 'Web & App Page', 'menu_title' => 'Web & App Page', 'menu_slug' => 'fineries-dpt', 'icon_url' => 'dashicons-desktop', 'position' => 3]);
   acf_add_options_page(['page_title' => 'Site Settings', 'menu_title' => 'Site Settings', 'menu_slug' => 'fineries-settings', 'icon_url' => 'dashicons-admin-settings', 'position' => 4]);
 });
 
@@ -173,6 +174,41 @@ add_action('acf/init', function () {
       // SEO
       $txt('wwd_seo_title', 'SEO — browser/tab title'),
       $area('wwd_seo_description', 'SEO — meta description'),
+    ],
+  ]);
+
+  // ---- WEB & APP PAGE (Digital Products & Technology) ----
+  acf_add_local_field_group([
+    'key' => 'group_dpt',
+    'title' => 'Web & App Page',
+    'show_in_rest' => 1,
+    'location' => [[['param' => 'options_page', 'operator' => '==', 'value' => 'fineries-dpt']]],
+    'fields' => [
+      // Hero
+      $txt('dpt_hero_eyebrow', 'Hero — eyebrow'),
+      $txt('dpt_hero_heading', 'Hero — heading'),
+      $area('dpt_hero_body', 'Hero — body'),
+      $txt('dpt_hero_cta_label', 'Hero — button label'),
+      // The shift
+      $txt('dpt_de_eyebrow', 'Shift — eyebrow'),
+      $txt('dpt_de_heading', 'Shift — heading'),
+      $wys('dpt_de_body', 'Shift — body'),
+      $img('dpt_de_image', 'Shift — image'),
+      // Where our solutions create value
+      $txt('dpt_value_heading', 'Value — heading'),
+      $area('dpt_value_intro', 'Value — intro'),
+      ['key' => 'f_dpt_value_items', 'name' => 'dpt_value_items', 'label' => 'Value items', 'type' => 'repeater', 'layout' => 'block', 'sub_fields' => [
+        $txt('icon', 'Icon (Lucide name)'), $txt('title', 'Title'), $area('description', 'Description'),
+      ]],
+      // What we build
+      $txt('dpt_build_eyebrow', 'Build — eyebrow'),
+      $txt('dpt_build_heading', 'Build — heading'),
+      ['key' => 'f_dpt_build_items', 'name' => 'dpt_build_items', 'label' => 'What we build (blocks)', 'type' => 'repeater', 'layout' => 'block', 'sub_fields' => [
+        $txt('icon', 'Icon (Lucide name)'), $txt('title', 'Title'), $area('description', 'Description'), $area('services', 'Services (one per line)'),
+      ]],
+      // SEO
+      $txt('dpt_seo_title', 'SEO — browser/tab title'),
+      $area('dpt_seo_description', 'SEO — meta description'),
     ],
   ]);
 

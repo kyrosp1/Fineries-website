@@ -10,7 +10,8 @@
   align-items: stretch; min-height: min(70vh, 700px);
 }
 .wwdhero__media { position: relative; min-height: 320px; }
-.wwdhero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* contain so the head is never cropped on desktop; sits at the bottom, blue fills above */
+.wwdhero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
 .wwdhero__tags {
   position: absolute; left: clamp(20px,4vw,44px); bottom: clamp(24px,4vw,40px);
   z-index: 2; list-style: none; margin: 0; padding: 0; display: grid; gap: 6px;
@@ -36,14 +37,14 @@
 .wwdhero__text .wwdhero__cta { border-color: transparent; }
 
 /* ---------- Strategy before services (blue band) ---------- */
-.wwdstrat { background: var(--v3-blue-d, #2E3178); color: #fff; }
+.wwdstrat { background: var(--v3-teal); color: #fff; }
 .wwdstrat__grid {
   display: grid; grid-template-columns: minmax(0,5fr) minmax(0,7fr);
   gap: clamp(28px,5vw,80px); align-items: start;
   padding: clamp(48px,6vw,90px) clamp(20px,4vw,56px);
 }
 .wwdstrat__title { color: #fff; margin: 0; }
-.wwdstrat__body p { font-size: 16px; line-height: 1.75; color: rgba(255,255,255,.8); }
+.wwdstrat__body p { font-size: 16px; line-height: 1.75; color: rgba(255,255,255,.92); }
 .wwdstrat__body p + p { margin-top: 14px; }
 .wwdstrat__kicker { color: #fff !important; font-family: var(--font-display); font-weight: 700; }
 
@@ -115,6 +116,7 @@
   .wwdhero { position: relative; padding-top: 0; }
   .wwdhero__grid { display: block; min-height: 0; }
   .wwdhero__media { position: absolute; inset: 0; min-height: 0; }
+  .wwdhero__media img { object-fit: cover; object-position: center; }
   .wwdhero__tags { display: none; }
   .wwdhero__text {
     position: relative; z-index: 2;

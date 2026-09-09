@@ -122,6 +122,33 @@ update_field('wwd_caps_tagline', 'Five disciplines. One purpose.', 'option');
 update_field('wwd_seo_title', 'What We Do | Fineries Digital', 'option');
 update_field('wwd_seo_description', 'Brand & strategy, marketing & growth, content & production, digital products & technology, and executive branding — the capabilities Fineries brings together to solve the right problem.', 'option');
 
+// ---- Web & App page (Digital Products & Technology) ----
+update_field('dpt_hero_eyebrow', 'Digital Products & Technology', 'option');
+update_field('dpt_hero_heading', 'What if technology could do more for your business?', 'option');
+update_field('dpt_hero_body', 'From winning more customers to improving operations, we use strategy, creativity and technology to build solutions that move businesses forward.', 'option');
+update_field('dpt_hero_cta_label', 'Start a Project', 'option');
+update_field('dpt_de_eyebrow', 'The shift', 'option');
+update_field('dpt_de_heading', 'The digital experience is now part of the business.', 'option');
+update_field('dpt_de_body', "<p>Your digital experience shapes how people see your business. A slow website. A confusing journey. A manual process. A fragmented experience.</p><p>Small digital problems can become big business problems. The question is: is your digital experience creating value, or getting in the way?</p>", 'option');
+update_field('dpt_value_heading', 'Where our solutions create value', 'option');
+update_field('dpt_value_intro', 'We focus on the business outcomes behind the technology.', 'option');
+update_field('dpt_value_items', [
+  ['icon' => 'trending-up', 'title' => 'Grow revenue', 'description' => 'Create better pathways from awareness to consideration to conversion.'],
+  ['icon' => 'user-plus', 'title' => 'Acquire customers', 'description' => 'Build digital experiences that attract the right audiences and turn attention into action.'],
+  ['icon' => 'star', 'title' => 'Strengthen the brand', 'description' => 'Translate your brand promise into every digital interaction.'],
+  ['icon' => 'rocket', 'title' => 'Create new business', 'description' => 'Turn new ideas into digital products, platforms and entirely new revenue opportunities.'],
+], 'option');
+update_field('dpt_build_eyebrow', 'What We Build', 'option');
+update_field('dpt_build_heading', 'From websites to entirely new ventures.', 'option');
+update_field('dpt_build_items', [
+  ['icon' => 'globe', 'title' => 'Digital experiences', 'description' => 'Websites and digital platforms that communicate value, build trust and drive action.', 'services' => "Corporate websites\nE-commerce\nCampaign platforms\nLanding pages\nDigital redesigns"],
+  ['icon' => 'layout-dashboard', 'title' => 'Digital products', 'description' => 'Web applications that transform processes, services and business models.', 'services' => "Customer portals\nDashboards\nSaaS\nMarketplaces\nBusiness systems\nPlatforms"],
+  ['icon' => 'smartphone', 'title' => 'Mobile experiences', 'description' => "Mobile apps that put products, services and communities directly in customers' hands.", 'services' => "Customer apps\nFintech\nCommerce\nService platforms"],
+  ['icon' => 'rocket', 'title' => 'New digital ventures', 'description' => 'Turn new ideas into digital products and platforms — from concept to launch.', 'services' => "Product strategy\nMVPs\nPrototyping\nProduct design\nDevelopment\nLaunch"],
+], 'option');
+update_field('dpt_seo_title', 'Web & App Development | Fineries Digital', 'option');
+update_field('dpt_seo_description', 'We use strategy, creativity and technology to build websites, web apps, mobile apps and new digital ventures that move businesses forward.', 'option');
+
 // ---- Site settings (same option store) ----
 update_field('seo_title', 'Fineries Digital | We Build Brands, Products, Content People Love | Lagos, Nigeria', 'option');
 update_field('seo_description', 'Fineries Digital brings strategy, creativity and technology together to help ambitious organisations grow, connect and create what comes next.', 'option');
@@ -162,7 +189,7 @@ if (!get_posts(['post_type' => 'service', 'numberposts' => 1])) {
     ['Brand & Strategy', '01', 'Find the right position. Build a brand with something to say.', '/services', 'blue', 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=800&q=75'],
     ['Marketing & Growth', '02', 'Reach the right people. Turn attention into action.', '/services', 'gold', 'https://images.unsplash.com/photo-1573497019236-17f8177b81e8?auto=format&fit=crop&w=800&q=75'],
     ['Content & Production', '03', 'Create work worth noticing, remembering and sharing.', '/services', 'magenta', 'https://images.unsplash.com/photo-1594751543129-6701ad444259?auto=format&fit=crop&w=800&q=75'],
-    ['Digital Products & Technology', '04', 'Build digital experiences, products and systems that make the business better.', '/technology', 'teal', 'https://images.unsplash.com/photo-1573167243872-43c6433b9d40?auto=format&fit=crop&w=800&q=75'],
+    ['Digital Products & Technology', '04', 'Build digital experiences, products and systems that make the business better.', '/web-and-app-development', 'teal', 'https://images.unsplash.com/photo-1573167243872-43c6433b9d40?auto=format&fit=crop&w=800&q=75'],
     ['Executive & Personal Branding', '05', 'Help leaders become known for what they know and what they stand for.', '/services', 'blue', 'https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?auto=format&fit=crop&w=800&q=75'],
   ];
   $o = 1;

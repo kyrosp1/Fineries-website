@@ -1,0 +1,8 @@
+---
+import WebAndApp from "../components/WebAndApp.astro";
+import { getHomeBundle } from "../lib/wp.js";
+
+// Content from headless WordPress (fineries-cms REST endpoint).
+const { home, settings, services } = await getHomeBundle();
+---
+<WebAndApp home={home} settings={settings} services={services} />
