@@ -148,8 +148,8 @@
               ease: "none",
               scrollTrigger: {
                 trigger: step,
-                start: "top 62%",
-                end: "top 42%",
+                start: "top 52%",
+                end: "top 34%",
                 scrub: 0.3
               }
             });
