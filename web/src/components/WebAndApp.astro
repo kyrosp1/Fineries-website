@@ -5,9 +5,10 @@ const { home = {}, settings = {}, services = [] } = Astro.props;
 
 const ctaWords = home.cta_words && home.cta_words.length ? home.cta_words : ["a brand", "a product", "content"];
 const heroImg = home.hero_image || "";
-const dptHeroVideo = "https://fineries.net/wp-content/uploads/2026/09/0904-copy.mp4";
-const dptHeroVideoMobile = "https://fineries.net/wp-content/uploads/2026/09/0904-mobile.mp4";
-const dptHeroPoster = "https://fineries.net/wp-content/uploads/2026/09/web-app5.png";
+const dptMediaBase = "https://cms.fineries.net/wp-content/plugins/fineries-cms/assets/media";
+const dptHeroVideo = `${dptMediaBase}/web-app-hero-landscape.mp4`;
+const dptHeroVideoMobile = `${dptMediaBase}/web-app-hero-mobile.mp4`;
+const dptHeroPoster = `${dptMediaBase}/web-app-hero-poster.png`;
 
 const navItems = (settings.nav_items && settings.nav_items.length) ? settings.nav_items : [
   { label: "Home", link: "/" },

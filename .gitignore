@@ -33,3 +33,8 @@ fineries-cms.zip
 # large media that should not be in git (served from WordPress / regenerated)
 site/assets/*.mp4
 web/public/media/
+
+# temporary/local production media processing
+.tmp-ffmpeg/
+.tmp-ffmpeg.zip
+cms-wp/wp-plugins/fineries-cms/assets/media/
