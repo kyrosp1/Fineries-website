@@ -120,6 +120,7 @@
   align-self: center; justify-self: center;
   font-family: var(--font-display); font-weight: 800;
   font-size: clamp(34px, 4.5vw, 60px); line-height: 1; letter-spacing: -.02em;
+  color: #33343b; transition: color .25s var(--v3-ease);
 }
 .caprow__text { align-self: center; padding: 22px 24px 22px 4px; }
 .caprow__title {
@@ -151,10 +152,10 @@
 .caprow--teal:hover    { background: rgba(8,188,179,.10); }
 .caprow--magenta:hover { background: rgba(192,24,145,.06); }
 .caprow--gold:hover    { background: rgba(255,200,12,.14); }
-.caprow--blue    .caprow__num { color: var(--v3-blue); }
-.caprow--teal    .caprow__num { color: var(--v3-teal); }
-.caprow--magenta .caprow__num { color: var(--v3-magenta); }
-.caprow--gold    .caprow__num { color: #C79A00; }
+.caprow--blue:hover    .caprow__num { color: var(--v3-blue); }
+.caprow--teal:hover    .caprow__num { color: var(--v3-teal); }
+.caprow--magenta:hover .caprow__num { color: var(--v3-magenta); }
+.caprow--gold:hover    .caprow__num { color: #C79A00; }
 .caprow--blue    .caprow__media { background: var(--v3-blue); }
 .caprow--teal    .caprow__media { background: var(--v3-teal); }
 .caprow--magenta .caprow__media { background: var(--v3-magenta); }
