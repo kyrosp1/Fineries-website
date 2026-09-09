@@ -57,7 +57,7 @@
   font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
   color: var(--v3-teal);
 }
-.wwdcaps__grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+.wwdcaps__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .capcard {
   display: flex; flex-direction: column; background: #fff;
   border: 1px solid var(--v3-line); border-radius: 14px;
