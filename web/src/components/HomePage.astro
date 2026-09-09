@@ -46,7 +46,7 @@ const ringColor = ["blue", "magenta", "teal"];
 <meta name="description" content={settings.seo_description || "Fineries Digital brings strategy, creativity and technology together to help ambitious organisations grow, connect and create what comes next."} />
 <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
 <link rel="stylesheet" href="/css/v3.css?v=47" />
-<link rel="stylesheet" href="/css/home.css?v=47" />
+<link rel="stylesheet" href="/css/home.css?v=48" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
@@ -127,20 +127,25 @@ const ringColor = ["blue", "magenta", "teal"];
 <!-- OUR PROCESS -->
 <section class="process on-blue">
   <div class="wrap process__grid">
-    <div data-rv>
+    <div class="process__intro" data-rv>
       <span class="eyebrow">{home.process_eyebrow || "Our Process"}</span>
       <h2 class="h-lg" style="color:#fff;margin:16px 0 20px">{home.process_heading}</h2>
       <p class="body">{home.process_body}</p>
       <a class="btn3" href="#" style="margin-top:26px">{home.process_cta_label || "See how we work"} <i data-lucide="arrow-right"></i></a>
     </div>
-    <div class="process__steps" data-rv-stagger>
+    <div class="process__timeline" data-process-timeline>
+      <div class="process__rail" aria-hidden="true"><span data-process-progress></span></div>
       {steps.map((st) => (
-        <div class="pstep">
-          <div class="pstep__icon"><i data-lucide={st.icon || "circle"}></i></div>
-          <span class="pstep__num">{st.num}</span>
-          <h4 class="pstep__title">{st.title}</h4>
-          <p class="pstep__desc">{st.description}</p>
-        </div>
+        <article class="pstep" data-process-step>
+          <div class="pstep__node">
+            <span class="pstep__num">{st.num}</span>
+            <span class="pstep__icon"><i data-lucide={st.icon || "circle"}></i></span>
+          </div>
+          <div class="pstep__copy">
+            <h4 class="pstep__title">{st.title}</h4>
+            <p class="pstep__desc">{st.description}</p>
+          </div>
+        </article>
       ))}
     </div>
   </div>
@@ -189,6 +194,6 @@ const ringColor = ["blue", "magenta", "teal"];
 
 </main>
 
-<script src="/js/v3.js?v=25" is:inline defer></script>
+<script src="/js/v3.js?v=26" is:inline defer></script>
 </body>
 </html>

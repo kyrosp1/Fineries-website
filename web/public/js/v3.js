@@ -117,6 +117,43 @@
       });
     });
 
+    /* ---- Sticky process timeline ---- */
+    var processTimeline = document.querySelector("[data-process-timeline]");
+    if (processTimeline) {
+      var processSteps = Array.prototype.slice.call(processTimeline.querySelectorAll("[data-process-step]"));
+      var processProgress = processTimeline.querySelector("[data-process-progress]");
+      var processMedia = gsap.matchMedia();
+
+      processMedia.add("(min-width: 801px)", function () {
+        if (processSteps[0]) processSteps[0].classList.add("is-active");
+
+        if (processProgress) {
+          gsap.to(processProgress, {
+            scaleY: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: processTimeline,
+              start: "top 52%",
+              end: "bottom 52%",
+              scrub: 0.35
+            }
+          });
+        }
+
+        processSteps.forEach(function (step, index) {
+          ScrollTrigger.create({
+            trigger: step,
+            start: "top 58%",
+            end: "bottom 42%",
+            onEnter: function () { step.classList.add("is-active"); },
+            onLeaveBack: function () {
+              if (index > 0) step.classList.remove("is-active");
+            }
+          });
+        });
+      });
+    }
+
     /* ---- Magnetic ---- */
     if (window.matchMedia("(hover: hover)").matches) {
       document.querySelectorAll(".btn3, .circ, .hero3__watch .play").forEach(function (btn) {
