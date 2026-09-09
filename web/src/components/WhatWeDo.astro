@@ -81,6 +81,8 @@ const caps = capsRaw.map((s) => {
     color: s.color || capColor[num] || "blue",
     link: s.link || "#",
     icon: s.cap_icon || d.icon || "circle",
+    image: s.image || "",
+    tagline: s.cap_tagline || d.tagline || "",
     overview: s.cap_overview || d.overview || "",
     skills: skillsFromCms || d.skills || [],
     explore: s.cap_explore || d.explore || (s.title ? `Explore ${s.title}` : "Explore"),
@@ -100,7 +102,7 @@ const pageDesc = home.wwd_seo_description || "Brand & strategy, marketing & grow
 <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
 <link rel="stylesheet" href="/css/v3.css?v=47" />
 <link rel="stylesheet" href="/css/home.css?v=47" />
-<link rel="stylesheet" href="/css/wwd.css?v=7" />
+<link rel="stylesheet" href="/css/wwd.css?v=8" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
@@ -172,6 +174,28 @@ const pageDesc = home.wwd_seo_description || "Brand & strategy, marketing & grow
             {c.skills.length > 5 && <li class="capcard__more">+ {c.skills.length - 5} more</li>}
           </ul>
           <span class="capcard__arrow"><i data-lucide="arrow-right"></i></span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- OUR CAPABILITIES — ALT LAYOUT (rows) — kept alongside the cards for comparison -->
+<section class="sec capsB">
+  <div class="wrap">
+    <span class="eyebrow capsB__eyebrow">{home.wwd_caps_eyebrow || "Our Capabilities"}</span>
+    <div class="capsB__list" data-rv-stagger>
+      {caps.map((c) => (
+        <a class={`caprow caprow--${c.color}`} href={c.link}>
+          <span class="caprow__num">{c.num}</span>
+          <div class="caprow__text">
+            <h3 class="caprow__title" set:html={c.title}></h3>
+            <p class="caprow__tagline">{c.tagline}</p>
+          </div>
+          <div class="caprow__media">
+            {c.image && <img src={c.image} alt="" />}
+            <span class="caprow__arrow"><i data-lucide="arrow-right"></i></span>
+          </div>
         </a>
       ))}
     </div>
