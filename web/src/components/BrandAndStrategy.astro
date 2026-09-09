@@ -1,0 +1,111 @@
+---
+import SiteNav from "./SiteNav.astro";
+import SiteFooter from "./SiteFooter.astro";
+const { home = {}, settings = {}, services = [] } = Astro.props;
+
+const navItems = (settings.nav_items && settings.nav_items.length) ? settings.nav_items : [
+  { label: "Home", link: "/" }, { label: "What We Do", link: "/what-we-do" },
+  { label: "Work", link: "#" }, { label: "About", link: "#" },
+  { label: "Insights", link: "#" }, { label: "Contact", link: "#contact" },
+];
+const companyLinks = (settings.footer_company_links && settings.footer_company_links.length) ? settings.footer_company_links : [
+  { label: "About", link: "#" }, { label: "Work", link: "#" }, { label: "Insights", link: "#" }, { label: "Careers", link: "#" }, { label: "Contact", link: "#contact" },
+];
+const legalLinks = (settings.legal_links && settings.legal_links.length) ? settings.legal_links : [
+  { label: "Privacy", link: "#" }, { label: "Terms", link: "#" },
+];
+
+const questions = typeof home.bs_problem_questions === "string" && home.bs_problem_questions.trim()
+  ? home.bs_problem_questions.split(/\r?\n/).map((q) => q.trim()).filter(Boolean)
+  : ["What should we say?", "Who should we speak to?", "How should we look?", "Where should we compete?", "Why should anyone choose us?"];
+const serviceFallback = [
+  { icon: "search", title: "Research & Insights", description: "Understand your audience, market, competitors and opportunities." },
+  { icon: "compass", title: "Brand Strategy", description: "Define the thinking that guides the brand." },
+  { icon: "map-pin", title: "Positioning", description: "Own a meaningful place in people's minds." },
+  { icon: "network", title: "Brand Architecture", description: "Create clarity across brands, products and services." },
+  { icon: "shapes", title: "Identity", description: "Turn strategy into a distinctive visual and verbal system." },
+  { icon: "message-square", title: "Messaging", description: "Find the words that make what you do matter." },
+];
+const brandServices = Array.isArray(home.bs_services) && home.bs_services.length ? home.bs_services : serviceFallback;
+const pageTitle = home.bs_seo_title || "Brand & Strategy | Fineries Digital";
+const pageDesc = home.bs_seo_description || "Brand research, strategy, positioning, architecture, identity and messaging that give people a reason to choose you.";
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{pageTitle}</title>
+<meta name="description" content={pageDesc} />
+<link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
+<link rel="stylesheet" href="/css/v3.css?v=47" />
+<link rel="stylesheet" href="/css/home.css?v=47" />
+<link rel="stylesheet" href="/css/brand-strategy.css?v=1" />
+<script src="https://unpkg.com/lucide@latest" is:inline defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" is:inline defer></script>
+</head>
+<body>
+<SiteNav navItems={navItems} settings={settings} active="/what-we-do" />
+<main id="main">
+  <section class="bshero on-blue">
+    <div class="wrap bshero__inner">
+      <div class="bshero__copy" data-rv>
+        <span class="eyebrow">{home.bs_hero_eyebrow || "Brand & Strategy"}</span>
+        <h1 class="bshero__title">{home.bs_hero_heading || "Give your brand something to stand for."}</h1>
+        <div class="bshero__body body" set:html={home.bs_hero_body || "<p>Great brands aren't built by starting with a logo.</p><p>They're built by understanding the business, the market, the people you want to reach and the place you want to occupy in their minds.</p><p><strong>That's where we start.</strong></p>"}></div>
+      </div>
+      <div class="bshero__field" aria-hidden="true" data-rv>
+        <span class="bshero__axis bshero__axis--x"></span><span class="bshero__axis bshero__axis--y"></span>
+        <span class="bshero__orbit bshero__orbit--one"></span><span class="bshero__orbit bshero__orbit--two"></span>
+        <span class="bshero__point"></span><span class="bshero__label">Your position</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec bsproblem">
+    <div class="wrap bsproblem__grid">
+      <div data-rv>
+        <span class="eyebrow">{home.bs_problem_eyebrow || "The Problem"}</span>
+        <h2 class="h-lg bsproblem__title">{home.bs_problem_heading || "Clarity changes everything."}</h2>
+        <div class="body bsproblem__body" set:html={home.bs_problem_body || "<p>When the strategy is clear, decisions become easier.</p><p>We help organisations find the answers.</p>"}></div>
+      </div>
+      <ol class="bsproblem__questions" data-rv-stagger>
+        {questions.map((question, index) => <li><span>{String(index + 1).padStart(2, "0")}</span>{question}</li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec bsservices">
+    <div class="wrap">
+      <div class="bsservices__head" data-rv>
+        <span class="eyebrow">{home.bs_services_eyebrow || "What We Do"}</span>
+        <h2 class="h-lg">{home.bs_services_heading || "Build from a clear point of view."}</h2>
+      </div>
+      <div class="bsservices__grid" data-rv-stagger>
+        {brandServices.map((service, index) => (
+          <article class={`bservice bservice--${index + 1}`}>
+            <span class="bservice__num">{String(index + 1).padStart(2, "0")}</span>
+            <span class="bservice__icon"><i data-lucide={service.icon || "circle"}></i></span>
+            <h3>{service.title}</h3>
+            <p>{service.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bscta on-blue" id="contact">
+    <div class="wrap bscta__inner" data-rv>
+      <h2>{home.bs_cta_heading || "Give people a reason to choose you."}</h2>
+      <a class="bscta__action" href={home.bs_cta_link || "#contact"}>
+        <span>{home.bs_cta_label || "Talk to us about your brand"}</span><i data-lucide="arrow-right"></i>
+      </a>
+    </div>
+  </section>
+  <SiteFooter settings={settings} services={services} companyLinks={companyLinks} legalLinks={legalLinks} />
+</main>
+<script src="/js/v3.js?v=25" is:inline defer></script>
+</body>
+</html>

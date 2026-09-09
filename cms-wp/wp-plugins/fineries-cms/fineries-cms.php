@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fineries CMS
  * Description: Headless content model for the Fineries Digital site — custom post types (Services, Work), ACF field groups, options pages, and a clean REST endpoint for the Astro front-end.
- * Version: 1.8.1
+ * Version: 1.9.0
  * Author: Fineries
  * Requires Plugins: advanced-custom-fields-pro
  */
@@ -62,6 +62,7 @@ add_action('acf/init', function () {
   acf_add_options_page(['page_title' => 'Home Content', 'menu_title' => 'Home Content', 'menu_slug' => 'fineries-home', 'icon_url' => 'dashicons-admin-home', 'position' => 2]);
   acf_add_options_page(['page_title' => 'What We Do Page', 'menu_title' => 'What We Do Page', 'menu_slug' => 'fineries-wwd', 'icon_url' => 'dashicons-screenoptions', 'position' => 3]);
   acf_add_options_page(['page_title' => 'Web & App Page', 'menu_title' => 'Web & App Page', 'menu_slug' => 'fineries-dpt', 'icon_url' => 'dashicons-desktop', 'position' => 3]);
+  acf_add_options_page(['page_title' => 'Brand & Strategy Page', 'menu_title' => 'Brand & Strategy Page', 'menu_slug' => 'fineries-brand-strategy', 'icon_url' => 'dashicons-art', 'position' => 3]);
   acf_add_options_page(['page_title' => 'Site Settings', 'menu_title' => 'Site Settings', 'menu_slug' => 'fineries-settings', 'icon_url' => 'dashicons-admin-settings', 'position' => 4]);
 });
 
@@ -209,6 +210,38 @@ add_action('acf/init', function () {
       // SEO
       $txt('dpt_seo_title', 'SEO — browser/tab title'),
       $area('dpt_seo_description', 'SEO — meta description'),
+    ],
+  ]);
+
+  // ---- BRAND & STRATEGY PAGE ----
+  acf_add_local_field_group([
+    'key' => 'group_brand_strategy',
+    'title' => 'Brand & Strategy Page',
+    'show_in_rest' => 1,
+    'location' => [[['param' => 'options_page', 'operator' => '==', 'value' => 'fineries-brand-strategy']]],
+    'fields' => [
+      // Hero
+      $txt('bs_hero_eyebrow', 'Hero — eyebrow'),
+      $txt('bs_hero_heading', 'Hero — heading'),
+      $wys('bs_hero_body', 'Hero — body'),
+      // The problem
+      $txt('bs_problem_eyebrow', 'Problem — eyebrow'),
+      $txt('bs_problem_heading', 'Problem — heading'),
+      $wys('bs_problem_body', 'Problem — body'),
+      $area('bs_problem_questions', 'Problem — questions (one per line)'),
+      // What we do
+      $txt('bs_services_eyebrow', 'Services — eyebrow'),
+      $txt('bs_services_heading', 'Services — heading'),
+      ['key' => 'f_bs_services', 'name' => 'bs_services', 'label' => 'Brand & strategy services', 'type' => 'repeater', 'layout' => 'block', 'sub_fields' => [
+        $txt('icon', 'Icon (Lucide name)'), $txt('title', 'Title'), $area('description', 'Description'),
+      ]],
+      // CTA
+      $txt('bs_cta_heading', 'CTA — heading'),
+      $txt('bs_cta_label', 'CTA — button label'),
+      $txt('bs_cta_link', 'CTA — button link'),
+      // SEO
+      $txt('bs_seo_title', 'SEO — browser/tab title'),
+      $area('bs_seo_description', 'SEO — meta description'),
     ],
   ]);
 

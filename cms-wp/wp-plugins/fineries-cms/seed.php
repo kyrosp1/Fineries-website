@@ -149,6 +149,30 @@ update_field('dpt_build_items', [
 update_field('dpt_seo_title', 'Web & App Development | Fineries Digital', 'option');
 update_field('dpt_seo_description', 'We use strategy, creativity and technology to build websites, web apps, mobile apps and new digital ventures that move businesses forward.', 'option');
 
+// ---- Brand & Strategy page ----
+update_field('bs_hero_eyebrow', 'Brand & Strategy', 'option');
+update_field('bs_hero_heading', 'Give your brand something to stand for.', 'option');
+update_field('bs_hero_body', "<p>Great brands aren't built by starting with a logo.</p><p>They're built by understanding the business, the market, the people you want to reach and the place you want to occupy in their minds.</p><p><strong>That's where we start.</strong></p>", 'option');
+update_field('bs_problem_eyebrow', 'The Problem', 'option');
+update_field('bs_problem_heading', 'Clarity changes everything.', 'option');
+update_field('bs_problem_body', '<p>When the strategy is clear, decisions become easier.</p><p>We help organisations find the answers.</p>', 'option');
+update_field('bs_problem_questions', "What should we say?\nWho should we speak to?\nHow should we look?\nWhere should we compete?\nWhy should anyone choose us?", 'option');
+update_field('bs_services_eyebrow', 'What We Do', 'option');
+update_field('bs_services_heading', 'Build from a clear point of view.', 'option');
+update_field('bs_services', [
+  ['icon' => 'search', 'title' => 'Research & Insights', 'description' => 'Understand your audience, market, competitors and opportunities.'],
+  ['icon' => 'compass', 'title' => 'Brand Strategy', 'description' => 'Define the thinking that guides the brand.'],
+  ['icon' => 'map-pin', 'title' => 'Positioning', 'description' => "Own a meaningful place in people's minds."],
+  ['icon' => 'network', 'title' => 'Brand Architecture', 'description' => 'Create clarity across brands, products and services.'],
+  ['icon' => 'shapes', 'title' => 'Identity', 'description' => 'Turn strategy into a distinctive visual and verbal system.'],
+  ['icon' => 'message-square', 'title' => 'Messaging', 'description' => 'Find the words that make what you do matter.'],
+], 'option');
+update_field('bs_cta_heading', 'Give people a reason to choose you.', 'option');
+update_field('bs_cta_label', 'Talk to us about your brand', 'option');
+update_field('bs_cta_link', '#contact', 'option');
+update_field('bs_seo_title', 'Brand & Strategy | Fineries Digital', 'option');
+update_field('bs_seo_description', 'Brand research, strategy, positioning, architecture, identity and messaging that give people a reason to choose you.', 'option');
+
 // ---- Site settings (same option store) ----
 update_field('seo_title', 'Fineries Digital | We Build Brands, Products, Content People Love | Lagos, Nigeria', 'option');
 update_field('seo_description', 'Fineries Digital brings strategy, creativity and technology together to help ambitious organisations grow, connect and create what comes next.', 'option');
@@ -186,7 +210,7 @@ update_field('social_x', '#', 'option');
 // ---- Services CPT ----
 if (!get_posts(['post_type' => 'service', 'numberposts' => 1])) {
   $services = [
-    ['Brand & Strategy', '01', 'Find the right position. Build a brand with something to say.', '/services', 'blue', 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=800&q=75'],
+    ['Brand & Strategy', '01', 'Find the right position. Build a brand with something to say.', '/brand-and-strategy', 'blue', 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=800&q=75'],
     ['Marketing & Growth', '02', 'Reach the right people. Turn attention into action.', '/services', 'gold', 'https://images.unsplash.com/photo-1573497019236-17f8177b81e8?auto=format&fit=crop&w=800&q=75'],
     ['Content & Production', '03', 'Create work worth noticing, remembering and sharing.', '/services', 'magenta', 'https://images.unsplash.com/photo-1594751543129-6701ad444259?auto=format&fit=crop&w=800&q=75'],
     ['Digital Products & Technology', '04', 'Build digital experiences, products and systems that make the business better.', '/digital-and-tech', 'teal', 'https://images.unsplash.com/photo-1573167243872-43c6433b9d40?auto=format&fit=crop&w=800&q=75'],

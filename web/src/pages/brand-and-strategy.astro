@@ -1,0 +1,7 @@
+---
+import BrandAndStrategy from "../components/BrandAndStrategy.astro";
+import { getHomeBundle } from "../lib/wp.js";
+
+const { home, settings, services } = await getHomeBundle();
+---
+<BrandAndStrategy home={home} settings={settings} services={services} />
