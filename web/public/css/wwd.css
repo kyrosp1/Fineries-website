@@ -185,10 +185,6 @@
   .wwdhero { position: relative; padding-top: 0; }
   .wwdhero__grid { display: block; min-height: 0; }
   .wwdhero__media { position: absolute; inset: 0; min-height: 0; }
-  .wwdhero__media::before {
-    content: ""; position: absolute; inset: 0; z-index: 1;
-    background: linear-gradient(180deg, rgba(24,25,58,.68) 0%, rgba(24,25,58,.55) 100%);
-  }
   .wwdhero__tags { display: none; }
   .wwdhero__text {
     position: relative; z-index: 2;
