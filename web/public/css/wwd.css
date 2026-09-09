@@ -112,8 +112,8 @@
 .caprow {
   display: grid; grid-template-columns: clamp(84px,9vw,132px) 1fr minmax(230px, 34%);
   align-items: stretch; min-height: 150px;
-  border-radius: 16px; overflow: hidden; background: var(--v3-mist);
-  transition: transform .3s var(--v3-ease), box-shadow .3s var(--v3-ease);
+  border-radius: 16px; overflow: hidden; background: #f3f4f6;
+  transition: transform .3s var(--v3-ease), box-shadow .3s var(--v3-ease), background-color .3s var(--v3-ease);
 }
 .caprow:hover { transform: translateY(-3px); box-shadow: 0 20px 44px rgba(27,29,69,.12); }
 .caprow__num {
@@ -141,11 +141,11 @@
 .caprow__arrow svg { width: 17px; height: 17px; }
 .caprow:hover .caprow__arrow { background: #fff; }
 
-/* per-capability colour: row tint, number, media block + arrow-on-hover icon */
-.caprow--blue    { background: rgba(60,64,153,.06); }
-.caprow--teal    { background: rgba(8,188,179,.08); }
-.caprow--magenta { background: rgba(192,24,145,.05); }
-.caprow--gold    { background: rgba(255,200,12,.12); }
+/* per-capability colour: neutral by default, brand tint on hover */
+.caprow--blue:hover    { background: rgba(60,64,153,.07); }
+.caprow--teal:hover    { background: rgba(8,188,179,.10); }
+.caprow--magenta:hover { background: rgba(192,24,145,.06); }
+.caprow--gold:hover    { background: rgba(255,200,12,.14); }
 .caprow--blue    .caprow__num { color: var(--v3-blue); }
 .caprow--teal    .caprow__num { color: var(--v3-teal); }
 .caprow--magenta .caprow__num { color: var(--v3-magenta); }
