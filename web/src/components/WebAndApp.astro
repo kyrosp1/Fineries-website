@@ -5,6 +5,7 @@ const { home = {}, settings = {}, services = [] } = Astro.props;
 
 const ctaWords = home.cta_words && home.cta_words.length ? home.cta_words : ["a brand", "a product", "content"];
 const heroImg = home.hero_image || "";
+const heroVideo = home.hero_video || "";
 
 const navItems = (settings.nav_items && settings.nav_items.length) ? settings.nav_items : [
   { label: "Home", link: "/" },
@@ -66,7 +67,7 @@ const pageDesc = home.dpt_seo_description || "We use strategy, creativity and te
 <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
 <link rel="stylesheet" href="/css/v3.css?v=47" />
 <link rel="stylesheet" href="/css/home.css?v=47" />
-<link rel="stylesheet" href="/css/dpt.css?v=1" />
+<link rel="stylesheet" href="/css/dpt.css?v=2" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
@@ -80,13 +81,29 @@ const pageDesc = home.dpt_seo_description || "We use strategy, creativity and te
 
 <!-- HERO -->
 <section class="dpthero">
-  <div class="wrap dpthero__inner on-blue" data-rv>
-    <span class="eyebrow">{home.dpt_hero_eyebrow || "Digital Products & Technology"}</span>
-    <h1 class="dpthero__title">{home.dpt_hero_heading || "What if technology could do more for your business?"}</h1>
-    <p class="dpthero__body">{home.dpt_hero_body || "From winning more customers to improving operations, we use strategy, creativity and technology to build solutions that move businesses forward."}</p>
-    <a class="btn3 btn3--solid dpthero__cta" href="#contact">{home.dpt_hero_cta_label || "Start a Project"} <i data-lucide="arrow-right"></i></a>
+  <div class="wrap dpthero__inner on-blue">
+    <div class="dpthero__copy" data-rv>
+      <span class="eyebrow dpthero__eyebrow">{home.dpt_hero_eyebrow || "Digital Products & Technology"}</span>
+      <h1 class="dpthero__title">{home.dpt_hero_heading || "What if technology could do more for your business?"}</h1>
+      <p class="dpthero__body">{home.dpt_hero_body || "From winning more customers to improving operations, we use strategy, creativity and technology to build solutions that move businesses forward."}</p>
+      <a class="dpthero__cta" href="#contact">{home.dpt_hero_cta_label || "Start a Project"}</a>
+    </div>
+    <button class="dpthero__media" type="button" data-open-video aria-label={home.hero_watch_label || "Play our story video"} data-rv>
+      <span class="dpthero__media-glow" aria-hidden="true"></span>
+      <span class="dpthero__play" aria-hidden="true"><i data-lucide="play"></i></span>
+      <span class="dpthero__watch">{home.hero_watch_label || "Watch our story"}</span>
+    </button>
   </div>
 </section>
+
+<div class="vmodal" data-video-modal aria-hidden="true">
+  <div class="vmodal__frame">
+    <button class="vmodal__close" type="button" data-close-video aria-label="Close video">&times;</button>
+    <video controls playsinline preload="none">
+      {heroVideo && <source src={heroVideo} type="video/mp4" />}
+    </video>
+  </div>
+</div>
 
 <!-- DIGITAL EXPERIENCE IS THE BUSINESS -->
 <section class="sec dptde">
