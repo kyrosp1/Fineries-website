@@ -92,10 +92,19 @@ const pageDesc = home.dpt_seo_description || "We use strategy, creativity and te
       <a class="dpthero__cta" href="#contact">{home.dpt_hero_cta_label || "Start a Project"}</a>
     </div>
     <button class="dpthero__media" type="button" data-open-video aria-label={home.hero_watch_label || "Play our story video"} data-rv>
-      <video class="dpthero__video" autoplay muted loop playsinline preload="metadata" poster={dptHeroPoster} aria-hidden="true">
-        <source src={dptHeroVideoMobile} type="video/mp4" media="(max-width: 800px)" />
-        <source src={dptHeroVideo} type="video/mp4" />
-      </video>
+      <video
+        class="dpthero__video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        poster={dptHeroPoster}
+        data-responsive-video
+        data-desktop-src={dptHeroVideo}
+        data-mobile-src={dptHeroVideoMobile}
+        aria-hidden="true"
+      ></video>
       <span class="dpthero__shade" aria-hidden="true"></span>
       <span class="dpthero__media-glow" aria-hidden="true"></span>
       <span class="dpthero__play" aria-hidden="true"><i data-lucide="play"></i></span>
@@ -107,10 +116,15 @@ const pageDesc = home.dpt_seo_description || "We use strategy, creativity and te
 <div class="vmodal" data-video-modal aria-hidden="true">
   <div class="vmodal__frame">
     <button class="vmodal__close" type="button" data-close-video aria-label="Close video">&times;</button>
-    <video controls playsinline preload="none" poster={dptHeroPoster}>
-      <source src={dptHeroVideoMobile} type="video/mp4" media="(max-width: 800px)" />
-      <source src={dptHeroVideo} type="video/mp4" />
-    </video>
+    <video
+      controls
+      playsinline
+      preload="none"
+      poster={dptHeroPoster}
+      data-responsive-video
+      data-desktop-src={dptHeroVideo}
+      data-mobile-src={dptHeroVideoMobile}
+    ></video>
   </div>
 </div>
 
@@ -203,5 +217,27 @@ const pageDesc = home.dpt_seo_description || "We use strategy, creativity and te
 </main>
 
 <script src="/js/v3.js?v=25" is:inline defer></script>
+<script is:inline>
+  (() => {
+    const mobile = window.matchMedia("(max-width: 800px)");
+    const videos = document.querySelectorAll("[data-responsive-video]");
+
+    const selectVideo = () => {
+      videos.forEach((video) => {
+        const nextSrc = mobile.matches ? video.dataset.mobileSrc : video.dataset.desktopSrc;
+        if (!nextSrc || video.getAttribute("src") === nextSrc) return;
+
+        const shouldAutoplay = video.hasAttribute("autoplay");
+        video.pause();
+        video.setAttribute("src", nextSrc);
+        video.load();
+        if (shouldAutoplay) video.play().catch(() => {});
+      });
+    };
+
+    selectVideo();
+    mobile.addEventListener("change", selectVideo);
+  })();
+</script>
 </body>
 </html>
