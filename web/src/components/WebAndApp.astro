@@ -92,19 +92,7 @@ const pageDesc = home.dpt_seo_description || "We use strategy, creativity and te
       <a class="dpthero__cta" href="#contact">{home.dpt_hero_cta_label || "Start a Project"}</a>
     </div>
     <button class="dpthero__media" type="button" data-open-video aria-label={home.hero_watch_label || "Play our story video"} data-rv>
-      <video
-        class="dpthero__video"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="metadata"
-        poster={dptHeroPoster}
-        data-responsive-video
-        data-desktop-src={dptHeroVideo}
-        data-mobile-src={dptHeroVideoMobile}
-        aria-hidden="true"
-      ></video>
+      <img class="dpthero__video" src={dptHeroPoster} alt="" aria-hidden="true" />
       <span class="dpthero__shade" aria-hidden="true"></span>
       <span class="dpthero__media-glow" aria-hidden="true"></span>
       <span class="dpthero__play" aria-hidden="true"><i data-lucide="play"></i></span>
@@ -220,18 +208,16 @@ const pageDesc = home.dpt_seo_description || "We use strategy, creativity and te
 <script is:inline>
   (() => {
     const mobile = window.matchMedia("(max-width: 800px)");
-    const videos = document.querySelectorAll("[data-responsive-video]");
+    const videos = document.querySelectorAll("video[data-responsive-video]");
 
     const selectVideo = () => {
       videos.forEach((video) => {
         const nextSrc = mobile.matches ? video.dataset.mobileSrc : video.dataset.desktopSrc;
         if (!nextSrc || video.getAttribute("src") === nextSrc) return;
 
-        const shouldAutoplay = video.hasAttribute("autoplay");
         video.pause();
         video.setAttribute("src", nextSrc);
         video.load();
-        if (shouldAutoplay) video.play().catch(() => {});
       });
     };
 
