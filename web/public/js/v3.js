@@ -141,6 +141,19 @@
         }
 
         processSteps.forEach(function (step, index) {
+          var node = step.querySelector(".pstep__node");
+          if (node) {
+            gsap.to(node, {
+              "--step-fill": 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: step,
+                start: "top 62%",
+                end: "top 42%",
+                scrub: 0.3
+              }
+            });
+          }
           ScrollTrigger.create({
             trigger: step,
             start: "top 58%",
