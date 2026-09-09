@@ -35,12 +35,6 @@
 .bservice--2 .bservice__icon, .bservice--6 .bservice__icon { color: var(--v3-magenta); }
 .bservice--3 .bservice__icon, .bservice--5 .bservice__icon { color: var(--v3-teal); }
 .bservice--4 .bservice__icon { color: #b88b00; }
-.bscta { background: var(--v3-blue); }
-.bscta__inner { display: flex; justify-content: space-between; align-items: center; gap: 40px; padding-top: clamp(76px,9vw,120px); padding-bottom: clamp(76px,9vw,120px); }
-.bscta h2 { margin: 0; max-width: 14ch; font-family: var(--font-display); font-size: clamp(34px,4.5vw,62px); font-weight: 800; line-height: 1.05; letter-spacing: -.035em; }
-.bscta__action { display: inline-flex; align-items: center; gap: 18px; padding: 19px 25px; border-radius: 999px; background: var(--v3-gold); color: var(--v3-ink); font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; transition: transform .25s var(--v3-ease), background .25s var(--v3-ease); }
-.bscta__action:hover { transform: translateY(-3px); background: #fff; }
-.bscta__action svg { width: 20px; height: 20px; }
 @media (max-width: 900px) {
   .bshero { min-height: auto; }
   .bshero__inner { grid-template-columns: 1fr; min-height: auto; padding-top: 132px; }
@@ -53,9 +47,8 @@
   .bshero__title { font-size: clamp(36px,10vw,48px); max-width: 100%; }
   .bshero__field { border-radius: 18px; }
   .bsproblem__questions li { grid-template-columns: 38px 1fr; }
-  .bsservices__head, .bscta__inner { align-items: flex-start; flex-direction: column; }
+  .bsservices__head { align-items: flex-start; flex-direction: column; }
   .bsservices__head .h-lg { text-align: left; }
   .bsservices__grid { grid-template-columns: 1fr; }
   .bservice { min-height: 260px; }
-  .bscta__action { white-space: normal; }
 }
