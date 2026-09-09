@@ -90,10 +90,11 @@
 .pstep:last-child { min-height: 76px; }
 .pstep__node { --step-fill: 0; position: relative; display: grid; width: 74px; height: 74px; overflow: hidden; place-items: center; border-radius: 50%; color: rgba(255,255,255,.62); }
 .pstep__node::before { content: ""; position: absolute; z-index: 0; inset: 0; border: 2px solid rgba(255,255,255,.18); border-radius: inherit; background: var(--v3-blue); transition: border-color .35s var(--v3-ease), transform .35s var(--v3-ease); }
-.pstep__node::after { content: ""; position: absolute; z-index: 1; inset: 0; border-radius: inherit; background: var(--v3-teal); transform: scaleY(var(--step-fill)); transform-origin: bottom; }
-.pstep__icon { position: absolute; z-index: 3; display: grid; place-items: center; opacity: 0; transform: scale(.7); color: #fff; transition: opacity .3s var(--v3-ease), transform .35s var(--v3-ease); }
+.pstep__node::after { content: ""; position: absolute; z-index: 1; inset: 0; border-radius: inherit; background: var(--v3-teal); transform: scaleY(var(--step-fill)); transform-origin: top; }
+.pstep__core { position: absolute; z-index: 2; inset: 3px; border-radius: 50%; background: var(--v3-blue); }
+.pstep__icon { position: absolute; z-index: 4; display: grid; place-items: center; opacity: 0; transform: scale(.7); color: var(--v3-teal); transition: opacity .3s var(--v3-ease), transform .35s var(--v3-ease); }
 .pstep__icon svg { width: 25px; height: 25px; }
-.pstep__num { position: relative; z-index: 2; font-family: var(--font-mono, monospace); font-size: 13px; color: inherit; transition: opacity .25s var(--v3-ease); }
+.pstep__num { position: relative; z-index: 3; font-family: var(--font-mono, monospace); font-size: 13px; color: inherit; transition: opacity .25s var(--v3-ease); }
 .pstep__copy { padding-top: 5px; }
 .pstep__title { margin: 0 0 10px; font-family: var(--font-display); font-weight: 700; font-size: clamp(17px,1.6vw,22px); color: #fff; }
 .pstep__desc { max-width: 38ch; margin: 0; font-size: clamp(15px,1.35vw,18px); line-height: 1.55; color: rgba(255,255,255,.62); transition: color .35s var(--v3-ease); }
