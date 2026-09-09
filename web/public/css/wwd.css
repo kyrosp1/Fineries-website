@@ -4,10 +4,10 @@
    ============================================================ */
 
 /* ---------- Split hero ---------- */
-.wwdhero { background: var(--v3-blue); color: #fff; overflow: hidden; }
+.wwdhero { background: var(--v3-blue); color: #fff; overflow: hidden; padding-top: clamp(96px, 12vh, 150px); }
 .wwdhero__grid {
   display: grid; grid-template-columns: 1fr 1fr;
-  align-items: stretch; min-height: min(78vh, 760px);
+  align-items: stretch; min-height: min(70vh, 700px);
 }
 .wwdhero__media { position: relative; min-height: 320px; }
 .wwdhero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -32,6 +32,8 @@
 .wwdhero__body p { font-size: 16px; line-height: 1.75; color: rgba(255,255,255,.82); }
 .wwdhero__body p + p { margin-top: 14px; }
 .wwdhero__cta { margin-top: clamp(28px,3.5vw,40px); align-self: flex-start; }
+/* solid teal button, no white outline (overrides the .on-blue .btn3 border) */
+.wwdhero__text .wwdhero__cta { border-color: transparent; }
 
 /* ---------- Strategy before services (blue band) ---------- */
 .wwdstrat { background: var(--v3-blue-d, #2E3178); color: #fff; }
