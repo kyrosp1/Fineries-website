@@ -165,8 +165,14 @@ Venn circles.)
     content migrated from local via All-in-One WP Migration).
   - Custom domain (fineries.net) not pointed yet — user will add in Vercel later.
 - Directus is retired from the live path (kept in `cms/` for reference).
-- NOT DONE: inner pages (What We Do, Work, About, Insights, Contact) — still old static
-  `site/*.html`; not in Astro/WP yet. Home nav links point to `#`. **Next phase.**
+- DONE: **What We Do** page — `web/src/pages/what-we-do.astro` → `WhatWeDo.astro`. Hero +
+  intro + 5 capabilities (from the `service` CPT, extended with `cap_tagline`,
+  `cap_overview`, `cap_skills` [one per line], `cap_explore`) + shared CTA. Page copy in
+  the ACF **What We Do Page** options group (`wwd_*`). Nav/footer are now shared
+  components: `web/src/components/SiteNav.astro` + `SiteFooter.astro` (used by both
+  HomePage and WhatWeDo). Page styles: `web/public/css/wwd.css`.
+- NOT DONE: remaining inner pages (Work, About, Insights, Contact) — still old static
+  `site/*.html`; not in Astro/WP yet. Those nav links point to `#`. **Next phase.**
 - Repo hygiene: large media (videos, `web/public/media/`) are git-ignored; they remain
   in early history — an optional `git filter-repo`/BFG pass could slim the clone.
 

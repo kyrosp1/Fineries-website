@@ -1,0 +1,196 @@
+---
+import SiteNav from "./SiteNav.astro";
+import SiteFooter from "./SiteFooter.astro";
+const { home = {}, settings = {}, services = [] } = Astro.props;
+
+const ctaWords = home.cta_words && home.cta_words.length ? home.cta_words : ["a brand", "a product", "content"];
+const heroImg = home.hero_image || "";
+const navItems = (settings.nav_items && settings.nav_items.length) ? settings.nav_items : [
+  { label: "Home", link: "/" },
+  { label: "What We Do", link: "/what-we-do" },
+  { label: "Work", link: "#" },
+  { label: "About", link: "#" },
+  { label: "Insights", link: "#" },
+  { label: "Contact", link: "#" },
+];
+const companyLinks = (settings.footer_company_links && settings.footer_company_links.length) ? settings.footer_company_links : [
+  { label: "About", link: "#" }, { label: "Work", link: "#" }, { label: "Insights", link: "#" }, { label: "Careers", link: "#" }, { label: "Contact", link: "#" },
+];
+const legalLinks = (settings.legal_links && settings.legal_links.length) ? settings.legal_links : [
+  { label: "Privacy", link: "#" }, { label: "Terms", link: "#" },
+];
+
+// Fallback capability content (used when the service's CMS fields are empty),
+// keyed by the service number.
+const capData = {
+  "01": {
+    tagline: "Build a brand people understand, remember and choose.",
+    overview: "We help organisations define who they are, where they belong and why people should care.",
+    skills: ["Research & Insights", "Brand Strategy", "Brand Positioning", "Brand Architecture", "Brand Identity", "Visual Identity Systems", "Naming", "Brand Messaging", "Verbal Identity", "Brand Guidelines"],
+    explore: "Explore Brand & Strategy",
+  },
+  "02": {
+    tagline: "Turn attention into action.",
+    overview: "We create integrated marketing programmes that help brands reach the right audiences, create demand and drive measurable growth.",
+    skills: ["Marketing Strategy", "Campaign Strategy", "Digital Marketing", "Performance Advertising", "Social Media Marketing", "Influencer Marketing", "SEO", "Content Marketing", "Media Planning & Buying", "Campaign Management"],
+    explore: "Explore Marketing & Growth",
+  },
+  "03": {
+    tagline: "Make something worth paying attention to.",
+    overview: "From an idea on a page to something people watch, read, share and remember.",
+    skills: ["Creative Direction", "Campaign Concepts", "Video Production", "Photography", "Motion Design", "Animation", "Social Content", "Copywriting", "Branded Content", "AI-assisted Content Production"],
+    explore: "Explore Content & Production",
+  },
+  "04": {
+    tagline: "Build what the business needs next.",
+    overview: "We design and build digital products, experiences and systems that help organisations serve customers better, operate more efficiently and create new opportunities.",
+    skills: ["Websites", "Web Applications", "Mobile Applications", "Digital Platforms", "E-commerce", "Customer Portals", "Internal Tools", "Business Systems", "UI/UX Design", "AI Solutions", "Workflow Automation", "Systems Integration"],
+    explore: "Explore Digital Products & Technology",
+  },
+  "05": {
+    tagline: "Become known for what you know.",
+    overview: "We help founders, executives and leaders turn their expertise and perspective into influence.",
+    skills: ["Executive Positioning", "Personal Brand Strategy", "Thought Leadership", "Content Strategy", "LinkedIn Strategy", "Executive Content", "Visual Identity", "Reputation Building"],
+    explore: "Explore Executive & Personal Branding",
+  },
+};
+const capColor = { "01": "blue", "02": "gold", "03": "magenta", "04": "teal", "05": "blue" };
+
+const fallbackCaps = [
+  { num: "01", title: "Brand & Strategy", color: "blue", link: "#" },
+  { num: "02", title: "Marketing & Growth", color: "gold", link: "#" },
+  { num: "03", title: "Content & Production", color: "magenta", link: "#" },
+  { num: "04", title: "Digital Products & Technology", color: "teal", link: "#" },
+  { num: "05", title: "Executive & Personal Branding", color: "blue", link: "#" },
+];
+const capsRaw = (services && services.length) ? services : fallbackCaps;
+
+// Merge CMS service data with the fallback capability content.
+const caps = capsRaw.map((s) => {
+  const num = s.num || "01";
+  const d = capData[num] || {};
+  const skillsFromCms = typeof s.cap_skills === "string" && s.cap_skills.trim()
+    ? s.cap_skills.split(/\r?\n/).map((x) => x.trim()).filter(Boolean)
+    : null;
+  return {
+    num,
+    title: s.title || "",
+    color: s.color || capColor[num] || "blue",
+    link: s.link || "#",
+    tagline: s.cap_tagline || d.tagline || "",
+    overview: s.cap_overview || d.overview || "",
+    skills: skillsFromCms || d.skills || [],
+    explore: s.cap_explore || d.explore || (s.title ? `Explore ${s.title}` : "Explore"),
+  };
+});
+
+const pageTitle = home.wwd_seo_title || "What We Do | Fineries Digital";
+const pageDesc = home.wwd_seo_description || "Brand & strategy, marketing & growth, content & production, digital products & technology, and executive branding — the capabilities Fineries brings together to solve the right problem.";
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{pageTitle}</title>
+<meta name="description" content={pageDesc} />
+<link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
+<link rel="stylesheet" href="/css/v3.css?v=47" />
+<link rel="stylesheet" href="/css/home.css?v=47" />
+<link rel="stylesheet" href="/css/wwd.css?v=1" />
+<script src="https://unpkg.com/lucide@latest" is:inline defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" is:inline defer></script>
+</head>
+<body>
+
+<SiteNav navItems={navItems} settings={settings} active="/what-we-do" />
+
+<main id="main">
+
+<!-- PAGE HERO -->
+<section class="pagehero">
+  <div class="wrap pagehero__inner on-blue" data-rv>
+    <span class="eyebrow">{home.wwd_hero_eyebrow || "What We Do"}</span>
+    <h1 class="pagehero__title">{home.wwd_hero_heading || "Different problems need different answers."}</h1>
+    <div class="pagehero__body">
+      {home.wwd_hero_body
+        ? <Fragment set:html={home.wwd_hero_body} />
+        : (<>
+            <p>Sometimes you need to rethink the brand. Sometimes you need to reach more people. Sometimes you need a campaign people can't ignore. Sometimes you need to build an entirely new product.</p>
+            <p>We bring the capabilities together to help you figure out what needs to happen, then make it happen.</p>
+          </>)}
+    </div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="sec wwdintro">
+  <div class="wrap wwdintro__grid" data-rv>
+    <div>
+      <span class="eyebrow">{home.wwd_intro_eyebrow || "How we work"}</span>
+      <h2 class="h-lg wwdintro__title">{home.wwd_intro_heading || "Strategy before services."}</h2>
+    </div>
+    <div class="wwdintro__body">
+      {home.wwd_intro_body
+        ? <Fragment set:html={home.wwd_intro_body} />
+        : (<>
+            <p>We don't start by asking which service we can sell you. We start with the problem.</p>
+            <p>What needs to change? What are we trying to achieve? Who are we trying to move? What's getting in the way?</p>
+            <p class="wwdintro__kicker">The answer determines what we do next.</p>
+          </>)}
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="sec caps" style="background:#f5f5f5">
+  <div class="wrap">
+    <span class="eyebrow caps__eyebrow">{home.wwd_caps_eyebrow || "Capabilities"}</span>
+    <div class="caps__list">
+      {caps.map((c) => (
+        <article class={`cap cap--${c.color}`} data-rv>
+          <div class="cap__head">
+            <span class="cap__num">{c.num}</span>
+            <h3 class="cap__title" set:html={c.title}></h3>
+            <p class="cap__tagline">{c.tagline}</p>
+            <p class="cap__overview">{c.overview}</p>
+            <a class="cap__explore" href={c.link}>{c.explore} <i data-lucide="arrow-right"></i></a>
+          </div>
+          <ul class="cap__skills">
+            {c.skills.map((sk) => <li class="skill">{sk}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA (shared with home) -->
+<section class="cta3 ctahome">
+  <div class="wrap cta3__inner on-blue">
+    <div class="ctahome__grid">
+      <div data-rv>
+        <span class="eyebrow">{home.cta_eyebrow || "Let's Build"}</span>
+        <h2 class="h-xl cta3__title" style="margin-top:18px">{home.cta_lead_in || "Ready to build"} <span class="hero3__rot cta3__rot" id="cta-rot" data-words={JSON.stringify(ctaWords)}>{ctaWords[0]}</span> {home.cta_lead_out || "people love?"}</h2>
+        <p class="body" style="margin-top:18px;max-width:44ch">{home.cta_body || "Let's talk."}</p>
+        <a class="cta3__action" href="#" style="margin-top:26px">
+          <span class="circ"><i data-lucide="arrow-right"></i></span>
+          <span>{home.cta_button_label || "Start a Conversation"}</span>
+        </a>
+      </div>
+      <div class="ctahome__figure" aria-hidden="true">
+        <img src={home.cta_image || heroImg} alt="" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<SiteFooter settings={settings} services={services} companyLinks={companyLinks} legalLinks={legalLinks} />
+
+</main>
+
+<script src="/js/v3.js?v=25" is:inline defer></script>
+</body>
+</html>

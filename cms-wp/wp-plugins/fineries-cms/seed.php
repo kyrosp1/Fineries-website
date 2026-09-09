@@ -107,12 +107,23 @@ update_field('cta_body', "Let's talk.", 'option');
 update_field('cta_button_label', 'Start a Conversation', 'option');
 if ($hero_img) update_field('cta_image', $hero_img, 'option');
 
+// ---- What We Do page (options) ----
+update_field('wwd_hero_eyebrow', 'What We Do', 'option');
+update_field('wwd_hero_heading', 'Different problems need different answers.', 'option');
+update_field('wwd_hero_body', "<p>Sometimes you need to rethink the brand. Sometimes you need to reach more people. Sometimes you need a campaign people can't ignore. Sometimes you need to build an entirely new product.</p><p>We bring the capabilities together to help you figure out what needs to happen, then make it happen.</p>", 'option');
+update_field('wwd_intro_eyebrow', 'How we work', 'option');
+update_field('wwd_intro_heading', 'Strategy before services.', 'option');
+update_field('wwd_intro_body', "<p>We don't start by asking which service we can sell you. We start with the problem.</p><p>What needs to change? What are we trying to achieve? Who are we trying to move? What's getting in the way?</p><p><strong>The answer determines what we do next.</strong></p>", 'option');
+update_field('wwd_caps_eyebrow', 'Capabilities', 'option');
+update_field('wwd_seo_title', 'What We Do | Fineries Digital', 'option');
+update_field('wwd_seo_description', 'Brand & strategy, marketing & growth, content & production, digital products & technology, and executive branding — the capabilities Fineries brings together to solve the right problem.', 'option');
+
 // ---- Site settings (same option store) ----
 update_field('seo_title', 'Fineries Digital | We Build Brands, Products, Content People Love | Lagos, Nigeria', 'option');
 update_field('seo_description', 'Fineries Digital brings strategy, creativity and technology together to help ambitious organisations grow, connect and create what comes next.', 'option');
 update_field('nav_items', [
   ['label' => 'Home', 'link' => '/'],
-  ['label' => 'What We Do', 'link' => '#'],
+  ['label' => 'What We Do', 'link' => '/what-we-do'],
   ['label' => 'Work', 'link' => '#'],
   ['label' => 'About', 'link' => '#'],
   ['label' => 'Insights', 'link' => '#'],

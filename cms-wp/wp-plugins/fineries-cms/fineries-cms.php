@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fineries CMS
  * Description: Headless content model for the Fineries Digital site — custom post types (Services, Work), ACF field groups, options pages, and a clean REST endpoint for the Astro front-end.
- * Version: 1.5.0
+ * Version: 1.6.0
  * Author: Fineries
  * Requires Plugins: advanced-custom-fields-pro
  */
@@ -60,7 +60,8 @@ add_action('init', function () {
 add_action('acf/init', function () {
   if (!function_exists('acf_add_options_page')) return;
   acf_add_options_page(['page_title' => 'Home Content', 'menu_title' => 'Home Content', 'menu_slug' => 'fineries-home', 'icon_url' => 'dashicons-admin-home', 'position' => 2]);
-  acf_add_options_page(['page_title' => 'Site Settings', 'menu_title' => 'Site Settings', 'menu_slug' => 'fineries-settings', 'icon_url' => 'dashicons-admin-settings', 'position' => 3]);
+  acf_add_options_page(['page_title' => 'What We Do Page', 'menu_title' => 'What We Do Page', 'menu_slug' => 'fineries-wwd', 'icon_url' => 'dashicons-screenoptions', 'position' => 3]);
+  acf_add_options_page(['page_title' => 'Site Settings', 'menu_title' => 'Site Settings', 'menu_slug' => 'fineries-settings', 'icon_url' => 'dashicons-admin-settings', 'position' => 4]);
 });
 
 /* =========================================================
@@ -147,6 +148,29 @@ add_action('acf/init', function () {
     ],
   ]);
 
+  // ---- WHAT WE DO PAGE (options) ----
+  acf_add_local_field_group([
+    'key' => 'group_wwd',
+    'title' => 'What We Do Page',
+    'show_in_rest' => 1,
+    'location' => [[['param' => 'options_page', 'operator' => '==', 'value' => 'fineries-wwd']]],
+    'fields' => [
+      // Hero
+      $txt('wwd_hero_eyebrow', 'Hero — eyebrow'),
+      $txt('wwd_hero_heading', 'Hero — heading'),
+      $wys('wwd_hero_body', 'Hero — body'),
+      // Intro
+      $txt('wwd_intro_eyebrow', 'Intro — eyebrow'),
+      $txt('wwd_intro_heading', 'Intro — heading'),
+      $wys('wwd_intro_body', 'Intro — body'),
+      // Capabilities
+      $txt('wwd_caps_eyebrow', 'Capabilities — eyebrow'),
+      // SEO
+      $txt('wwd_seo_title', 'SEO — browser/tab title'),
+      $area('wwd_seo_description', 'SEO — meta description'),
+    ],
+  ]);
+
   // ---- SITE SETTINGS (options) ----
   acf_add_local_field_group([
     'key' => 'group_settings',
@@ -191,10 +215,15 @@ add_action('acf/init', function () {
     'location' => [[['param' => 'post_type', 'operator' => '==', 'value' => 'service']]],
     'fields' => [
       $txt('num', 'Number (e.g. 01)'),
-      $area('description', 'Description'),
+      $area('description', 'Description (short — home page card)'),
       $txt('link', 'Link'),
       ['key' => 'f_svc_color', 'name' => 'color', 'label' => 'Panel colour', 'type' => 'select', 'choices' => ['blue' => 'Blue', 'gold' => 'Gold', 'magenta' => 'Magenta', 'teal' => 'Teal'], 'default_value' => 'blue'],
       $img('image', 'Card image'),
+      // What We Do page fields
+      $txt('cap_tagline', 'WWD — tagline (bold line)'),
+      $area('cap_overview', 'WWD — overview paragraph'),
+      $area('cap_skills', 'WWD — skills (one per line)'),
+      $txt('cap_explore', 'WWD — “explore” link label'),
     ],
   ]);
 
@@ -240,6 +269,10 @@ add_action('rest_api_init', function () {
           'link' => get_field('link', $p->ID),
           'color' => get_field('color', $p->ID),
           'image' => get_field('image', $p->ID),
+          'cap_tagline' => get_field('cap_tagline', $p->ID),
+          'cap_overview' => get_field('cap_overview', $p->ID),
+          'cap_skills' => get_field('cap_skills', $p->ID),
+          'cap_explore' => get_field('cap_explore', $p->ID),
         ];
       }, get_posts(['post_type' => 'service', 'numberposts' => -1, 'orderby' => 'menu_order', 'order' => 'ASC']));
 

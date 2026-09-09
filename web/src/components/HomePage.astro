@@ -1,11 +1,13 @@
 ---
+import SiteNav from "./SiteNav.astro";
+import SiteFooter from "./SiteFooter.astro";
 const { home, settings, services = [], work = [], preview = false } = Astro.props;
 
 const heroWords = home.hero_words && home.hero_words.length ? home.hero_words : ["brands", "products", "content"];
 const ctaWords = home.cta_words && home.cta_words.length ? home.cta_words : ["a brand", "a product", "content"];
 const navItems = (settings.nav_items && settings.nav_items.length) ? settings.nav_items : [
   { label: "Home", link: "/" },
-  { label: "What We Do", link: "#" },
+  { label: "What We Do", link: "/what-we-do" },
   { label: "Work", link: "#" },
   { label: "About", link: "#" },
   { label: "Insights", link: "#" },
@@ -56,49 +58,7 @@ const ringColor = ["blue", "magenta", "teal"];
   <div class="preview-badge">Preview mode — showing unpublished content</div>
 )}
 
-<!-- NAV -->
-<header class="nav3">
-  <div class="nav3__inner">
-    <a class="nav3__logo" href="/" aria-label="Fineries Digital home">
-      <img class="logo-white" src="/assets/fineries-logo-white-3x.png" alt="Fineries Digital" />
-      <img class="logo-blue" src="/assets/fineries-logo-blue-3x.png" alt="Fineries Digital" />
-    </a>
-    <nav class="nav3__links" aria-label="Primary">
-      {navItems.map((n) => (
-        <a class={`nav3__link${(n.link === "/" ) ? " nav3__link--active" : ""}`} href={n.link || "#"}>{n.label}</a>
-      ))}
-    </nav>
-    <button class="nav3__burger" aria-label="Open menu" aria-expanded="false"><i data-lucide="menu"></i></button>
-  </div>
-  <div class="mnav" data-mnav aria-hidden="true">
-    <div class="mnav__backdrop" data-mnav-close aria-hidden="true"></div>
-    <div class="mnav__panel">
-    <div class="mnav__top">
-      <a class="mnav__logo" href="/" aria-label="Fineries Digital home">
-        <img src="/assets/fineries-logo-white-3x.png" alt="Fineries Digital" />
-      </a>
-      <button class="mnav__close" type="button" data-mnav-close aria-label="Close menu">
-        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-      </button>
-    </div>
-    <nav class="mnav__links" aria-label="Mobile">
-      {navItems.map((n, i) => (
-        <a href={n.link || "#"}><span>{n.label}</span><em>{String(i + 1).padStart(2, "0")}</em></a>
-      ))}
-    </nav>
-    <div class="mnav__foot">
-      <span class="mnav__rule"></span>
-      <img class="mnav__lockup" src="/assets/statement-white.svg" alt="We build brands people love" />
-      <div class="mnav__social">
-        <a href={settings.social_linkedin || "#"} aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.76-2.05C20.4 8.65 21 11 21 14.1V21h-4v-6.1c0-1.45-.03-3.32-2.02-3.32-2.02 0-2.33 1.58-2.33 3.21V21H9z"/></svg></a>
-        <a href={settings.social_instagram || "#"} aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
-        <a href={settings.social_x || "#"} aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor" width="17" height="17" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.65l-5.22-6.82-5.97 6.82H1.66l7.73-8.84L1.25 2.25h6.82l4.71 6.23zm-1.16 17.52h1.83L7.01 4.13H5.05z"/></svg></a>
-        <a href={settings.social_youtube || "#"} aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2 31.4 31.4 0 000 12a31.4 31.4 0 00.5 5.8 3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1A31.4 31.4 0 0024 12a31.4 31.4 0 00-.5-5.8zM9.6 15.6V8.4l6.2 3.6z"/></svg></a>
-      </div>
-    </div>
-    </div>
-  </div>
-</header>
+<SiteNav navItems={navItems} settings={settings} active="/" />
 
 <main id="main">
 
@@ -225,39 +185,7 @@ const ringColor = ["blue", "magenta", "teal"];
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="foot3">
-  <div class="wrap">
-    <div class="foot3__main foot3__main--wide">
-      <div>
-        <a class="foot3__lockup" href="/"><img src="/assets/lockup-white.svg" alt="Fineries — We build brands people love" /></a>
-        <div class="foot3__social">
-          <a href={settings.social_linkedin || "#"} aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.76-2.05C20.4 8.65 21 11 21 14.1V21h-4v-6.1c0-1.45-.03-3.32-2.02-3.32-2.02 0-2.33 1.58-2.33 3.21V21H9z"/></svg></a>
-          <a href={settings.social_instagram || "#"} aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
-          <a href={settings.social_x || "#"} aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.65l-5.22-6.82-5.97 6.82H1.66l7.73-8.84L1.25 2.25h6.82l4.71 6.23zm-1.16 17.52h1.83L7.01 4.13H5.05z"/></svg></a>
-        </div>
-      </div>
-      <div class="foot3__col">
-        <h4>{settings.footer_services_heading || "What We Do"}</h4>
-        {services.map((s) => <a href={s.link || "#"} set:html={s.title}></a>)}
-      </div>
-      <div class="foot3__col">
-        <h4>{settings.footer_company_heading || "Company"}</h4>
-        {companyLinks.map((l) => <a href={l.link || "#"}>{l.label}</a>)}
-      </div>
-      <div class="foot3__col">
-        <h4>{settings.footer_contact_heading || "Get in Touch"}</h4>
-        <p class="foot3__place">{settings.location}</p>
-        {settings.address && <p class="foot3__addr">{settings.address}</p>}
-        <a href={`mailto:${settings.contact_email}`}>{settings.contact_email}</a>
-      </div>
-    </div>
-    <div class="foot3__bar">
-      <span>&copy; <span data-year>2025</span> {settings.footer_copyright || "Fineries Digital Limited. All rights reserved."}</span>
-      <span class="foot3__bar-links">{legalLinks.map((l) => <a href={l.link || "#"}>{l.label}</a>)}</span>
-    </div>
-  </div>
-</footer>
+<SiteFooter settings={settings} services={services} companyLinks={companyLinks} legalLinks={legalLinks} />
 
 </main>
 
