@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fineries CMS
  * Description: Headless content model for the Fineries Digital site — custom post types (Services, Work), ACF field groups, options pages, and a clean REST endpoint for the Astro front-end.
- * Version: 1.10.0
+ * Version: 1.11.0
  * Author: Fineries
  * Requires Plugins: advanced-custom-fields-pro
  */
@@ -63,6 +63,9 @@ add_action('acf/init', function () {
   acf_add_options_page(['page_title' => 'What We Do Page', 'menu_title' => 'What We Do Page', 'menu_slug' => 'fineries-wwd', 'icon_url' => 'dashicons-screenoptions', 'position' => 3]);
   acf_add_options_page(['page_title' => 'Web & App Page', 'menu_title' => 'Web & App Page', 'menu_slug' => 'fineries-dpt', 'icon_url' => 'dashicons-desktop', 'position' => 3]);
   acf_add_options_page(['page_title' => 'Brand & Strategy Page', 'menu_title' => 'Brand & Strategy Page', 'menu_slug' => 'fineries-brand-strategy', 'icon_url' => 'dashicons-art', 'position' => 3]);
+  acf_add_options_page(['page_title' => 'Marketing & Growth Page', 'menu_title' => 'Marketing & Growth Page', 'menu_slug' => 'fineries-marketing-growth', 'icon_url' => 'dashicons-megaphone', 'position' => 3]);
+  acf_add_options_page(['page_title' => 'Content & Production Page', 'menu_title' => 'Content & Production Page', 'menu_slug' => 'fineries-content-production', 'icon_url' => 'dashicons-video-alt3', 'position' => 3]);
+  acf_add_options_page(['page_title' => 'Executive Branding Page', 'menu_title' => 'Executive Branding Page', 'menu_slug' => 'fineries-executive-branding', 'icon_url' => 'dashicons-businessperson', 'position' => 3]);
   acf_add_options_page(['page_title' => 'Site Settings', 'menu_title' => 'Site Settings', 'menu_slug' => 'fineries-settings', 'icon_url' => 'dashicons-admin-settings', 'position' => 4]);
 });
 
@@ -247,6 +250,46 @@ add_action('acf/init', function () {
       $area('bs_seo_description', 'SEO — meta description'),
     ],
   ]);
+
+  // ---- REMAINING CAPABILITY PAGES ----
+  $capability_page_group = function ($prefix, $title, $menu_slug) use ($txt, $area, $wys, $img, $file) {
+    acf_add_local_field_group([
+      'key' => "group_{$prefix}_page",
+      'title' => "$title Page",
+      'show_in_rest' => 1,
+      'location' => [[['param' => 'options_page', 'operator' => '==', 'value' => $menu_slug]]],
+      'fields' => [
+        $txt("{$prefix}_hero_eyebrow", 'Hero — eyebrow'),
+        $txt("{$prefix}_hero_heading", 'Hero — heading'),
+        $wys("{$prefix}_hero_body", 'Hero — body'),
+        $file("{$prefix}_hero_video_desktop", 'Hero — landscape video (desktop)'),
+        $file("{$prefix}_hero_video_mobile", 'Hero — portrait video (mobile)'),
+        $img("{$prefix}_hero_poster", 'Hero — video thumbnail'),
+        $txt("{$prefix}_intro_eyebrow", 'Intro — eyebrow'),
+        $txt("{$prefix}_intro_heading", 'Intro — heading'),
+        $wys("{$prefix}_intro_body", 'Intro — body'),
+        $txt("{$prefix}_services_eyebrow", 'Services — eyebrow'),
+        $txt("{$prefix}_services_heading", 'Services — heading'),
+        ['key' => "f_{$prefix}_services", 'name' => "{$prefix}_services", 'label' => 'Services', 'type' => 'repeater', 'layout' => 'block', 'sub_fields' => [
+          ['key' => "f_{$prefix}_service_icon", 'name' => 'icon', 'label' => 'Icon (Lucide name)', 'type' => 'text'],
+          ['key' => "f_{$prefix}_service_title", 'name' => 'title', 'label' => 'Title', 'type' => 'text'],
+          ['key' => "f_{$prefix}_service_description", 'name' => 'description', 'label' => 'Description', 'type' => 'textarea', 'rows' => 3],
+        ]],
+        $txt("{$prefix}_principle_eyebrow", 'Principle — eyebrow'),
+        $txt("{$prefix}_principle_heading", 'Principle — heading'),
+        $wys("{$prefix}_principle_body", 'Principle — body'),
+        ['key' => "f_{$prefix}_steps", 'name' => "{$prefix}_steps", 'label' => 'Process steps (optional)', 'type' => 'repeater', 'layout' => 'block', 'sub_fields' => [
+          ['key' => "f_{$prefix}_step_title", 'name' => 'title', 'label' => 'Title', 'type' => 'text'],
+          ['key' => "f_{$prefix}_step_description", 'name' => 'description', 'label' => 'Description', 'type' => 'textarea', 'rows' => 3],
+        ]],
+        $txt("{$prefix}_seo_title", 'SEO — browser/tab title'),
+        $area("{$prefix}_seo_description", 'SEO — meta description'),
+      ],
+    ]);
+  };
+  $capability_page_group('mg', 'Marketing & Growth', 'fineries-marketing-growth');
+  $capability_page_group('cp', 'Content & Production', 'fineries-content-production');
+  $capability_page_group('epb', 'Executive & Personal Branding', 'fineries-executive-branding');
 
   // ---- SITE SETTINGS (options) ----
   acf_add_local_field_group([
