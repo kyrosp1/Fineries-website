@@ -1,0 +1,51 @@
+---
+import SiteNav from "./SiteNav.astro";
+import SiteFooter from "./SiteFooter.astro";
+const { home = {}, settings = {}, services = [] } = Astro.props;
+const email = settings.contact_email || "info@fineries.net";
+const navItems = settings.nav_items?.length ? settings.nav_items : [{label:"Home",link:"/"},{label:"What We Do",link:"/what-we-do"},{label:"Work",link:"#"},{label:"About",link:"/about"},{label:"Insights",link:"#"},{label:"Contact",link:"/contact"}];
+const companyLinks = settings.footer_company_links?.length ? settings.footer_company_links : [{label:"About",link:"/about"},{label:"Work",link:"#"},{label:"Insights",link:"#"},{label:"Careers",link:"#"},{label:"Contact",link:"/contact"}];
+const legalLinks = settings.legal_links?.length ? settings.legal_links : [{label:"Privacy",link:"#"},{label:"Terms",link:"#"}];
+const serviceChoices = ["Brand & Strategy","Marketing & Growth","Content & Production","Digital Products & Technology","Executive & Personal Branding","Something else / Not sure yet"];
+---
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{home.contact_seo_title || "Contact Fineries | Start a Conversation"}</title><meta name="description" content={home.contact_seo_description || "Tell Fineries about the brand, campaign, product or business challenge you want to solve."}/>
+  <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg"/><link rel="stylesheet" href="/css/v3.css?v=47"/><link rel="stylesheet" href="/css/home.css?v=47"/><link rel="stylesheet" href="/css/about-contact.css?v=1"/>
+  <script src="https://unpkg.com/lucide@latest" is:inline defer></script><script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script><script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script><script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" is:inline defer></script>
+</head><body><SiteNav navItems={navItems} settings={settings} active="/contact"/>
+<main id="main">
+  <section class="cohero"><div class="wrap cohero__grid on-blue"><div data-rv><span class="eyebrow">{home.contact_hero_eyebrow || "Let's Talk"}</span><h1>{home.contact_hero_heading || "Have something worth building?"}</h1></div><div class="cohero__body" set:html={home.contact_hero_body || "<p>Maybe it's a brand that needs rethinking. A campaign that needs launching. A business that needs growing. A product that needs building.</p><p>Or a problem you're not quite sure how to solve yet.</p><p><strong>Tell us about it.</strong></p>"} data-rv></div></div></section>
+  <section class="sec contact"><div class="wrap contact__grid">
+    <form class="contact__form" data-contact-form data-email={email} data-rv>
+      <div class="contact__formhead"><span class="eyebrow">{home.contact_form_eyebrow || "Start a Project"}</span><h2 class="h-lg">{home.contact_form_heading || "Tell us what you're thinking."}</h2></div>
+      <div class="contact__fields">
+        <label><span>What should we call you?</span><input required name="name" autocomplete="name" placeholder="Your name"/></label>
+        <label><span>Where do you work?</span><input name="company" autocomplete="organization" placeholder="Company or organisation"/></label>
+        <label class="contact__wide"><span>What's your email?</span><input required type="email" name="email" autocomplete="email" placeholder="you@company.com"/></label>
+        <fieldset class="contact__wide"><legend>What would you like to work on?</legend><div class="contact__choices">{serviceChoices.map((choice,index)=><label><input type="radio" name="service" value={choice} checked={index===0}/><span>{choice}</span></label>)}</div></fieldset>
+        <label class="contact__wide"><span>Tell us a little about the challenge.</span><textarea required name="challenge" rows="5" placeholder="What are you trying to change, create or achieve?"></textarea></label>
+        <label><span>What kind of budget are you working with?</span><select name="budget"><option value="">Select a range</option><option>Under ₦5m</option><option>₦5m – ₦15m</option><option>₦15m – ₦50m</option><option>₦50m+</option><option>Not sure yet</option></select></label>
+        <label><span>When would you like to start?</span><select name="timeline"><option value="">Select timing</option><option>As soon as possible</option><option>Within 1–3 months</option><option>Within 3–6 months</option><option>Later this year</option><option>Not sure yet</option></select></label>
+      </div>
+      <button class="contact__submit" type="submit"><span>{home.contact_submit_label || "Send Enquiry"}</span><i data-lucide="arrow-right"></i></button>
+      <p class="contact__note">Submitting opens your email app with the project details ready to send.</p>
+    </form>
+    <aside class="contact__aside" data-rv>
+      <span class="eyebrow">{home.contact_details_eyebrow || "Direct Contact"}</span><h2>{home.contact_details_heading || "Prefer to talk directly?"}</h2>
+      <a class="contact__email" href={`mailto:${email}`}>{email}<i data-lucide="arrow-up-right"></i></a>
+      <div class="contact__detail"><span>Visit us</span><p><strong>Fineries Digital Limited</strong><br/>{settings.address || "AHCN Towers, 38 CIPM Road, Alausa, Lagos, Nigeria"}</p></div>
+      <div class="contact__detail"><span>Based in</span><p>{settings.location || "Lagos, Nigeria"}</p></div>
+      <div class="contact__socials">{settings.social_linkedin && <a href={settings.social_linkedin}>LinkedIn</a>}{settings.social_instagram && <a href={settings.social_instagram}>Instagram</a>}{settings.social_x && <a href={settings.social_x}>X</a>}</div>
+    </aside>
+  </div></section>
+  <SiteFooter settings={settings} services={services} companyLinks={companyLinks} legalLinks={legalLinks}/>
+</main><script src="/js/v3.js?v=29" is:inline defer></script>
+<script is:inline>
+  document.querySelector("[data-contact-form]")?.addEventListener("submit", (event) => {
+    event.preventDefault(); const form=event.currentTarget; const data=new FormData(form);
+    const subject=`Project enquiry from ${data.get("name") || "Fineries website"}`;
+    const body=[`Name: ${data.get("name") || ""}`,`Company: ${data.get("company") || ""}`,`Email: ${data.get("email") || ""}`,`Service: ${data.get("service") || ""}`,`Budget: ${data.get("budget") || ""}`,`Timeline: ${data.get("timeline") || ""}`,"",String(data.get("challenge") || "")].join("\n");
+    window.location.href=`mailto:${form.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+</script></body></html>

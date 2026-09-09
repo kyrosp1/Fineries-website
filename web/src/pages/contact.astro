@@ -1,0 +1,4 @@
+---
+import ContactPage from "../components/ContactPage.astro"; import { getHomeBundle } from "../lib/wp.js"; const {home,settings,services}=await getHomeBundle();
+---
+<ContactPage home={home} settings={settings} services={services}/>

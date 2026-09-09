@@ -1,0 +1,89 @@
+---
+import SiteNav from "./SiteNav.astro";
+import SiteFooter from "./SiteFooter.astro";
+const { home = {}, settings = {}, services = [] } = Astro.props;
+const heroImg = home.about_hero_image || home.hero_image || "";
+const ctaWords = home.cta_words?.length ? home.cta_words : ["a brand", "a product", "content"];
+const navItems = settings.nav_items?.length ? settings.nav_items : [
+  { label:"Home",link:"/"},{label:"What We Do",link:"/what-we-do"},{label:"Work",link:"#"},{label:"About",link:"/about"},{label:"Insights",link:"#"},{label:"Contact",link:"/contact"},
+];
+const companyLinks = settings.footer_company_links?.length ? settings.footer_company_links : [
+  {label:"About",link:"/about"},{label:"Work",link:"#"},{label:"Insights",link:"#"},{label:"Careers",link:"#"},{label:"Contact",link:"/contact"},
+];
+const legalLinks = settings.legal_links?.length ? settings.legal_links : [{label:"Privacy",link:"#"},{label:"Terms",link:"#"}];
+const disciplines = Array.isArray(home.about_disciplines) && home.about_disciplines.length ? home.about_disciplines : [
+  { icon:"compass", title:"Strategy", description:"Strategy gives us direction." },
+  { icon:"sparkles", title:"Creativity", description:"Creativity gives the thinking expression." },
+  { icon:"code-2", title:"Technology", description:"Technology expands what's possible." },
+];
+const teamPoints = typeof home.about_team_points === "string" && home.about_team_points.trim()
+  ? home.about_team_points.split(/\r?\n/).map((x)=>x.trim()).filter(Boolean)
+  : ["One understanding of the problem.","One direction.","One standard for the work."];
+---
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{home.about_seo_title || "About Fineries | Strategy, Creativity & Technology"}</title>
+  <meta name="description" content={home.about_seo_description || "Meet Fineries, a Lagos creative and digital agency bringing strategy, creativity and technology together."}/>
+  <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg"/>
+  <link rel="stylesheet" href="/css/v3.css?v=47"/><link rel="stylesheet" href="/css/home.css?v=47"/><link rel="stylesheet" href="/css/about-contact.css?v=1"/>
+  <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script><script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script><script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" is:inline defer></script>
+</head><body>
+<SiteNav navItems={navItems} settings={settings} active="/about"/>
+<main id="main">
+  <section class="abhero">
+    <div class="wrap abhero__grid on-blue">
+      <div class="abhero__copy" data-rv>
+        <span class="eyebrow">{home.about_hero_eyebrow || "About Fineries"}</span>
+        <h1>{home.about_hero_heading || "Different perspectives. Better solutions."}</h1>
+        <div class="body" set:html={home.about_hero_body || "<p>Fineries is a creative and digital agency that brings strategy, creativity and technology together to solve business problems and build things people love.</p>"}></div>
+      </div>
+      <div class="abhero__visual" data-rv>
+        {heroImg && <img src={heroImg} alt="The Fineries team collaborating"/>}
+        <span class="abhero__stamp">Lagos<br/>Nigeria</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec abbelief">
+    <div class="wrap abbelief__grid">
+      <span class="eyebrow" data-rv>{home.about_belief_eyebrow || "What We Believe"}</span>
+      <div data-rv>
+        <h2 class="h-lg">{home.about_belief_heading || "Businesses deserve better than disconnected thinking."}</h2>
+        <div class="body abbelief__body" set:html={home.about_belief_body || "<p>Strategy shouldn't live in one room while creativity happens in another and technology somewhere else entirely.</p><p>The strongest work happens when the people defining the problem, imagining the answer and building the solution understand what they're trying to achieve together.</p><p><strong>That's how Fineries works.</strong></p>"}></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec abdisc">
+    <div class="wrap">
+      <div class="abdisc__head" data-rv><span class="eyebrow">{home.about_disciplines_eyebrow || "Our Approach"}</span><h2 class="h-lg">{home.about_disciplines_heading || "Strategy. Creativity. Technology."}</h2></div>
+      <div class="abdisc__grid" data-rv-stagger>
+        {disciplines.map((item,index)=><article class={`abdisc__card abdisc__card--${index+1}`}><span>{String(index+1).padStart(2,"0")}</span><i data-lucide={item.icon || "circle"}></i><h3>{item.title}</h3><p>{item.description}</p></article>)}
+      </div>
+      <p class="abdisc__close" data-rv>{home.about_disciplines_closing || "Together, they help us build brands, products, content and experiences that work."}</p>
+    </div>
+  </section>
+
+  <section class="sec abteam">
+    <div class="wrap abteam__grid on-blue">
+      <div data-rv><span class="eyebrow">{home.about_team_eyebrow || "How We Work"}</span><h2 class="h-lg">{home.about_team_heading || "One problem. One team."}</h2></div>
+      <div data-rv>
+        <div class="body" set:html={home.about_team_body || "<p>Our clients don't need to spend their time translating between strategists, creatives, marketers, producers and developers.</p><p>We bring the disciplines together.</p>"}></div>
+        <ul>{teamPoints.map(point=><li><i data-lucide="arrow-right"></i>{point}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec ablagos">
+    <div class="wrap ablagos__grid">
+      <div class="ablagos__mark" aria-hidden="true">LAGOS</div>
+      <div data-rv><span class="eyebrow">{home.about_lagos_eyebrow || "Where We're From"}</span><h2 class="h-lg">{home.about_lagos_heading || "Built in Lagos. Thinking beyond it."}</h2><div class="body" set:html={home.about_lagos_body || "<p>We understand the complexity, ambition and opportunity of building brands and businesses in Africa.</p><p>And we believe work created here should compete with the best work anywhere.</p>"}></div></div>
+    </div>
+  </section>
+
+  <section class="cta3 ctahome" id="contact"><div class="wrap cta3__inner on-blue"><div class="ctahome__grid"><div data-rv><span class="eyebrow">{home.cta_eyebrow || "Let's Build"}</span><h2 class="h-xl cta3__title" style="margin-top:18px">{home.cta_lead_in || "Ready to build"} <span class="hero3__rot cta3__rot" id="cta-rot" data-words={JSON.stringify(ctaWords)}>{ctaWords[0]}</span> {home.cta_lead_out || "people love?"}</h2><p class="body" style="margin-top:18px;max-width:44ch">{home.cta_body || "There is no better time than now."}</p><a class="cta3__action" href="/contact" style="margin-top:26px"><span class="circ"><i data-lucide="arrow-right"></i></span><span>{home.cta_button_label || "Let's Talk"}</span></a></div><div class="ctahome__figure" aria-hidden="true"><img src={home.cta_image || heroImg} alt=""/></div></div></div></section>
+  <SiteFooter settings={settings} services={services} companyLinks={companyLinks} legalLinks={legalLinks}/>
+</main><script src="/js/v3.js?v=29" is:inline defer></script>
+</body></html>

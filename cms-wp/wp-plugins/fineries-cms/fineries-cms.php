@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fineries CMS
  * Description: Headless content model for the Fineries Digital site — custom post types (Services, Work), ACF field groups, options pages, and a clean REST endpoint for the Astro front-end.
- * Version: 1.11.0
+ * Version: 1.12.0
  * Author: Fineries
  * Requires Plugins: advanced-custom-fields-pro
  */
@@ -66,6 +66,8 @@ add_action('acf/init', function () {
   acf_add_options_page(['page_title' => 'Marketing & Growth Page', 'menu_title' => 'Marketing & Growth Page', 'menu_slug' => 'fineries-marketing-growth', 'icon_url' => 'dashicons-megaphone', 'position' => 3]);
   acf_add_options_page(['page_title' => 'Content & Production Page', 'menu_title' => 'Content & Production Page', 'menu_slug' => 'fineries-content-production', 'icon_url' => 'dashicons-video-alt3', 'position' => 3]);
   acf_add_options_page(['page_title' => 'Executive Branding Page', 'menu_title' => 'Executive Branding Page', 'menu_slug' => 'fineries-executive-branding', 'icon_url' => 'dashicons-businessperson', 'position' => 3]);
+  acf_add_options_page(['page_title' => 'About Page', 'menu_title' => 'About Page', 'menu_slug' => 'fineries-about', 'icon_url' => 'dashicons-groups', 'position' => 3]);
+  acf_add_options_page(['page_title' => 'Contact Page', 'menu_title' => 'Contact Page', 'menu_slug' => 'fineries-contact', 'icon_url' => 'dashicons-email-alt', 'position' => 3]);
   acf_add_options_page(['page_title' => 'Site Settings', 'menu_title' => 'Site Settings', 'menu_slug' => 'fineries-settings', 'icon_url' => 'dashicons-admin-settings', 'position' => 4]);
 });
 
@@ -290,6 +292,35 @@ add_action('acf/init', function () {
   $capability_page_group('mg', 'Marketing & Growth', 'fineries-marketing-growth');
   $capability_page_group('cp', 'Content & Production', 'fineries-content-production');
   $capability_page_group('epb', 'Executive & Personal Branding', 'fineries-executive-branding');
+
+  // ---- ABOUT PAGE ----
+  acf_add_local_field_group([
+    'key' => 'group_about_page', 'title' => 'About Page', 'show_in_rest' => 1,
+    'location' => [[['param' => 'options_page', 'operator' => '==', 'value' => 'fineries-about']]],
+    'fields' => [
+      $txt('about_hero_eyebrow','Hero — eyebrow'), $txt('about_hero_heading','Hero — heading'), $wys('about_hero_body','Hero — body'), $img('about_hero_image','Hero — team image'),
+      $txt('about_belief_eyebrow','Belief — eyebrow'), $txt('about_belief_heading','Belief — heading'), $wys('about_belief_body','Belief — body'),
+      $txt('about_disciplines_eyebrow','Disciplines — eyebrow'), $txt('about_disciplines_heading','Disciplines — heading'),
+      ['key'=>'f_about_disciplines','name'=>'about_disciplines','label'=>'Disciplines','type'=>'repeater','layout'=>'block','sub_fields'=>[
+        ['key'=>'f_about_disc_icon','name'=>'icon','label'=>'Icon (Lucide name)','type'=>'text'], ['key'=>'f_about_disc_title','name'=>'title','label'=>'Title','type'=>'text'], ['key'=>'f_about_disc_desc','name'=>'description','label'=>'Description','type'=>'textarea','rows'=>3],
+      ]],
+      $area('about_disciplines_closing','Disciplines — closing line'), $txt('about_team_eyebrow','Team — eyebrow'), $txt('about_team_heading','Team — heading'), $wys('about_team_body','Team — body'), $area('about_team_points','Team — points (one per line)'),
+      $txt('about_lagos_eyebrow','Lagos — eyebrow'), $txt('about_lagos_heading','Lagos — heading'), $wys('about_lagos_body','Lagos — body'),
+      $txt('about_seo_title','SEO — browser/tab title'), $area('about_seo_description','SEO — meta description'),
+    ],
+  ]);
+
+  // ---- CONTACT PAGE ----
+  acf_add_local_field_group([
+    'key'=>'group_contact_page','title'=>'Contact Page','show_in_rest'=>1,
+    'location'=>[[['param'=>'options_page','operator'=>'==','value'=>'fineries-contact']]],
+    'fields'=>[
+      $txt('contact_hero_eyebrow','Hero — eyebrow'), $txt('contact_hero_heading','Hero — heading'), $wys('contact_hero_body','Hero — body'),
+      $txt('contact_form_eyebrow','Form — eyebrow'), $txt('contact_form_heading','Form — heading'), $txt('contact_submit_label','Form — submit label'),
+      $txt('contact_details_eyebrow','Details — eyebrow'), $txt('contact_details_heading','Details — heading'),
+      $txt('contact_seo_title','SEO — browser/tab title'), $area('contact_seo_description','SEO — meta description'),
+    ],
+  ]);
 
   // ---- SITE SETTINGS (options) ----
   acf_add_local_field_group([
