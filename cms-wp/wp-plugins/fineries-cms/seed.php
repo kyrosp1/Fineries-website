@@ -153,6 +153,9 @@ update_field('dpt_seo_description', 'We use strategy, creativity and technology 
 update_field('bs_hero_eyebrow', 'Brand & Strategy', 'option');
 update_field('bs_hero_heading', 'Give your brand something to stand for.', 'option');
 update_field('bs_hero_body', "<p>Great brands aren't built by starting with a logo.</p><p>They're built by understanding the business, the market, the people you want to reach and the place you want to occupy in their minds.</p><p><strong>That's where we start.</strong></p>", 'option');
+update_field('bs_hero_video_desktop', 'https://cms.fineries.net/wp-content/plugins/fineries-cms/assets/media/web-app-hero-landscape.mp4', 'option');
+update_field('bs_hero_video_mobile', 'https://cms.fineries.net/wp-content/plugins/fineries-cms/assets/media/web-app-hero-mobile.mp4', 'option');
+update_field('bs_hero_poster', 'https://cms.fineries.net/wp-content/plugins/fineries-cms/assets/media/web-app-hero-poster.png', 'option');
 update_field('bs_problem_eyebrow', 'The Problem', 'option');
 update_field('bs_problem_heading', 'Clarity changes everything.', 'option');
 update_field('bs_problem_body', '<p>When the strategy is clear, decisions become easier.</p><p>We help organisations find the answers.</p>', 'option');
