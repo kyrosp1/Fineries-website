@@ -125,8 +125,13 @@
 .caprow__title {
   font-family: var(--font-display); font-weight: 800;
   font-size: clamp(20px, 2.2vw, 27px); line-height: 1.1; letter-spacing: -.01em;
-  color: var(--v3-blue); margin: 0 0 6px;
+  color: #33343b; margin: 0 0 6px; transition: color .25s var(--v3-ease);
 }
+/* title takes the row's brand colour on hover */
+.caprow--blue:hover    .caprow__title { color: var(--v3-blue); }
+.caprow--teal:hover    .caprow__title { color: var(--v3-teal); }
+.caprow--magenta:hover .caprow__title { color: var(--v3-magenta); }
+.caprow--gold:hover    .caprow__title { color: #C79A00; }
 .caprow__tagline { font-size: 15px; line-height: 1.5; color: var(--v3-text-2); margin: 0; max-width: 42ch; }
 .caprow__media { position: relative; min-height: 150px; }
 .caprow__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
