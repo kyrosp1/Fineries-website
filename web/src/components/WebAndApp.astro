@@ -5,7 +5,9 @@ const { home = {}, settings = {}, services = [] } = Astro.props;
 
 const ctaWords = home.cta_words && home.cta_words.length ? home.cta_words : ["a brand", "a product", "content"];
 const heroImg = home.hero_image || "";
-const heroVideo = home.hero_video || "";
+const dptHeroVideo = "https://fineries.net/wp-content/uploads/2026/09/0904-copy.mp4";
+const dptHeroVideoMobile = "https://fineries.net/wp-content/uploads/2026/09/0904-mobile.mp4";
+const dptHeroPoster = "https://fineries.net/wp-content/uploads/2026/09/web-app5.png";
 
 const navItems = (settings.nav_items && settings.nav_items.length) ? settings.nav_items : [
   { label: "Home", link: "/" },
@@ -67,7 +69,7 @@ const pageDesc = home.dpt_seo_description || "We use strategy, creativity and te
 <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
 <link rel="stylesheet" href="/css/v3.css?v=47" />
 <link rel="stylesheet" href="/css/home.css?v=47" />
-<link rel="stylesheet" href="/css/dpt.css?v=2" />
+<link rel="stylesheet" href="/css/dpt.css?v=3" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
@@ -89,6 +91,11 @@ const pageDesc = home.dpt_seo_description || "We use strategy, creativity and te
       <a class="dpthero__cta" href="#contact">{home.dpt_hero_cta_label || "Start a Project"}</a>
     </div>
     <button class="dpthero__media" type="button" data-open-video aria-label={home.hero_watch_label || "Play our story video"} data-rv>
+      <video class="dpthero__video" autoplay muted loop playsinline preload="metadata" poster={dptHeroPoster} aria-hidden="true">
+        <source src={dptHeroVideoMobile} type="video/mp4" media="(max-width: 800px)" />
+        <source src={dptHeroVideo} type="video/mp4" />
+      </video>
+      <span class="dpthero__shade" aria-hidden="true"></span>
       <span class="dpthero__media-glow" aria-hidden="true"></span>
       <span class="dpthero__play" aria-hidden="true"><i data-lucide="play"></i></span>
       <span class="dpthero__watch">{home.hero_watch_label || "Watch our story"}</span>
@@ -99,8 +106,9 @@ const pageDesc = home.dpt_seo_description || "We use strategy, creativity and te
 <div class="vmodal" data-video-modal aria-hidden="true">
   <div class="vmodal__frame">
     <button class="vmodal__close" type="button" data-close-video aria-label="Close video">&times;</button>
-    <video controls playsinline preload="none">
-      {heroVideo && <source src={heroVideo} type="video/mp4" />}
+    <video controls playsinline preload="none" poster={dptHeroPoster}>
+      <source src={dptHeroVideoMobile} type="video/mp4" media="(max-width: 800px)" />
+      <source src={dptHeroVideo} type="video/mp4" />
     </video>
   </div>
 </div>
