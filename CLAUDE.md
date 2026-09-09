@@ -136,21 +136,16 @@ user explicitly says otherwise. The pattern for a new piece of text/image:
 Rotating-word spans (hero + CTA) are driven by any `[data-words]` element via `v3.js`.
 - Styles: `web/public/css/v3.css` (base) + `web/public/css/home.css` (V3.1 home sections).
 
-## Home layout V3.1 (current)
-Sections: hero (unchanged) → What We Do (5 COLOURED service cards: image + brand-colour
-panel; `services.image` + `services.color`) → The Truth (2 images + text) → Our Process
-(dark band, 4-step timeline `process_steps`) → Featured Work (4 cards) → The Fineries
-Client logo marquee (sliding, from the unlimited `logos` repeater; wordmark fallback
-when a logo has no image) → The Fineries
-Method (stacked heading + Venn circles from `philosophy_rings` + `method_tagline`) →
-Value band ("Good work should do something", gold left + dark right, 6 `bv_items`) →
-Final CTA (text + couple image) → footer (4 cols incl `site_settings.address`).
-Added by `cms/bootstrap/extend-home-2.mjs`. Dead fields from the old design were
-deleted and the Home Page fields reordered to match the site (with section dividers)
-by `cms/bootstrap/cleanup-order.mjs` — so the CMS form reads top-to-bottom exactly like
-the page: Hero → What We Do → The Truth → Our Process → Featured Work → The Fineries
-Method → The Value → Final CTA. (`philosophy_rings` is retained — it powers the Method
-Venn circles.)
+## Home layout (current — `HomePage.astro`)
+Sections in order: hero (couple image, rotating word, video modal) → What We Do (5
+COLOURED service cards: `services.image` + `services.color`) → The Truth (image + text)
+→ Our Process (blue band, 4-step timeline `process_steps`) → **Client logo marquee**
+(sliding, from the unlimited `logos` repeater; wordmark fallback when a logo has no
+image) → Final CTA (rotating word + couple image) → footer (4 cols incl `address`).
+NOTE (history): the old "Featured Work" cards were replaced by the logo marquee, and the
+"Fineries Method" (Venn) + "Value band" sections were REMOVED from the home page (their
+ACF fields — `bv_*`, `method_*`, `philosophy_rings`/`method_circles`, `work_*` + the
+`work` CPT — still exist in the plugin, unused on the home page, kept for possible reuse).
 - `web/src/pages/index.astro` — published home. `web/src/pages/preview.astro` — draft
   preview (needs `?secret=fineries_preview`; reads drafts with the static token).
 
@@ -166,19 +161,58 @@ Venn circles.)
   - Custom domain (fineries.net) not pointed yet — user will add in Vercel later.
 - Directus is retired from the live path (kept in `cms/` for reference).
 - DONE: **What We Do** page — `web/src/pages/what-we-do.astro` → `WhatWeDo.astro`.
-  Layout: split hero (portrait image left `wwd_hero_image` + text on blue, with
-  `wwd_hero_tags` overlay and `wwd_hero_cta_label` button) → "Strategy before services"
-  blue band (`wwd_intro_*`) → "Our capabilities" (`wwd_caps_heading`/`wwd_caps_tagline`)
-  as a 5-CARD grid → shared CTA. Cards come from the `service` CPT, extended with
-  `cap_tagline`, `cap_overview`, `cap_skills` [one per line], `cap_explore`, `cap_icon`
-  (Lucide); the card shows the top 5 skills + "+N more". Page copy in the ACF **What We
-  Do Page** options group (`wwd_*`). Nav/footer are shared components
-  (`web/src/components/SiteNav.astro` + `SiteFooter.astro`). Page styles:
+  Layout: split hero (50/50: portrait image left `wwd_hero_image` + copy on blue, with
+  `wwd_hero_tags` overlay and `wwd_hero_cta_label` button; on mobile the image becomes a
+  full background with the copy overlaid and the tags hidden) → "Strategy before
+  services" TEAL band (`wwd_intro_*`) → "Our capabilities"
+  (`wwd_caps_heading`/`wwd_caps_tagline`) as a **3-column card grid** → shared CTA. Cards
+  come from the `service` CPT, extended with `cap_tagline`, `cap_overview`, `cap_skills`
+  [one per line], `cap_explore`, `cap_icon` (Lucide); card shows top 5 skills + "+N more".
+  Page copy in the ACF **What We Do Page** options group (`wwd_*`). Styles:
   `web/public/css/wwd.css`.
-- NOT DONE: remaining inner pages (Work, About, Insights, Contact) — still old static
-  `site/*.html`; not in Astro/WP yet. Those nav links point to `#`. **Next phase.**
+- DONE: **Web & App Development** page (Digital Products & Technology detail) —
+  `web/src/pages/web-and-app-development.astro` → `WebAndApp.astro`, styles
+  `web/public/css/dpt.css`. Hero (`dpt_hero_*`) → "the shift" text+image (`dpt_de_*`) →
+  "Where our solutions create value" 4 cards (`dpt_value_heading`/`dpt_value_intro` +
+  `dpt_value_items` repeater: icon/title/description) → "What we build" 4 blocks
+  (`dpt_build_*` + `dpt_build_items` repeater: icon/title/description/services[one per
+  line]) → shared CTA. Content in the ACF **Web & App Page** options group (`dpt_*`).
+  The What-We-Do capability #04 (`service` num `04`) links here (`link = /web-and-app-development`).
+- Nav + footer are SHARED components: `web/src/components/SiteNav.astro` +
+  `SiteFooter.astro` (used by every page). **The mobile menu (`.mnav`) is rendered
+  OUTSIDE `<header>`** on purpose — the nav gets `transform`/`backdrop-filter` on scroll
+  which would otherwise trap the fixed overlay. Don't move it back in.
+- NOT DONE: remaining inner pages (Work, About, Insights, Contact) + other capability
+  detail pages (Brand & Strategy, Marketing & Growth, Content & Production, Executive &
+  Personal Branding). Those nav links / `cap_explore` links point to `#`. **Next phase.**
 - Repo hygiene: large media (videos, `web/public/media/`) are git-ignored; they remain
   in early history — an optional `git filter-repo`/BFG pass could slim the clone.
+
+## Building a new page (repeat for the remaining inner/capability pages)
+1. **Component** in `web/src/components/<Name>.astro` — import `SiteNav` + `SiteFooter`,
+   destructure `{ home, settings, services }` from props, render `<SiteNav … active="…"/>`
+   then sections then the shared CTA then `<SiteFooter …/>`. Read every string/image as
+   `home.x || "fallback"` and repeaters as `(home.x || fallbackArray)` so the page looks
+   right before the CMS is populated. Copy the `<head>` block (v3.css + home.css + the
+   page's own css + lucide/gsap/scrolltrigger/lenis) and the `<script src="/js/v3.js…">`
+   from an existing page.
+2. **Route** in `web/src/pages/<slug>.astro` — `getHomeBundle()` then render the component.
+3. **Styles** in `web/public/css/<name>.css`, linked from the component with a `?v=N`
+   cache-buster. **Bump `?v=` on EVERY css/js edit** (each page component hardcodes its
+   own versions — wwd.css and dpt.css each have their own counter).
+4. **CMS**: add an ACF options page + field group in `fineries-cms.php` (use `$txt`,
+   `$area`, `$wys`, `$img`, and repeaters like `dpt_value_items`). Options auto-flow to
+   `home` via `get_fields('option')`; per-post fields (services CPT) must be added to the
+   `$services` map in the REST callback. Add defaults in `seed.php`.
+5. **Deploy**: bump plugin `Version`, `bash cms-wp/deploy-plugin.sh`, then a **targeted**
+   `wp eval-file` over SSH to populate the new fields (only-if-empty; NEVER re-run seed on
+   prod). Rebuild `fineries-cms.zip` (python zip, forward slashes — Windows PowerShell zip
+   uses backslashes that break WP install). `git add` the front-end + plugin + seed, push
+   (Vercel auto-deploys the front-end).
+6. **Verify**: build with `PUBLIC_WP_URL=https://cms.fineries.net npx astro build`; check
+   `curl https://cms.fineries.net/wp-json/fineries/v1/home` returns the fields; poll the
+   Vercel URL. Screenshots only work for the top of a page (rAF gotcha) — verify
+   mid/lower sections with `curl … | grep` or `get_page_text`.
 
 ## Gotchas
 - Directus rejects emails with non-real TLDs (e.g. `.local`) at login — use real TLDs.
