@@ -1,7 +1,6 @@
 ---
 import SiteNav from "./SiteNav.astro";
 import SiteFooter from "./SiteFooter.astro";
-import ServiceArtwork from "./ServiceArtwork.astro";
 
 const { home = {}, settings = {}, services = [], page } = Astro.props;
 const get = (name, fallback = "") => home[`${page.prefix}_${name}`] || fallback;
@@ -48,12 +47,6 @@ const legalLinks = settings.legal_links?.length ? settings.legal_links : [
 <body>
   <SiteNav navItems={navItems} settings={settings} active="/what-we-do" />
   <main id="main">
-    {page.num && (
-      <section class={`svghero svghero--${page.accent}`}>
-        <div class="svghero__art"><ServiceArtwork num={page.num} title={page.name} /></div>
-      </section>
-    )}
-
     <section class={`cphero cphero--${page.accent}`}>
       <div class="wrap cphero__inner on-blue">
         <div class="cphero__copy" data-rv>

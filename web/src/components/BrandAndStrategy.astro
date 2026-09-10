@@ -1,7 +1,6 @@
 ---
 import SiteNav from "./SiteNav.astro";
 import SiteFooter from "./SiteFooter.astro";
-import ServiceArtwork from "./ServiceArtwork.astro";
 import { getCapabilityServices } from "../data/capabilities.js";
 const { home = {}, settings = {}, services = [] } = Astro.props;
 const ctaWords = home.cta_words && home.cta_words.length ? home.cta_words : ["a brand", "a product", "content"];
@@ -49,10 +48,6 @@ const pageDesc = home.bs_seo_description || "Brand research, strategy, positioni
 <body>
 <SiteNav navItems={navItems} settings={settings} active="/what-we-do" />
 <main id="main">
-  <section class="svghero svghero--brand">
-    <div class="svghero__art"><ServiceArtwork num="01" title={home.bs_hero_eyebrow || "Brand & Strategy"} /></div>
-  </section>
-
   <section class="bshero on-blue">
     <div class="wrap bshero__inner">
       <div class="bshero__copy" data-rv>
