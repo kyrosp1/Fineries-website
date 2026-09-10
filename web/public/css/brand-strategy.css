@@ -62,3 +62,23 @@
 .bsservices .svc3__grid{grid-template-columns:repeat(5,1fr)}
 @media(max-width:900px){.bsservices .svc3__grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.bsservices .svc3__grid{grid-template-columns:1fr}}
+
+/* Subservice card artwork animation — lives on the img/card, so it persists
+   regardless of which SVG (or image) is uploaded via the CMS. */
+.bsservices .svc3__img{overflow:hidden}
+.bsservices .svc3__img img{
+  transform-origin:center;
+  animation:ssFloat 6s ease-in-out infinite;
+  will-change:transform;
+}
+.bsservices .svc3:nth-child(2n) .svc3__img img{animation-duration:7s;animation-delay:-1.5s}
+.bsservices .svc3:nth-child(3n) .svc3__img img{animation-duration:8s;animation-delay:-3s}
+.bsservices .svc3:nth-child(5n) .svc3__img img{animation-duration:6.5s;animation-delay:-2.2s}
+/* hover: zoom the artwork (on the container, so it composes with the idle float) */
+.bsservices .svc3__img{transition:transform .5s var(--v3-ease)}
+.bsservices .svc3:hover .svc3__img{transform:scale(1.07)}
+@keyframes ssFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(prefers-reduced-motion:reduce){
+  .bsservices .svc3__img img{animation:none}
+  .bsservices .svc3:hover .svc3__img{transform:none}
+}
