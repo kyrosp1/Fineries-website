@@ -37,7 +37,7 @@
 .wwdhero__text .wwdhero__cta { border-color: transparent; }
 
 /* ---------- Strategy before services (blue band) ---------- */
-.wwdstrat { background: var(--v3-teal); color: #fff; }
+.wwdstrat { background: var(--v3-blue-dd); color: #fff; }
 .wwdstrat__grid {
   display: grid; grid-template-columns: minmax(0,5fr) minmax(0,7fr);
   gap: clamp(28px,5vw,80px); align-items: start;
