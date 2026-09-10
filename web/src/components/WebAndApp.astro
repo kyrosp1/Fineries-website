@@ -1,7 +1,7 @@
 ---
 import SiteNav from "./SiteNav.astro";
 import SiteFooter from "./SiteFooter.astro";
-import { getCapabilityServices } from "../data/capabilities.js";
+import { resolveSubservices } from "../data/capabilities.js";
 const { home = {}, settings = {}, services = [] } = Astro.props;
 
 const ctaWords = home.cta_words && home.cta_words.length ? home.cta_words : ["a brand", "a product", "content"];
@@ -37,7 +37,7 @@ const valueItems = (Array.isArray(home.dpt_value_items) && home.dpt_value_items.
   ? home.dpt_value_items.map((v) => ({ icon: v.icon || "circle", title: v.title, description: v.description }))
   : valueItemsFallback;
 
-const buildItems = getCapabilityServices("04");
+const buildItems = resolveSubservices(services, "04");
 const buildColor = ["blue", "magenta", "teal", "gold"];
 
 const deImg = home.dpt_de_image || heroImg;

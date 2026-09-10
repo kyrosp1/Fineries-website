@@ -80,7 +80,7 @@ const caps = capsRaw.map((s) => {
     image: s.image || "",
     tagline: s.cap_tagline || d.tagline || "",
     overview: s.cap_overview || d.overview || "",
-    skills: d.skills || [],
+    skills: (Array.isArray(s.cap_subservices) && s.cap_subservices.length ? s.cap_subservices.map((x) => x.title) : (d.skills || [])),
     explore: s.cap_explore || d.explore || (s.title ? `Explore ${s.title}` : "Explore"),
   };
 });

@@ -1,7 +1,7 @@
 ---
 import SiteNav from "./SiteNav.astro";
 import SiteFooter from "./SiteFooter.astro";
-import { getCapabilityServices } from "../data/capabilities.js";
+import { resolveSubservices } from "../data/capabilities.js";
 const { home = {}, settings = {}, services = [] } = Astro.props;
 const ctaWords = home.cta_words && home.cta_words.length ? home.cta_words : ["a brand", "a product", "content"];
 const heroImg = home.hero_image || "";
@@ -25,7 +25,7 @@ const legalLinks = (settings.legal_links && settings.legal_links.length) ? setti
 const questions = typeof home.bs_problem_questions === "string" && home.bs_problem_questions.trim()
   ? home.bs_problem_questions.split(/\r?\n/).map((q) => q.trim()).filter(Boolean)
   : ["What should we say?", "Who should we speak to?", "How should we look?", "Where should we compete?", "Why should anyone choose us?"];
-const brandServices = getCapabilityServices("01");
+const brandServices = resolveSubservices(services, "01");
 const pageTitle = home.bs_seo_title || "Brand & Strategy | Fineries Digital";
 const pageDesc = home.bs_seo_description || "Brand research, strategy, positioning, architecture, identity and messaging that give people a reason to choose you.";
 ---

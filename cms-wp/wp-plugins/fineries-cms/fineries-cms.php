@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fineries CMS
  * Description: Headless content model for the Fineries Digital site — custom post types (Services, Work), ACF field groups, options pages, and a clean REST endpoint for the Astro front-end.
- * Version: 1.12.0
+ * Version: 1.13.0
  * Author: Fineries
  * Requires Plugins: advanced-custom-fields-pro
  */
@@ -376,6 +376,12 @@ add_action('acf/init', function () {
       $area('cap_skills', 'WWD — skills (one per line)'),
       $txt('cap_explore', 'WWD — “explore” link label'),
       $txt('cap_icon', 'WWD — card icon (Lucide name, e.g. box, megaphone)'),
+      // Subservices — shown as chips on What We Do and as cards (with description) on the service page
+      ['key' => 'f_cap_subservices', 'name' => 'cap_subservices', 'label' => 'Subservices', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Add subservice', 'sub_fields' => [
+        ['key' => 'f_cap_sub_icon', 'name' => 'icon', 'label' => 'Icon (Lucide name)', 'type' => 'text'],
+        ['key' => 'f_cap_sub_title', 'name' => 'title', 'label' => 'Title', 'type' => 'text'],
+        ['key' => 'f_cap_sub_description', 'name' => 'description', 'label' => 'Short description', 'type' => 'textarea', 'rows' => 2],
+      ]],
     ],
   ]);
 
@@ -426,6 +432,7 @@ add_action('rest_api_init', function () {
           'cap_skills' => get_field('cap_skills', $p->ID),
           'cap_explore' => get_field('cap_explore', $p->ID),
           'cap_icon' => get_field('cap_icon', $p->ID),
+          'cap_subservices' => get_field('cap_subservices', $p->ID),
         ];
       }, get_posts(['post_type' => 'service', 'numberposts' => -1, 'orderby' => 'menu_order', 'order' => 'ASC']));
 
