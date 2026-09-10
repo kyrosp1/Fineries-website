@@ -33,7 +33,8 @@
 .svc-art { --art-x: 0deg; --art-y: 0deg; position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--v3-mist); perspective: 900px; }
 .svc-art__fallback { position: absolute; inset: 0; z-index: 0; }
 .svc-art__fallback--hidden { opacity: 0; }
-.svc-art__svg { position: relative; z-index: 1; display: block; width: 100%; height: 100%; transform: rotateX(var(--art-y)) rotateY(var(--art-x)) scale(1.015); transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+.svc-art__svg { position: absolute; inset: 0; z-index: 1; display: block; width: 100%; height: 100%; transform: rotateX(var(--art-y)) rotateY(var(--art-x)) scale(1.015); transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+.svc-art--01,.svc-art--05{background:#10bdb7}.svc-art--02{background:#e00083}.svc-art--03{background:#3c4099}.svc-art--04{background:#ffca09}
 .svc3:hover .svc-art__svg, .svc3:focus-visible .svc-art__svg { transform: rotateX(var(--art-y)) rotateY(var(--art-x)) scale(1.055); }
 .svc-art .art-bg { transition: filter .55s ease; }
 .svc3:hover .svc-art .art-bg, .svc3:focus-visible .svc-art .art-bg { filter: saturate(1.08) brightness(1.03); }
