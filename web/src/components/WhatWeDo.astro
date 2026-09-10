@@ -1,6 +1,7 @@
 ---
 import SiteNav from "./SiteNav.astro";
 import SiteFooter from "./SiteFooter.astro";
+import ServiceArtwork from "./ServiceArtwork.astro";
 const { home = {}, settings = {}, services = [] } = Astro.props;
 
 const ctaWords = home.cta_words && home.cta_words.length ? home.cta_words : ["a brand", "a product", "content"];
@@ -101,8 +102,8 @@ const pageDesc = home.wwd_seo_description || "Brand & strategy, marketing & grow
 <meta name="description" content={pageDesc} />
 <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
 <link rel="stylesheet" href="/css/v3.css?v=47" />
-<link rel="stylesheet" href="/css/home.css?v=47" />
-<link rel="stylesheet" href="/css/wwd.css?v=19" />
+<link rel="stylesheet" href="/css/home.css?v=64" />
+<link rel="stylesheet" href="/css/wwd.css?v=20" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
@@ -155,27 +156,46 @@ const pageDesc = home.wwd_seo_description || "Brand & strategy, marketing & grow
   </div>
 </section>
 
-<!-- OUR CAPABILITIES (5 cards) -->
-<section class="sec wwdcaps" id="capabilities" style="background:#f5f5f5">
+<!-- OUR CAPABILITIES (scroll-led SVG story) -->
+<section class="wwdcaps" id="capabilities" data-capability-story data-cap-active="01">
   <div class="wrap">
     <div class="wwdcaps__head" data-rv>
       <h2 class="h-lg wwdcaps__heading">{home.wwd_caps_heading || "Our capabilities"}</h2>
       <span class="wwdcaps__tagline">{home.wwd_caps_tagline || "Five disciplines. One purpose."}</span>
     </div>
-    <div class="wwdcaps__grid" data-rv-stagger>
-      {caps.map((c) => (
-        <a class={`capcard capcard--${c.color}`} href={c.link}>
-          <span class="capcard__icon"><i data-lucide={c.icon}></i></span>
-          <span class="capcard__num">{c.num}</span>
-          <h3 class="capcard__title" set:html={c.title}></h3>
-          <p class="capcard__overview">{c.overview}</p>
-          <ul class="capcard__skills">
-            {c.skills.slice(0, 5).map((sk) => <li>{sk}</li>)}
-            {c.skills.length > 5 && <li class="capcard__more">+ {c.skills.length - 5} more</li>}
-          </ul>
-          <span class="capcard__arrow"><i data-lucide="arrow-right"></i></span>
-        </a>
-      ))}
+    <div class="wwdcaps__story">
+      <div class="wwdcaps__visual">
+        <div class="wwdcaps__stage" aria-hidden="true">
+          {caps.map((c, index) => (
+            <div class={`wwdcaps__art${index === 0 ? " is-active" : ""}`} data-cap-art={c.num}>
+              <ServiceArtwork num={c.num} title={c.title} fallback={c.image} />
+            </div>
+          ))}
+          <div class="wwdcaps__stage-meta">
+            <span>Capability</span>
+            <strong data-cap-counter>01 / 05</strong>
+          </div>
+        </div>
+      </div>
+      <div class="wwdcaps__chapters">
+        {caps.map((c, index) => (
+          <article id={`capability-${c.num}`} class={`capchapter capchapter--${c.color}${index === 0 ? " is-active" : ""}`} data-cap-chapter={c.num}>
+            <div class="capchapter__rule"><span></span></div>
+            <span class="capchapter__num">{c.num}</span>
+            <h3 class="capchapter__title" set:html={c.title}></h3>
+            <p class="capchapter__tagline">{c.tagline}</p>
+            <p class="capchapter__overview">{c.overview}</p>
+            <ul class="capchapter__skills">
+              {c.skills.slice(0, 6).map((sk) => <li>{sk}</li>)}
+              {c.skills.length > 6 && <li class="capchapter__more">+ {c.skills.length - 6} more</li>}
+            </ul>
+            <a class="capchapter__link" href={c.link}>
+              <span>{c.explore}</span>
+              <span class="capchapter__arrow"><i data-lucide="arrow-right"></i></span>
+            </a>
+          </article>
+        ))}
+      </div>
     </div>
   </div>
 </section>
@@ -205,5 +225,6 @@ const pageDesc = home.wwd_seo_description || "Brand & strategy, marketing & grow
 </main>
 
 <script src="/js/v3.js?v=25" is:inline defer></script>
+<script src="/js/wwd.js?v=1" is:inline defer></script>
 </body>
 </html>
