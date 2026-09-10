@@ -48,7 +48,7 @@
 /* ---------- Contact hero: swinging phone (hangs from top, behind the copy) ---------- */
 .cohero{position:relative}
 .cohero .wrap{position:relative;z-index:2}
-.cophone{position:absolute;top:0;left:46%;z-index:1;transform-origin:top center;animation:cophoneSwing 4.2s ease-in-out infinite;pointer-events:none;will-change:transform}
+.cophone{position:absolute;top:clamp(-150px,-9vw,-90px);left:46%;z-index:1;transform-origin:top center;animation:cophoneSwing 4.2s ease-in-out infinite;pointer-events:none;will-change:transform}
 .cophone img{display:block;width:clamp(84px,9vw,140px);height:auto;filter:drop-shadow(0 22px 34px rgba(0,0,0,.28))}
 @keyframes cophoneSwing{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
 @media(max-width:900px){.cophone{left:auto;right:4%}}
