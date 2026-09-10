@@ -111,6 +111,14 @@
 .svc3--gold:hover .svc3__arrow    { background: var(--v3-gold);    border-color: var(--v3-gold);    color: var(--v3-ink); }
 .svc3--magenta:hover .svc3__arrow { background: var(--v3-magenta); border-color: var(--v3-magenta); color: #fff; }
 .svc3--teal:hover .svc3__arrow    { background: var(--v3-teal);    border-color: var(--v3-teal);    color: #fff; }
+/* Match each arrow button to the background of its artwork, independent of CMS panel colour. */
+#service-01, #service-05 { --svc-arrow-hover: #08bcb3; --svc-arrow-ink: #fff; }
+#service-02 { --svc-arrow-hover: #e00083; --svc-arrow-ink: #fff; }
+#service-03 { --svc-arrow-hover: #3c4099; --svc-arrow-ink: #fff; }
+#service-04 { --svc-arrow-hover: #ffca09; --svc-arrow-ink: var(--v3-ink); }
+.svc3:is(:hover, :focus-visible) .svc3__arrow {
+  background: var(--svc-arrow-hover); border-color: var(--svc-arrow-hover); color: var(--svc-arrow-ink);
+}
 
 /* ---------- The Truth ---------- */
 .truth { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; }
