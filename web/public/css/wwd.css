@@ -11,7 +11,7 @@
 }
 .wwdhero__media { position: relative; min-height: 320px; }
 /* contain so the head is never cropped on desktop; sits at the bottom, blue fills above */
-.wwdhero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
+.wwdhero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; will-change: transform; }
 .wwdhero__tags {
   position: absolute; left: clamp(20px,4vw,44px); bottom: clamp(24px,4vw,40px);
   z-index: 2; list-style: none; margin: 0; padding: 0; display: grid; gap: 6px;

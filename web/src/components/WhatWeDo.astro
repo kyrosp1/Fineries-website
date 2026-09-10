@@ -98,7 +98,7 @@ const pageDesc = home.wwd_seo_description || "Brand & strategy, marketing & grow
 <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
 <link rel="stylesheet" href="/css/v3.css?v=47" />
 <link rel="stylesheet" href="/css/home.css?v=65" />
-<link rel="stylesheet" href="/css/wwd.css?v=41" />
+<link rel="stylesheet" href="/css/wwd.css?v=42" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
@@ -214,6 +214,32 @@ const pageDesc = home.wwd_seo_description || "Brand & strategy, marketing & grow
 
 <script src="/js/v3.js?v=25" is:inline defer></script>
 <script is:inline>
+  // Hero image slides to the right as the page scrolls down (desktop only).
+  (() => {
+    const img = document.querySelector(".wwdhero__media img");
+    if (!img) return;
+    const desktop = window.matchMedia("(min-width: 861px)");
+    const noMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const start = () => {
+      if (!desktop.matches || noMotion.matches) return;
+      if (window.gsap && window.ScrollTrigger) {
+        window.gsap.registerPlugin(window.ScrollTrigger);
+        window.gsap.to(img, {
+          xPercent: 60,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".wwdhero",
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      }
+    };
+    if (document.readyState === "complete") start();
+    else window.addEventListener("load", start, { once: true });
+  })();
+
   (() => {
     document.querySelectorAll("[data-cap-more]").forEach((button) => {
       button.addEventListener("click", () => {
