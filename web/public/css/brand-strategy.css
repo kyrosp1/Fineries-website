@@ -82,3 +82,22 @@
   .bsservices .svc3__img img{animation:none}
   .bsservices .svc3:hover .svc3__img{transform:none}
 }
+
+/* Card 1 (Research & Insights) — more elaborate motion + strong hover zoom.
+   Idle motion is on the img; the big hover scale is on the container so the two compose. */
+.bsservices .svc3:first-child .svc3__img img{
+  animation:ssResearch 5s ease-in-out infinite;
+}
+.bsservices .svc3:first-child .svc3__img{transition:transform .55s cubic-bezier(.22,1,.36,1)}
+.bsservices .svc3:first-child:hover .svc3__img{transform:scale(1.35)}
+@keyframes ssResearch{
+  0%   {transform:translateY(0)    rotate(0deg)  scale(1)}
+  25%  {transform:translateY(-7px) rotate(-2.5deg) scale(1.03)}
+  50%  {transform:translateY(-11px) rotate(0deg)  scale(1.05)}
+  75%  {transform:translateY(-7px) rotate(2.5deg)  scale(1.03)}
+  100% {transform:translateY(0)    rotate(0deg)  scale(1)}
+}
+@media(prefers-reduced-motion:reduce){
+  .bsservices .svc3:first-child .svc3__img img{animation:none}
+  .bsservices .svc3:first-child:hover .svc3__img{transform:none}
+}
