@@ -80,7 +80,7 @@ const pageDesc = home.dpt_seo_description || "We use strategy, creativity and te
       <span class="eyebrow dpthero__eyebrow">{home.dpt_hero_eyebrow || "Digital Products & Technology"}</span>
       <h1 class="dpthero__title">{home.dpt_hero_heading || "What if technology could do more for your business?"}</h1>
       <p class="dpthero__body">{home.dpt_hero_body || "From winning more customers to improving operations, we use strategy, creativity and technology to build solutions that move businesses forward."}</p>
-      <a class="dpthero__cta" href="#contact">{home.dpt_hero_cta_label || "Start a Project"}</a>
+      <a class="dpthero__cta" href="/contact#form">{home.dpt_hero_cta_label || "Start a Project"}</a>
     </div>
     <button class="dpthero__media" type="button" data-open-video aria-label={home.hero_watch_label || "Play our story video"} data-rv>
       <img class="dpthero__video" src={dptHeroPoster} alt="" aria-hidden="true" />
@@ -174,7 +174,7 @@ const pageDesc = home.dpt_seo_description || "We use strategy, creativity and te
         <span class="eyebrow">{home.cta_eyebrow || "Let's Build"}</span>
         <h2 class="h-xl cta3__title" style="margin-top:18px">{home.cta_lead_in || "Ready to build"} <span class="hero3__rot cta3__rot" id="cta-rot" data-words={JSON.stringify(ctaWords)}>{ctaWords[0]}</span> {home.cta_lead_out || "people love?"}</h2>
         <p class="body" style="margin-top:18px;max-width:44ch">{home.cta_body || "Let's talk."}</p>
-        <a class="cta3__action" href="#" style="margin-top:26px">
+        <a class="cta3__action" href="/contact#form" style="margin-top:26px">
           <span class="circ"><i data-lucide="arrow-right"></i></span>
           <span>{home.cta_button_label || "Start a Conversation"}</span>
         </a>
