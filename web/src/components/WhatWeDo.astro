@@ -103,7 +103,7 @@ const pageDesc = home.wwd_seo_description || "Brand & strategy, marketing & grow
 <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
 <link rel="stylesheet" href="/css/v3.css?v=47" />
 <link rel="stylesheet" href="/css/home.css?v=65" />
-<link rel="stylesheet" href="/css/wwd.css?v=25" />
+<link rel="stylesheet" href="/css/wwd.css?v=26" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
@@ -156,46 +156,35 @@ const pageDesc = home.wwd_seo_description || "Brand & strategy, marketing & grow
   </div>
 </section>
 
-<!-- OUR CAPABILITIES (scroll-led SVG story) -->
-<section class="wwdcaps" id="capabilities" data-capability-story data-cap-active="01">
+<!-- OUR CAPABILITIES (each artwork beside its copy; links to its page) -->
+<section class="wwdcaps" id="capabilities">
   <div class="wrap">
     <div class="wwdcaps__head" data-rv>
       <h2 class="h-lg wwdcaps__heading">{home.wwd_caps_heading || "Our capabilities"}</h2>
       <span class="wwdcaps__tagline">{home.wwd_caps_tagline || "Five disciplines. One purpose."}</span>
     </div>
-    <div class="wwdcaps__story">
-      <div class="wwdcaps__visual">
-        <div class="wwdcaps__stage">
-          {caps.map((c, index) => (
-            <a class={`wwdcaps__art${index === 0 ? " is-active" : ""}`} data-cap-art={c.num} href={c.link || "#"} aria-label={`Explore ${c.title}`}>
-              <ServiceArtwork num={c.num} title={c.title} fallback={c.image} />
-            </a>
-          ))}
-          <div class="wwdcaps__stage-meta">
-            <span>Capability</span>
-            <strong data-cap-counter>01 / 05</strong>
-          </div>
-        </div>
-      </div>
-      <div class="wwdcaps__chapters">
-        {caps.map((c, index) => (
-          <article id={`capability-${c.num}`} class={`capchapter capchapter--${c.color}${index === 0 ? " is-active" : ""}`} data-cap-chapter={c.num}>
-            <div class="capchapter__rule"><span></span></div>
-            <span class="capchapter__num">{c.num}</span>
-            <h3 class="capchapter__title" set:html={c.title}></h3>
-            <p class="capchapter__tagline">{c.tagline}</p>
-            <p class="capchapter__overview">{c.overview}</p>
-            <ul class="capchapter__skills">
+    <div class="wwdcaps__list">
+      {caps.map((c, index) => (
+        <article id={`capability-${c.num}`} class={`caprow2 caprow2--${c.color}${index % 2 === 1 ? " caprow2--rev" : ""}`} data-rv>
+          <a class="caprow2__art" href={c.link || "#"} aria-label={`Explore ${c.title}`}>
+            <ServiceArtwork num={c.num} title={c.title} fallback={c.image} />
+          </a>
+          <div class="caprow2__copy">
+            <span class="caprow2__num">{c.num}</span>
+            <h3 class="caprow2__title" set:html={c.title}></h3>
+            <p class="caprow2__tagline">{c.tagline}</p>
+            <p class="caprow2__overview">{c.overview}</p>
+            <ul class="caprow2__skills">
               {c.skills.slice(0, 6).map((sk) => <li>{sk}</li>)}
-              {c.skills.length > 6 && <li class="capchapter__more">+ {c.skills.length - 6} more</li>}
+              {c.skills.length > 6 && <li class="caprow2__more">+ {c.skills.length - 6} more</li>}
             </ul>
-            <a class="capchapter__link" href={c.link}>
+            <a class="caprow2__link" href={c.link}>
               <span>{c.explore}</span>
-              <span class="capchapter__arrow"><i data-lucide="arrow-right"></i></span>
+              <span class="caprow2__arrow"><i data-lucide="arrow-right"></i></span>
             </a>
-          </article>
-        ))}
-      </div>
+          </div>
+        </article>
+      ))}
     </div>
   </div>
 </section>
@@ -225,6 +214,5 @@ const pageDesc = home.wwd_seo_description || "Brand & strategy, marketing & grow
 </main>
 
 <script src="/js/v3.js?v=25" is:inline defer></script>
-<script src="/js/wwd.js?v=4" is:inline defer></script>
 </body>
 </html>
