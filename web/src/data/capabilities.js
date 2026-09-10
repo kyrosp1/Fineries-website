@@ -71,5 +71,5 @@ export const resolveSubservices = (services, num) => {
   const svc = (services || []).find((s) => String(s.num) === String(num));
   const cms = svc && Array.isArray(svc.cap_subservices) ? svc.cap_subservices : [];
   const list = cms.length ? cms : getCapabilityServices(num);
-  return list.map((s) => ({ icon: s.icon || "circle", title: s.title || "", description: s.description || "" }));
+  return list.map((s) => ({ icon: s.icon || "circle", title: s.title || "", description: s.description || "", image: s.image || "" }));
 };

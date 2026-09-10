@@ -26,6 +26,9 @@ const questions = typeof home.bs_problem_questions === "string" && home.bs_probl
   ? home.bs_problem_questions.split(/\r?\n/).map((q) => q.trim()).filter(Boolean)
   : ["What should we say?", "Who should we speak to?", "How should we look?", "Where should we compete?", "Why should anyone choose us?"];
 const brandServices = resolveSubservices(services, "01");
+// Fallback card artwork (cycled) until per-subservice images are set in the CMS.
+const subFallbackArt = ["/assets/subservices/research-insights.svg", "/assets/subservices/brand-strategy.svg", "/assets/subservices/brand-positioning.svg"];
+const subColors = ["blue", "magenta", "teal", "gold"];
 const pageTitle = home.bs_seo_title || "Brand & Strategy | Fineries Digital";
 const pageDesc = home.bs_seo_description || "Brand research, strategy, positioning, architecture, identity and messaging that give people a reason to choose you.";
 ---
@@ -39,7 +42,7 @@ const pageDesc = home.bs_seo_description || "Brand research, strategy, positioni
 <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
 <link rel="stylesheet" href="/css/v3.css?v=51" />
 <link rel="stylesheet" href="/css/home.css?v=47" />
-<link rel="stylesheet" href="/css/brand-strategy.css?v=4" />
+<link rel="stylesheet" href="/css/brand-strategy.css?v=5" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
@@ -91,13 +94,15 @@ const pageDesc = home.bs_seo_description || "Brand research, strategy, positioni
         <span class="eyebrow">{home.bs_services_eyebrow || "What We Do"}</span>
         <h2 class="h-lg">{home.bs_services_heading || "Build from a clear point of view."}</h2>
       </div>
-      <div class="bsservices__grid" data-rv-stagger>
+      <div class="svc3__grid" data-rv-stagger>
         {brandServices.map((service, index) => (
-          <article class={`bservice bservice--${index + 1}`}>
-            <span class="bservice__num">{String(index + 1).padStart(2, "0")}</span>
-            <span class="bservice__icon"><i data-lucide={service.icon || "circle"}></i></span>
-            <h3>{service.title}</h3>
-            {service.description && <p>{service.description}</p>}
+          <article class={`svc3 svc3--${subColors[index % subColors.length]}`}>
+            <div class="svc3__img media"><img src={service.image || subFallbackArt[index % subFallbackArt.length]} alt="" /></div>
+            <div class="svc3__panel">
+              <span class="svc3__num">{String(index + 1).padStart(2, "0")}</span>
+              <h3 class="svc3__title" set:html={service.title}></h3>
+              <p class="svc3__desc">{service.description}</p>
+            </div>
           </article>
         ))}
       </div>

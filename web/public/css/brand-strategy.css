@@ -57,3 +57,8 @@
   .bsservices__grid { grid-template-columns: 1fr; }
   .bservice { min-height: 260px; }
 }
+
+/* Subservices as home-style cards — 3 across (9 items) */
+.bsservices .svc3__grid{grid-template-columns:repeat(3,1fr)}
+@media(max-width:900px){.bsservices .svc3__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.bsservices .svc3__grid{grid-template-columns:1fr}}
