@@ -35,7 +35,7 @@ const contentArtwork = contentArtworkSource
   .replace("<svg ", '<svg class="svc-art__svg svc-art__svg--content" preserveAspectRatio="xMidYMid slice" ');
 ---
 <div class={`svc-art svc-art--${key}`} data-service-art aria-hidden="true">
-  <span class="svc-art__ripple" aria-hidden="true"></span>
+  <span class="svc-art__ripple" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
   {fallback && <img class={`svc-art__fallback${supported ? " svc-art__fallback--hidden" : ""}`} src={fallback} alt="" />}
   {key === "01" && (
     <Fragment set:html={brandArtwork} />
