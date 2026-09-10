@@ -126,10 +126,10 @@
 .wwdcaps[data-cap-active="05"] { --cap-wash: rgba(8,188,179,.14); }
 .wwdcaps > .wrap { position: relative; z-index: 1; }
 .wwdcaps__head { margin-bottom: clamp(52px,7vw,92px); }
-.wwdcaps__list { display: flex; flex-direction: column; gap: 0; border-radius: 20px; overflow: hidden; }
+.wwdcaps__list { display: flex; flex-direction: column; gap: 100px; }
 .caprow2 {
   display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr);
-  gap: 0; align-items: stretch;
+  gap: 0; align-items: stretch; border-radius: 20px; overflow: hidden;
 }
 .caprow2--rev .caprow2__art { order: 2; }
 .caprow2__art {
