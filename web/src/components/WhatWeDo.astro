@@ -7,9 +7,6 @@ const { home = {}, settings = {}, services = [] } = Astro.props;
 const ctaWords = home.cta_words && home.cta_words.length ? home.cta_words : ["a brand", "a product", "content"];
 const heroImg = home.hero_image || "";
 const wwdHeroImg = home.wwd_hero_image || heroImg;
-const heroTags = (home.wwd_hero_tags && typeof home.wwd_hero_tags === "string")
-  ? home.wwd_hero_tags.split(",").map((t) => t.trim()).filter(Boolean)
-  : ["Brands", "Products", "People", "Possibilities"];
 
 const navItems = (settings.nav_items && settings.nav_items.length) ? settings.nav_items : [
   { label: "Home", link: "/" },
@@ -120,9 +117,6 @@ const pageDesc = home.wwd_seo_description || "Brand & strategy, marketing & grow
   <div class="wwdhero__grid">
     <div class="wwdhero__media">
       {wwdHeroImg && <img src={wwdHeroImg} alt="" />}
-      <ul class="wwdhero__tags" aria-hidden="true">
-        {heroTags.map((t) => <li>{t}</li>)}
-      </ul>
     </div>
     <div class="wwdhero__text on-blue" data-rv>
       <span class="eyebrow">{home.wwd_hero_eyebrow || "What We Do"}</span>
