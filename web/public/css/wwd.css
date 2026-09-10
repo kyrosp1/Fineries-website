@@ -135,7 +135,7 @@
 .caprow2__art {
   display: block; text-decoration: none; cursor: pointer;
   position: relative; height: 100%; min-height: 420px; border-radius: 20px; overflow: hidden;
-  box-shadow: 0 30px 70px rgba(27,29,69,.18);
+  box-shadow: none;
 }
 .caprow2__art .svc-art { width: 100%; height: 100%; border-radius: inherit; }
 .caprow2__art .svc-art__svg { transform: scale(1.02); position: relative; z-index: 1; }
@@ -169,7 +169,7 @@
 .caprow2__copy {
   min-width: 0; background: #fff; border-radius: 20px;
   padding: clamp(28px, 3vw, 52px);
-  box-shadow: 0 24px 60px rgba(27,29,69,.08);
+  box-shadow: none;
 }
 .caprow2__num { font: 700 12px/1 var(--font-mono,monospace); letter-spacing: .1em; color: var(--v3-teal); }
 .caprow2__title {
