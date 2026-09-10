@@ -138,7 +138,7 @@
   box-shadow: none;
 }
 .caprow2__art .svc-art { width: 100%; height: 100%; border-radius: inherit; }
-.caprow2__art .svc-art__svg { transform: scale(1.02); position: relative; z-index: 1; }
+.caprow2__art .svc-art__svg { transform: scale(.5); position: relative; z-index: 1; }
 
 /* Ripple layer: the artwork's own full-bleed background rect is made transparent here,
    so the frame's colour shows behind, a ripple sits above it, and the shapes stay on top. */
@@ -188,7 +188,7 @@
 .caprow2__link:hover .caprow2__arrow { transform: translateX(6px); background: var(--v3-ink); color: #fff; }
 
 /* Hover the artwork → replay its motion (homepage triggers are scoped to .svc3:hover). */
-.caprow2__art:hover .svc-art__svg, .caprow2__art:focus-visible .svc-art__svg { transform: scale(1.05); }
+.caprow2__art:hover .svc-art__svg, .caprow2__art:focus-visible .svc-art__svg { transform: scale(.54); }
 .caprow2__art:hover .svc-art--01 .brand-fil1 { transform: translate(-12%,8%) rotate(-12deg) scale(.88); }
 .caprow2__art:hover .svc-art--01 .brand-fil2,
 .caprow2__art:hover .svc-art--01 .brand-fil3 { transform: translate(12%,-8%) rotate(12deg) scale(1.18); filter: drop-shadow(0 14px 12px rgba(1,38,118,.2)); }
