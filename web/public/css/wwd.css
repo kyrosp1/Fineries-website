@@ -126,15 +126,15 @@
 .wwdcaps[data-cap-active="05"] { --cap-wash: rgba(8,188,179,.14); }
 .wwdcaps > .wrap { position: relative; z-index: 1; }
 .wwdcaps__head { margin-bottom: clamp(52px,7vw,92px); }
-.wwdcaps__list { display: flex; flex-direction: column; gap: 20px; }
+.wwdcaps__list { display: flex; flex-direction: column; gap: 0; border-radius: 20px; overflow: hidden; }
 .caprow2 {
   display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr);
-  gap: 20px; align-items: stretch;
+  gap: 0; align-items: stretch;
 }
 .caprow2--rev .caprow2__art { order: 2; }
 .caprow2__art {
   display: block; text-decoration: none; cursor: pointer;
-  position: relative; height: 100%; min-height: 420px; border-radius: 20px; overflow: hidden;
+  position: relative; height: 100%; min-height: 420px; border-radius: 0; overflow: hidden;
   box-shadow: none;
 }
 .caprow2__art .svc-art { width: 100%; height: 100%; border-radius: inherit; }
@@ -167,7 +167,7 @@
   100% { transform: translate(-50%,-50%) scale(3); opacity: 0; }
 }
 .caprow2__copy {
-  min-width: 0; background: #fff; border-radius: 20px;
+  min-width: 0; background: #fff; border-radius: 0;
   padding: clamp(28px, 3vw, 52px);
   box-shadow: none;
 }
@@ -234,7 +234,7 @@
   }
   .wwdstrat__grid { grid-template-columns: 1fr; }
   /* capability rows stack: artwork on top, copy below (always, regardless of --rev) */
-  .caprow2 { grid-template-columns: 1fr; gap: 20px; }
+  .caprow2 { grid-template-columns: 1fr; gap: 0; }
   .caprow2--rev .caprow2__art { order: 0; }
   .caprow2__art { height: auto; min-height: 0; aspect-ratio: 4/3; }
 }
