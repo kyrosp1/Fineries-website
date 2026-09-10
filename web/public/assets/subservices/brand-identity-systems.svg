@@ -1,0 +1,24 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="st" width="22" height="22" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="22" height="22" fill="#01D2CF"/>
+      <rect width="11" height="22" fill="#00245F"/>
+    </pattern>
+  </defs>
+  <rect width="600" height="400" fill="#01D2CF"/>
+  <!-- yellow circle with wedge notch -->
+  <circle cx="250" cy="210" r="82" fill="#FBD623"/>
+  <path d="M250 210 L250 128 A82 82 0 0 1 332 210 Z" fill="#01D2CF"/>
+  <!-- magenta half-disk -->
+  <path d="M300 300 A92 92 0 0 0 484 300 Z" fill="#F5028A"/>
+  <!-- striped quarter under square -->
+  <path d="M300 300 A92 92 0 0 0 392 208 L300 208 Z" fill="url(#st)"/>
+  <!-- navy square -->
+  <rect x="286" y="120" width="150" height="150" fill="#00245F"/>
+  <!-- dots -->
+  <g fill="#00245F">
+    <circle cx="470" cy="74" r="12"/><circle cx="506" cy="74" r="12"/><circle cx="542" cy="74" r="12"/>
+    <circle cx="470" cy="110" r="12"/><circle cx="506" cy="110" r="12"/><circle cx="542" cy="110" r="12"/>
+    <circle cx="470" cy="146" r="12"/><circle cx="506" cy="146" r="12"/><circle cx="542" cy="146" r="12"/>
+  </g>
+</svg>

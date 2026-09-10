@@ -1,0 +1,23 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="st" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="20" height="20" fill="#01D2CF"/>
+      <rect width="10" height="20" fill="#00245F"/>
+    </pattern>
+    <clipPath id="mb"><rect x="250" y="140" width="220" height="150" rx="28"/></clipPath>
+  </defs>
+  <rect width="600" height="400" fill="#01D2CF"/>
+  <!-- navy bubble (back) -->
+  <rect x="110" y="104" width="215" height="146" rx="28" fill="#00245F"/>
+  <polygon points="150,246 150,300 205,250" fill="#00245F"/>
+  <!-- magenta bubble (front) -->
+  <rect x="250" y="140" width="220" height="150" rx="28" fill="#F5028A"/>
+  <polygon points="420,286 420,338 366,290" fill="#F5028A"/>
+  <!-- striped overlap band on the magenta bubble -->
+  <rect x="250" y="140" width="66" height="150" fill="url(#st)" clip-path="url(#mb)"/>
+  <!-- yellow dots -->
+  <g fill="#FBD623">
+    <circle cx="118" cy="300" r="11"/><circle cx="150" cy="300" r="11"/><circle cx="182" cy="300" r="11"/>
+    <circle cx="118" cy="332" r="11"/><circle cx="150" cy="332" r="11"/><circle cx="182" cy="332" r="11"/>
+  </g>
+</svg>

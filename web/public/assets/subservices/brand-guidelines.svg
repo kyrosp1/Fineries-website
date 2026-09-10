@@ -1,0 +1,28 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="st" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="20" height="20" fill="#01D2CF"/>
+      <rect width="10" height="20" fill="#00245F"/>
+    </pattern>
+    <clipPath id="doc"><path d="M150 90 L330 90 L384 144 L384 320 L150 320 Z"/></clipPath>
+  </defs>
+  <rect width="600" height="400" fill="#01D2CF"/>
+  <!-- document body with folded corner -->
+  <path d="M150 90 L330 90 L384 144 L384 320 L150 320 Z" fill="#00245F"/>
+  <polygon points="330,90 384,144 330,144" fill="#F5028A"/>
+  <!-- text lines (cut-outs) -->
+  <g clip-path="url(#doc)">
+    <rect x="178" y="170" width="150" height="15" fill="#F5028A"/>
+    <rect x="178" y="205" width="176" height="15" fill="#01D2CF"/>
+    <rect x="178" y="240" width="176" height="15" fill="#01D2CF"/>
+    <rect x="178" y="275" width="120" height="15" fill="#01D2CF"/>
+    <!-- striped bottom-right corner -->
+    <polygon points="300,320 384,236 384,320" fill="url(#st)"/>
+  </g>
+  <!-- dots -->
+  <g fill="#00245F">
+    <circle cx="440" cy="120" r="12"/><circle cx="476" cy="120" r="12"/><circle cx="512" cy="120" r="12"/>
+    <circle cx="440" cy="156" r="12"/><circle cx="476" cy="156" r="12"/><circle cx="512" cy="156" r="12"/>
+    <circle cx="440" cy="192" r="12"/><circle cx="476" cy="192" r="12"/><circle cx="512" cy="192" r="12"/>
+  </g>
+</svg>

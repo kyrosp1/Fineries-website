@@ -1,0 +1,24 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="st" width="22" height="22" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="22" height="22" fill="#01D2CF"/>
+      <rect width="11" height="22" fill="#00245F"/>
+    </pattern>
+  </defs>
+  <rect width="600" height="400" fill="#01D2CF"/>
+  <!-- connectors -->
+  <g stroke="#00245F" stroke-width="9" fill="none">
+    <path d="M300 175 L300 212"/>
+    <path d="M150 212 L450 212"/>
+    <path d="M150 212 L150 236"/>
+    <path d="M300 212 L300 236"/>
+    <path d="M450 212 L450 236"/>
+  </g>
+  <!-- top node -->
+  <rect x="252" y="92" width="96" height="88" fill="#00245F"/>
+  <rect x="330" y="80" width="46" height="46" fill="url(#st)"/>
+  <!-- children -->
+  <circle cx="150" cy="278" r="42" fill="#00245F"/>
+  <rect x="256" y="236" width="88" height="88" fill="#F5028A"/>
+  <polygon points="450,236 408,320 492,320" fill="#FBD623"/>
+</svg>

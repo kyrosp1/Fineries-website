@@ -1,0 +1,18 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="st" width="22" height="22" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="22" height="22" fill="#01D2CF"/>
+      <rect width="11" height="22" fill="#00245F"/>
+    </pattern>
+  </defs>
+  <rect width="600" height="400" fill="#01D2CF"/>
+  <!-- magenta circle top-right -->
+  <circle cx="430" cy="120" r="44" fill="#F5028A"/>
+  <!-- letter A: left leg navy, right leg striped -->
+  <polygon points="300,96 336,96 236,320 184,320" fill="#00245F"/>
+  <polygon points="264,96 300,96 416,320 364,320" fill="url(#st)"/>
+  <!-- crossbar -->
+  <rect x="250" y="232" width="100" height="28" fill="#00245F"/>
+  <!-- yellow triangle at base -->
+  <polygon points="236,320 292,320 264,266" fill="#FBD623"/>
+</svg>

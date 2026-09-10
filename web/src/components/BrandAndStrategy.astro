@@ -26,8 +26,18 @@ const questions = typeof home.bs_problem_questions === "string" && home.bs_probl
   ? home.bs_problem_questions.split(/\r?\n/).map((q) => q.trim()).filter(Boolean)
   : ["What should we say?", "Who should we speak to?", "How should we look?", "Where should we compete?", "Why should anyone choose us?"];
 const brandServices = resolveSubservices(services, "01");
-// Fallback card artwork (cycled) until per-subservice images are set in the CMS.
-const subFallbackArt = ["/assets/subservices/research-insights.svg", "/assets/subservices/brand-strategy.svg", "/assets/subservices/brand-positioning.svg"];
+// Fallback card artwork per subservice (in order) until images are set in the CMS.
+const subFallbackArt = [
+  "/assets/subservices/research-insights.svg",
+  "/assets/subservices/brand-strategy.svg?v=2",
+  "/assets/subservices/brand-positioning.svg",
+  "/assets/subservices/brand-architecture.svg",
+  "/assets/subservices/brand-identity-systems.svg",
+  "/assets/subservices/naming.svg",
+  "/assets/subservices/brand-messaging.svg",
+  "/assets/subservices/verbal-identity.svg",
+  "/assets/subservices/brand-guidelines.svg",
+];
 const subColors = ["blue", "magenta", "teal", "gold"];
 const pageTitle = home.bs_seo_title || "Brand & Strategy | Fineries Digital";
 const pageDesc = home.bs_seo_description || "Brand research, strategy, positioning, architecture, identity and messaging that give people a reason to choose you.";
