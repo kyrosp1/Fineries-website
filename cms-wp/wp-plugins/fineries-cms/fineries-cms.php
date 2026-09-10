@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fineries CMS
  * Description: Headless content model for the Fineries Digital site — custom post types (Services, Work), ACF field groups, options pages, and a clean REST endpoint for the Astro front-end.
- * Version: 1.14.0
+ * Version: 1.15.0
  * Author: Fineries
  * Requires Plugins: advanced-custom-fields-pro
  */
@@ -240,9 +240,8 @@ add_action('acf/init', function () {
       // What we do
       $txt('bs_services_eyebrow', 'Services — eyebrow'),
       $txt('bs_services_heading', 'Services — heading'),
-      ['key' => 'f_bs_services', 'name' => 'bs_services', 'label' => 'Brand & strategy services', 'type' => 'repeater', 'layout' => 'block', 'sub_fields' => [
-        $txt('icon', 'Icon (Lucide name)'), $txt('title', 'Title'), $area('description', 'Description'),
-      ]],
+      // Subservice cards (incl. image/SVG upload) are edited on the SERVICE post itself
+      // (Services → Brand & Strategy → Subservices), not here — see cap_subservices.
       // CTA
       $txt('bs_cta_heading', 'CTA — heading'),
       $txt('bs_cta_label', 'CTA — button label'),
@@ -272,11 +271,8 @@ add_action('acf/init', function () {
         $wys("{$prefix}_intro_body", 'Intro — body'),
         $txt("{$prefix}_services_eyebrow", 'Services — eyebrow'),
         $txt("{$prefix}_services_heading", 'Services — heading'),
-        ['key' => "f_{$prefix}_services", 'name' => "{$prefix}_services", 'label' => 'Services', 'type' => 'repeater', 'layout' => 'block', 'sub_fields' => [
-          ['key' => "f_{$prefix}_service_icon", 'name' => 'icon', 'label' => 'Icon (Lucide name)', 'type' => 'text'],
-          ['key' => "f_{$prefix}_service_title", 'name' => 'title', 'label' => 'Title', 'type' => 'text'],
-          ['key' => "f_{$prefix}_service_description", 'name' => 'description', 'label' => 'Description', 'type' => 'textarea', 'rows' => 3],
-        ]],
+        // Subservice cards (incl. image/SVG upload) are edited on the SERVICE post itself
+        // (Services → [this service] → Subservices), not here — see cap_subservices.
         $txt("{$prefix}_principle_eyebrow", 'Principle — eyebrow'),
         $txt("{$prefix}_principle_heading", 'Principle — heading'),
         $wys("{$prefix}_principle_body", 'Principle — body'),
@@ -398,6 +394,35 @@ add_action('acf/init', function () {
       $img('image', 'Card image'),
     ],
   ]);
+});
+
+/* =========================================================
+   3b) Allow SVG uploads (brand/subservice artwork), lightly sanitised.
+   ========================================================= */
+add_filter('upload_mimes', function ($mimes) {
+  $mimes['svg'] = 'image/svg+xml';
+  $mimes['svgz'] = 'image/svg+xml';
+  return $mimes;
+});
+add_filter('wp_check_filetype_and_ext', function ($data, $file, $filename, $mimes) {
+  if (strtolower(substr($filename, -4)) === '.svg') {
+    $data['ext'] = 'svg';
+    $data['type'] = 'image/svg+xml';
+  }
+  return $data;
+}, 10, 4);
+add_filter('wp_handle_upload_prefilter', function ($file) {
+  if (($file['type'] ?? '') === 'image/svg+xml' && !empty($file['tmp_name']) && is_readable($file['tmp_name'])) {
+    $svg = file_get_contents($file['tmp_name']);
+    if ($svg !== false && $svg !== '') {
+      $svg = preg_replace('#<script[\s\S]*?</script>#i', '', $svg);
+      $svg = preg_replace('#<foreignObject[\s\S]*?</foreignObject>#i', '', $svg);
+      $svg = preg_replace('#\son\w+\s*=\s*("[^"]*"|\'[^\']*\')#i', '', $svg);
+      $svg = preg_replace('#(href|xlink:href)\s*=\s*("|\')\s*(javascript:|data:text/html)[^"\']*\2#i', '', $svg);
+      file_put_contents($file['tmp_name'], $svg);
+    }
+  }
+  return $file;
 });
 
 /* =========================================================
