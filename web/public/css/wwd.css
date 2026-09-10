@@ -166,7 +166,11 @@
   55%  { opacity: .45; }
   100% { transform: translate(-50%,-50%) scale(3); opacity: 0; }
 }
-.caprow2__copy { min-width: 0; }
+.caprow2__copy {
+  min-width: 0; background: #fff; border-radius: 20px;
+  padding: clamp(28px, 3vw, 52px);
+  box-shadow: 0 24px 60px rgba(27,29,69,.08);
+}
 .caprow2__num { font: 700 12px/1 var(--font-mono,monospace); letter-spacing: .1em; color: var(--v3-teal); }
 .caprow2__title {
   max-width: 18ch; margin: 12px 0 14px; color: var(--v3-ink);
