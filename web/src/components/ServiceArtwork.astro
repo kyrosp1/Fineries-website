@@ -1,7 +1,12 @@
 ---
+import yellowArtworkSource from "../assets/yellow.svg?raw";
 const { num = "", title = "", fallback = "" } = Astro.props;
 const key = String(num).padStart(2, "0");
 const supported = ["01", "02", "03", "04", "05"].includes(key);
+const yellowArtwork = yellowArtworkSource
+  .replace(/<\?xml[\s\S]*?\?>\s*/i, "")
+  .replace(/<!DOCTYPE[\s\S]*?>\s*/i, "")
+  .replace("<svg ", '<svg class="svc-art__svg svc-art__svg--yellow" preserveAspectRatio="xMidYMid slice" ');
 ---
 <div class={`svc-art svc-art--${key}`} data-service-art aria-hidden="true">
   {fallback && <img class={`svc-art__fallback${supported ? " svc-art__fallback--hidden" : ""}`} src={fallback} alt="" />}
@@ -36,15 +41,7 @@ const supported = ["01", "02", "03", "04", "05"].includes(key);
     </svg>
   )}
   {key === "04" && (
-    <svg class="svc-art__svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label={`${title} animated illustration`}>
-      <defs>
-        <pattern id="stripes-04" width="24" height="24" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="11" height="24" fill="#3c4099"/></pattern>
-        <clipPath id="route-04"><path d="M210 58H445V295H355V148H210Z"/></clipPath>
-      </defs>
-      <rect class="art-bg" width="600" height="400" rx="2" fill="#ffca09"/>
-      <g class="art-route" clip-path="url(#route-04)"><rect class="art-route-stripes" x="180" y="28" width="310" height="310" fill="url(#stripes-04)"/></g>
-      <path class="art-arrow" d="M126 304 204 226 235 257 354 138 409 193 290 312 321 343 201 384Z" fill="#3c4099"/>
-    </svg>
+    <Fragment set:html={yellowArtwork} />
   )}
   {key === "05" && (
     <svg class="svc-art__svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label={`${title} animated illustration`}>
