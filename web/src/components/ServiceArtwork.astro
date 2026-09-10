@@ -31,10 +31,10 @@ const contentArtwork = contentArtworkSource
   {fallback && <img class={`svc-art__fallback${supported ? " svc-art__fallback--hidden" : ""}`} src={fallback} alt="" />}
   {key === "01" && (
     <svg class="svc-art__svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label={`${title} animated illustration`}>
-      <defs><pattern id="stripes-01" width="25" height="25" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="11" height="25" fill="#3c4099"/></pattern></defs>
+      <defs><pattern id="stripes-01" width="25" height="25" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="11" height="25" fill="#012676"/></pattern></defs>
       <rect class="art-bg" width="600" height="400" rx="2" fill="#10bdb7"/>
       <g class="art-bars">
-        <rect class="art-bar art-bar--1" x="116" y="210" width="96" height="142" fill="#3c4099"/>
+        <rect class="art-bar art-bar--1" x="116" y="210" width="96" height="142" fill="#012676"/>
         <rect class="art-bar art-bar--2" x="252" y="140" width="96" height="212" fill="#e00083"/>
         <rect class="art-bar art-bar--3" x="388" y="54" width="96" height="298" fill="url(#stripes-01)"/>
         <rect class="art-shine" x="388" y="54" width="96" height="298" fill="none" stroke="#fff" stroke-opacity=".08"/>
@@ -44,8 +44,8 @@ const contentArtwork = contentArtworkSource
   {key === "02" && (
     <svg class="svc-art__svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label={`${title} animated illustration`}>
       <rect class="art-bg" width="600" height="400" rx="2" fill="#e00083"/>
-      <g class="art-megaphone" fill="#3c4099"><path d="M128 145h144v110H128z"/><path d="M180 250h70v86h-70z"/></g>
-      <g class="art-sound" fill="#3c4099">
+      <g class="art-megaphone" fill="#012676"><path d="M128 145h144v110H128z"/><path d="M180 250h70v86h-70z"/></g>
+      <g class="art-sound" fill="#012676">
         <path d="M282 146h10v108h-10z"/><path d="M305 136h10v128h-10z"/><path d="M328 126h10v148h-10z"/><path d="M351 116h10v168h-10z"/><path d="M374 106h10v188h-10z"/><path d="M397 96h10v208h-10z"/><path d="M420 86h10v228h-10z"/><path d="M443 76h10v248h-10z"/>
       </g>
     </svg>
