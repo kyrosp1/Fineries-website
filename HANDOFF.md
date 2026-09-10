@@ -8,7 +8,7 @@ Last updated: 2026-09-10
 - Production frontend: `https://fineries-website.vercel.app`.
 - CMS: headless WordPress at `https://cms.fineries.net`.
 - Production branch: `main`; pushes trigger the Vercel deployment.
-- Latest completed feature: canonical capability service lists shared by `/what-we-do` and all five individual capability pages.
+- Latest completed feature: shared video-modal feedback for loading, buffering, playback-ready, and failure states across the homepage and capability pages.
 - No known incomplete implementation work.
 
 ## Key architecture
@@ -22,6 +22,7 @@ Last updated: 2026-09-10
 - `web/public/css/home.css` contains the shared service-art animation language.
 - `web/public/css/wwd.css` contains the What We Do page and sticky capability-story layout.
 - `web/public/js/wwd.js` switches capability chapters and artwork using GSAP ScrollTrigger, with an IntersectionObserver fallback.
+- `web/public/js/v3.js` owns the shared video modal, including loading/buffering feedback and playback errors. `web/public/css/v3.css` styles the responsive 16:9 desktop and 9:16 mobile player states.
 
 The What We Do cards initially show six sub-services. Their accessible `+ more` buttons reveal the remaining canonical items and switch to `Show less`. Brand & Strategy and Digital Products & Technology have custom page components; the other three share `CapabilityPage.astro`, but all five import the same canonical data module.
 

@@ -229,13 +229,43 @@
   var modal = document.querySelector("[data-video-modal]");
   var vid = modal ? modal.querySelector("video") : null;
   if (openBtn && modal && vid) {
+    var frame = modal.querySelector(".vmodal__frame");
+    var status = document.createElement("div");
+    status.className = "vmodal__status";
+    status.setAttribute("role", "status");
+    status.setAttribute("aria-live", "polite");
+    status.innerHTML = '<span class="vmodal__spinner" aria-hidden="true"></span><span class="vmodal__message">Loading video…</span>';
+    if (frame) frame.insertBefore(status, vid);
+    var message = status.querySelector(".vmodal__message");
+    var setVideoState = function (state, text) {
+      modal.setAttribute("data-video-state", state);
+      status.hidden = state === "ready";
+      if (message && text) message.textContent = text;
+    };
+    var showLoading = function () { setVideoState("loading", "Loading video…"); };
+    var showBuffering = function () { setVideoState("buffering", "Buffering video…"); };
+    var showReady = function () { setVideoState("ready"); };
+    var showError = function () { setVideoState("error", "The video could not load. Please check your connection and try again."); };
+
+    vid.addEventListener("loadstart", showLoading);
+    vid.addEventListener("waiting", showBuffering);
+    vid.addEventListener("stalled", showBuffering);
+    vid.addEventListener("canplay", showReady);
+    vid.addEventListener("playing", showReady);
+    vid.addEventListener("error", showError);
+
     var openModal = function () {
       modal.classList.add("is-open");
       modal.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
       if (lenis) lenis.stop();
+      if (vid.error) showError();
+      else if (vid.readyState >= 3) showReady();
+      else showLoading();
       var p = vid.play();
-      if (p && p.catch) p.catch(function () {});
+      if (p && p.catch) p.catch(function () {
+        if (!vid.error) setVideoState("error", "Playback did not start. Press play to try again.");
+      });
     };
     var closeModal = function () {
       modal.classList.remove("is-open");

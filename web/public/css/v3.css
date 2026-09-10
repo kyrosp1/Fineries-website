@@ -418,7 +418,10 @@ body.mnav-open { overflow: hidden; }
 @keyframes vfade { from { opacity: 0; } to { opacity: 1; } }
 .vmodal__frame {
   position: relative;
-  display: inline-block;
+  display: block;
+  width: min(1040px, 92vw);
+  aspect-ratio: 16 / 9;
+  max-height: 86vh;
   line-height: 0;
   background: #000;
   border-radius: 10px;
@@ -432,12 +435,24 @@ body.mnav-open { overflow: hidden; }
 }
 .vmodal__frame video {
   display: block;
-  width: auto;
-  height: auto;
-  max-width: min(1040px, 92vw);
-  max-height: 86vh;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   background: #000;
 }
+.vmodal__status {
+  position: absolute; inset: 0; z-index: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+  padding: 76px 28px 48px; background: #11112f; color: #fff;
+  font-size: 15px; font-weight: 700; line-height: 1.45; letter-spacing: .02em; text-align: center;
+}
+.vmodal__status[hidden] { display: none; }
+.vmodal__spinner {
+  width: 50px; height: 50px; border: 3px solid rgba(255,255,255,.22); border-top-color: var(--v3-teal);
+  border-radius: 50%; animation: vspin .8s linear infinite;
+}
+.vmodal[data-video-state="error"] .vmodal__spinner { display: none; }
+@keyframes vspin { to { transform: rotate(360deg); } }
 .vmodal__close {
   position: absolute;
   top: 12px; right: 12px;
@@ -456,6 +471,12 @@ body.mnav-open { overflow: hidden; }
   transition: transform .25s var(--v3-ease), background .25s;
 }
 .vmodal__close:hover { transform: rotate(90deg); background: var(--v3-teal); color: #fff; }
+@media (max-width: 800px) {
+  .vmodal__frame { width: min(480px, 92vw); aspect-ratio: 9 / 16; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vmodal__spinner { animation-duration: 1.6s; }
+}
 
 .hero3__scroll {
   position: absolute;
