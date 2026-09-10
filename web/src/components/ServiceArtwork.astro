@@ -1,6 +1,7 @@
 ---
 import yellowArtworkSource from "../assets/yellow.svg?raw";
 import executiveArtworkSource from "../assets/executive.svg?raw";
+import contentArtworkSource from "../assets/content.svg?raw";
 const { num = "", title = "", fallback = "" } = Astro.props;
 const key = String(num).padStart(2, "0");
 const supported = ["01", "02", "03", "04", "05"].includes(key);
@@ -17,6 +18,14 @@ const executiveArtwork = executiveArtworkSource
   .replace(/class="fil/g, 'class="executive-fil')
   .replace('class="executive-fil1"', 'class="executive-fil1 executive-stripes"')
   .replace("<svg ", '<svg class="svc-art__svg svc-art__svg--executive" preserveAspectRatio="xMidYMid slice" ');
+const contentArtwork = contentArtworkSource
+  .replace(/<\?xml[\s\S]*?\?>\s*/i, "")
+  .replace(/<!DOCTYPE[\s\S]*?>\s*/i, "")
+  .replace(/\.fil/g, ".content-fil")
+  .replace(/\.str/g, ".content-str")
+  .replace(/class="fil/g, 'class="content-fil')
+  .replace(/ str/g, " content-str")
+  .replace("<svg ", '<svg class="svc-art__svg svc-art__svg--content" preserveAspectRatio="xMidYMid slice" ');
 ---
 <div class={`svc-art svc-art--${key}`} data-service-art aria-hidden="true">
   {fallback && <img class={`svc-art__fallback${supported ? " svc-art__fallback--hidden" : ""}`} src={fallback} alt="" />}
@@ -42,13 +51,7 @@ const executiveArtwork = executiveArtworkSource
     </svg>
   )}
   {key === "03" && (
-    <svg class="svc-art__svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label={`${title} animated illustration`}>
-      <defs><pattern id="stripes-03" width="22" height="22" patternUnits="userSpaceOnUse"><rect width="10" height="22" fill="#e00083"/></pattern><clipPath id="tri-03"><path d="M314 74 508 200 314 326Z"/></clipPath></defs>
-      <rect class="art-bg" width="600" height="400" rx="2" fill="#3c4099"/>
-      <path class="art-play-left" d="M102 74 296 200 102 326Z" fill="#10bdb7"/>
-      <g class="art-play-right" clip-path="url(#tri-03)"><rect class="art-play-stripes" x="314" y="68" width="210" height="264" fill="url(#stripes-03)"/></g>
-      <circle class="art-play-pulse" cx="305" cy="200" r="12" fill="none" stroke="#fff" stroke-opacity=".4"/>
-    </svg>
+    <Fragment set:html={contentArtwork} />
   )}
   {key === "04" && (
     <Fragment set:html={yellowArtwork} />
