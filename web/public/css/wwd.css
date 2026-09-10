@@ -186,6 +186,16 @@
 .caprow2__arrow { display: grid; width: 42px; height: 42px; place-items: center; border: 1.5px solid rgba(27,29,69,.25); border-radius: 50%; transition: transform .35s ease, background .3s ease, color .3s ease; }
 .caprow2__arrow svg { width: 16px; height: 16px; }
 .caprow2__link:hover .caprow2__arrow { transform: translateX(6px); background: var(--v3-ink); color: #fff; }
+.caprow2:nth-child(1) .caprow2__link:hover .caprow2__arrow,
+.caprow2:nth-child(1) .caprow2__link:focus-visible .caprow2__arrow,
+.caprow2:nth-child(5) .caprow2__link:hover .caprow2__arrow,
+.caprow2:nth-child(5) .caprow2__link:focus-visible .caprow2__arrow { background: #08bcb3; border-color: #08bcb3; color: #fff; }
+.caprow2:nth-child(2) .caprow2__link:hover .caprow2__arrow,
+.caprow2:nth-child(2) .caprow2__link:focus-visible .caprow2__arrow { background: #e00083; border-color: #e00083; color: #fff; }
+.caprow2:nth-child(3) .caprow2__link:hover .caprow2__arrow,
+.caprow2:nth-child(3) .caprow2__link:focus-visible .caprow2__arrow { background: #3c4099; border-color: #3c4099; color: #fff; }
+.caprow2:nth-child(4) .caprow2__link:hover .caprow2__arrow,
+.caprow2:nth-child(4) .caprow2__link:focus-visible .caprow2__arrow { background: #ffca09; border-color: #ffca09; color: var(--v3-ink); }
 
 /* Hover the artwork → replay its motion (homepage triggers are scoped to .svc3:hover). */
 .caprow2__art:hover .svc-art__svg, .caprow2__art:focus-visible .svc-art__svg { transform: scale(.54); }
