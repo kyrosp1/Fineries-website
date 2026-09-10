@@ -138,7 +138,32 @@
   box-shadow: 0 30px 70px rgba(27,29,69,.18);
 }
 .caprow2__art .svc-art { width: 100%; height: 100%; border-radius: inherit; }
-.caprow2__art .svc-art__svg { transform: scale(1.02); }
+.caprow2__art .svc-art__svg { transform: scale(1.02); position: relative; z-index: 1; }
+
+/* Ripple layer: the artwork's own full-bleed background rect is made transparent here,
+   so the frame's colour shows behind, a ripple sits above it, and the shapes stay on top. */
+.caprow2__art .brand-fil0,
+.caprow2__art .content-fil0,
+.caprow2__art .digital-fil0,
+.caprow2__art .executive-fil0,
+.caprow2__art .art-bg { fill: transparent; }
+.caprow2__art .svc-art__ripple {
+  display: block; position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+}
+.caprow2__art .svc-art__ripple::before,
+.caprow2__art .svc-art__ripple::after {
+  content: ""; position: absolute; top: 50%; left: 50%;
+  width: 46%; aspect-ratio: 1; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.42);
+  transform: translate(-50%,-50%) scale(.15); opacity: 0;
+  animation: svcRipple 4s cubic-bezier(.22,.7,.2,1) infinite;
+}
+.caprow2__art .svc-art__ripple::after { animation-delay: 2s; }
+@keyframes svcRipple {
+  0%   { transform: translate(-50%,-50%) scale(.15); opacity: .5; }
+  70%  { opacity: .12; }
+  100% { transform: translate(-50%,-50%) scale(2.7); opacity: 0; }
+}
 .caprow2__copy { min-width: 0; }
 .caprow2__num { font: 700 12px/1 var(--font-mono,monospace); letter-spacing: .1em; color: var(--v3-teal); }
 .caprow2__title {
@@ -209,4 +234,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .caprow2__art .svc-art__svg, .caprow2__art :where([class*="-fil"], .art-megaphone, .art-sound) { transition-duration: .01ms !important; }
+  .caprow2__art .svc-art__ripple::before, .caprow2__art .svc-art__ripple::after { animation: none; opacity: 0; }
 }
