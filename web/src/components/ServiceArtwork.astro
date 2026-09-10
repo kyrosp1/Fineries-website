@@ -15,6 +15,7 @@ const executiveArtwork = executiveArtworkSource
   .replace(/<!DOCTYPE[\s\S]*?>\s*/i, "")
   .replace(/\.fil/g, ".executive-fil")
   .replace(/class="fil/g, 'class="executive-fil')
+  .replace('class="executive-fil1"', 'class="executive-fil1 executive-stripes"')
   .replace("<svg ", '<svg class="svc-art__svg svc-art__svg--executive" preserveAspectRatio="xMidYMid slice" ');
 ---
 <div class={`svc-art svc-art--${key}`} data-service-art aria-hidden="true">
