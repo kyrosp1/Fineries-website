@@ -1,10 +1,17 @@
 ---
 import digitalArtworkSource from "../assets/digital.svg?raw";
+import brandArtworkSource from "../assets/brand.svg?raw";
 import executiveArtworkSource from "../assets/executive.svg?raw";
 import contentArtworkSource from "../assets/content.svg?raw";
 const { num = "", title = "", fallback = "" } = Astro.props;
 const key = String(num).padStart(2, "0");
 const supported = ["01", "02", "03", "04", "05"].includes(key);
+const brandArtwork = brandArtworkSource
+  .replace(/<\?xml[\s\S]*?\?>\s*/i, "")
+  .replace(/<!DOCTYPE[\s\S]*?>\s*/i, "")
+  .replace(/\.fil/g, ".brand-fil")
+  .replace(/class="fil/g, 'class="brand-fil')
+  .replace("<svg ", '<svg class="svc-art__svg svc-art__svg--brand" preserveAspectRatio="xMidYMid slice" ');
 const digitalArtwork = digitalArtworkSource
   .replace(/<\?xml[\s\S]*?\?>\s*/i, "")
   .replace(/<!DOCTYPE[\s\S]*?>\s*/i, "")
@@ -30,16 +37,7 @@ const contentArtwork = contentArtworkSource
 <div class={`svc-art svc-art--${key}`} data-service-art aria-hidden="true">
   {fallback && <img class={`svc-art__fallback${supported ? " svc-art__fallback--hidden" : ""}`} src={fallback} alt="" />}
   {key === "01" && (
-    <svg class="svc-art__svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label={`${title} animated illustration`}>
-      <defs><pattern id="stripes-01" width="25" height="25" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="11" height="25" fill="#012676"/></pattern></defs>
-      <rect class="art-bg" width="600" height="400" rx="2" fill="#10bdb7"/>
-      <g class="art-bars">
-        <rect class="art-bar art-bar--1" x="116" y="210" width="96" height="142" fill="#012676"/>
-        <rect class="art-bar art-bar--2" x="252" y="140" width="96" height="212" fill="#e00083"/>
-        <rect class="art-bar art-bar--3" x="388" y="54" width="96" height="298" fill="url(#stripes-01)"/>
-        <rect class="art-shine" x="388" y="54" width="96" height="298" fill="none" stroke="#fff" stroke-opacity=".08"/>
-      </g>
-    </svg>
+    <Fragment set:html={brandArtwork} />
   )}
   {key === "02" && (
     <svg class="svc-art__svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label={`${title} animated illustration`}>
