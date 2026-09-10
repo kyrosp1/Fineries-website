@@ -1,16 +1,16 @@
 ---
-import yellowArtworkSource from "../assets/yellow.svg?raw";
+import digitalArtworkSource from "../assets/digital.svg?raw";
 import executiveArtworkSource from "../assets/executive.svg?raw";
 import contentArtworkSource from "../assets/content.svg?raw";
 const { num = "", title = "", fallback = "" } = Astro.props;
 const key = String(num).padStart(2, "0");
 const supported = ["01", "02", "03", "04", "05"].includes(key);
-const yellowArtwork = yellowArtworkSource
+const digitalArtwork = digitalArtworkSource
   .replace(/<\?xml[\s\S]*?\?>\s*/i, "")
   .replace(/<!DOCTYPE[\s\S]*?>\s*/i, "")
-  .replace(/\.fil/g, ".yellow-fil")
-  .replace(/class="fil/g, 'class="yellow-fil')
-  .replace("<svg ", '<svg class="svc-art__svg svc-art__svg--yellow" preserveAspectRatio="xMidYMid slice" ');
+  .replace(/\.fil/g, ".digital-fil")
+  .replace(/class="fil/g, 'class="digital-fil')
+  .replace("<svg ", '<svg class="svc-art__svg svc-art__svg--digital" preserveAspectRatio="xMidYMid slice" ');
 const executiveArtwork = executiveArtworkSource
   .replace(/<\?xml[\s\S]*?\?>\s*/i, "")
   .replace(/<!DOCTYPE[\s\S]*?>\s*/i, "")
@@ -54,7 +54,7 @@ const contentArtwork = contentArtworkSource
     <Fragment set:html={contentArtwork} />
   )}
   {key === "04" && (
-    <Fragment set:html={yellowArtwork} />
+    <Fragment set:html={digitalArtwork} />
   )}
   {key === "05" && (
     <Fragment set:html={executiveArtwork} />
