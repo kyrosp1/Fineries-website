@@ -30,6 +30,42 @@
 .svc3:hover { transform: translateY(-6px); box-shadow: 0 24px 50px rgba(27,29,69,.22); }
 .svc3__img { aspect-ratio: 4/3; background: var(--v3-mist); }
 .svc3__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.svc-art { --art-x: 0deg; --art-y: 0deg; position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--v3-mist); perspective: 900px; }
+.svc-art__fallback { position: absolute; inset: 0; z-index: 0; }
+.svc-art__fallback--hidden { opacity: 0; }
+.svc-art__svg { position: relative; z-index: 1; display: block; width: 100%; height: 100%; transform: rotateX(var(--art-y)) rotateY(var(--art-x)) scale(1.015); transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+.svc3:hover .svc-art__svg, .svc3:focus-visible .svc-art__svg { transform: rotateX(var(--art-y)) rotateY(var(--art-x)) scale(1.055); }
+.svc-art .art-bg { transition: filter .55s ease; }
+.svc3:hover .svc-art .art-bg, .svc3:focus-visible .svc-art .art-bg { filter: saturate(1.08) brightness(1.03); }
+
+/* 01 — bars grow and settle in sequence. */
+.svc-art--01 .art-bar { transform-box: fill-box; transform-origin: center bottom; transition: transform .72s cubic-bezier(.2,.85,.18,1.15); }
+.svc-art--01 .art-bar--2 { transition-delay: .07s; }.svc-art--01 .art-bar--3 { transition-delay: .14s; }
+.svc3:hover .svc-art--01 .art-bar--1,.svc3:focus-visible .svc-art--01 .art-bar--1{transform:scaleY(1.2)}
+.svc3:hover .svc-art--01 .art-bar--2,.svc3:focus-visible .svc-art--01 .art-bar--2{transform:scaleY(.86)}
+.svc3:hover .svc-art--01 .art-bar--3,.svc3:focus-visible .svc-art--01 .art-bar--3{transform:scaleY(1.08)}
+.svc-art--01 .art-shine{transform-box:fill-box;transform-origin:center bottom;opacity:0;transition:opacity .25s,transform .72s cubic-bezier(.2,.85,.18,1.15);transition-delay:.14s}.svc3:hover .svc-art--01 .art-shine{opacity:1;transform:scaleY(1.08)}
+
+/* 02 — megaphone recoil with an expanding sound wave. */
+.svc-art--02 .art-megaphone{transform-origin:240px 210px;transition:transform .65s cubic-bezier(.2,.9,.2,1.25)}.svc-art--02 .art-sound{transform-origin:282px 200px;transition:transform .72s cubic-bezier(.2,.85,.2,1),opacity .25s}.svc-art--02 .art-sound path{transform-box:fill-box;transform-origin:left center;transition:transform .5s ease}.svc3:hover .svc-art--02 .art-megaphone,.svc3:focus-visible .svc-art--02 .art-megaphone{transform:translateX(-12px) rotate(-3deg)}.svc3:hover .svc-art--02 .art-sound,.svc3:focus-visible .svc-art--02 .art-sound{transform:translateX(18px) scaleX(1.08)}.svc3:hover .svc-art--02 .art-sound path:nth-child(odd){transform:scaleY(.88)}
+
+/* 03 — two ideas accelerate together; the pulse marks impact. */
+.svc-art--03 .art-play-left,.svc-art--03 .art-play-right{transform-box:fill-box;transform-origin:center;transition:transform .7s cubic-bezier(.18,.9,.2,1.18)}.svc-art--03 .art-play-stripes{transition:transform .8s cubic-bezier(.2,.8,.2,1)}.svc-art--03 .art-play-pulse{transform-box:fill-box;transform-origin:center;opacity:0;transition:transform .5s ease .28s,opacity .18s ease .28s}.svc3:hover .svc-art--03 .art-play-left,.svc3:focus-visible .svc-art--03 .art-play-left{transform:translateX(32px) scale(.92)}.svc3:hover .svc-art--03 .art-play-right,.svc3:focus-visible .svc-art--03 .art-play-right{transform:translateX(-32px) scale(.92)}.svc3:hover .svc-art--03 .art-play-stripes{transform:translateX(20px)}.svc3:hover .svc-art--03 .art-play-pulse{opacity:1;transform:scale(4)}
+
+/* 04 — the arrow is routed through the striped digital system. */
+.svc-art--04 .art-route{stroke-dasharray:760;stroke-dashoffset:0;transition:stroke-dashoffset .9s cubic-bezier(.2,.8,.2,1)}.svc-art--04 .art-arrow{transform-box:fill-box;transform-origin:center;transition:transform .72s cubic-bezier(.2,.9,.18,1.18)}.svc3:hover .svc-art--04 .art-route,.svc3:focus-visible .svc-art--04 .art-route{stroke-dashoffset:-92}.svc3:hover .svc-art--04 .art-arrow,.svc3:focus-visible .svc-art--04 .art-arrow{transform:translate(34px,-32px) rotate(2deg)}
+
+/* 05 — distinct perspectives open out, then resolve around one centre. */
+.svc-art--05 .art-star{transform-origin:300px 200px;transition:transform .8s cubic-bezier(.2,.85,.2,1)}.svc-art--05 .art-arm{transform-box:fill-box;transform-origin:center bottom;transition:transform .72s cubic-bezier(.18,.9,.2,1.2)}.svc-art--05 .art-star-core{transform-box:fill-box;transform-origin:center;transition:transform .5s ease}.svc3:hover .svc-art--05 .art-star,.svc3:focus-visible .svc-art--05 .art-star{transform:translate(300px,200px) rotate(18deg)}.svc3:hover .svc-art--05 .art-arm--1{transform:translateY(-14px)}.svc3:hover .svc-art--05 .art-arm--2{transform:rotate(72deg) translateY(-14px)}.svc3:hover .svc-art--05 .art-arm--3{transform:rotate(144deg) translateY(-14px)}.svc3:hover .svc-art--05 .art-arm--4{transform:rotate(216deg) translateY(-14px)}.svc3:hover .svc-art--05 .art-arm--5{transform:rotate(288deg) translateY(-14px)}.svc3:hover .svc-art--05 .art-star-core{transform:scale(.72)}
+
+@media (hover:none) {
+  .svc-art.is-seen .svc-art__svg { animation: svc-art-arrive .9s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes svc-art-arrive { from { opacity:.35; transform:scale(.9) rotate(-2deg) } to { opacity:1; transform:scale(1.015) rotate(0) } }
+}
+@media (prefers-reduced-motion:reduce) {
+  .svc-art__svg,.svc-art * { animation:none!important;transition-duration:.01ms!important; }
+  .svc3:hover .svc-art__svg,.svc3:focus-visible .svc-art__svg { transform:none; }
+}
 .svc3__panel { padding: 22px 20px 20px; display: flex; flex-direction: column; flex: 1; color: #fff; }
 .svc3__num { font-family: var(--font-mono, monospace); font-size: 12px; opacity: .8; margin-bottom: 12px; }
 .svc3__title { font-family: var(--font-display); font-weight: 800; font-size: 19px; line-height: 1.12; letter-spacing: -.01em; margin-bottom: 10px; }

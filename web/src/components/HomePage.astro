@@ -1,6 +1,7 @@
 ---
 import SiteNav from "./SiteNav.astro";
 import SiteFooter from "./SiteFooter.astro";
+import ServiceArtwork from "./ServiceArtwork.astro";
 const { home, settings, services = [], work = [], preview = false } = Astro.props;
 
 const heroWords = home.hero_words && home.hero_words.length ? home.hero_words : ["brands", "products", "content"];
@@ -46,7 +47,7 @@ const ringColor = ["blue", "magenta", "teal"];
 <meta name="description" content={settings.seo_description || "Fineries Digital brings strategy, creativity and technology together to help ambitious organisations grow, connect and create what comes next."} />
 <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
 <link rel="stylesheet" href="/css/v3.css?v=47" />
-<link rel="stylesheet" href="/css/home.css?v=51" />
+<link rel="stylesheet" href="/css/home.css?v=52" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
@@ -84,7 +85,7 @@ const ringColor = ["blue", "magenta", "teal"];
 </div>
 
 <!-- WHAT WE DO — service cards -->
-<section class="sec wwd-sec" style="background:#f5f5f5">
+<section class="sec wwd-sec" id="capabilities" style="background:#f5f5f5">
   <div class="wrap">
     <div class="wwd2__head" data-rv>
       <div>
@@ -93,13 +94,13 @@ const ringColor = ["blue", "magenta", "teal"];
       </div>
       <div class="wwd2__aside">
         <p class="body">{home.wwd_body}</p>
-        <a class="btn3 btn3--teal" href="#">{home.wwd_cta_label || "Explore our capabilities"} <i data-lucide="arrow-right"></i></a>
+        <a class="btn3 btn3--teal" href="#capabilities">{home.wwd_cta_label || "Explore our capabilities"} <i data-lucide="arrow-right"></i></a>
       </div>
     </div>
     <div class="svc3__grid" data-rv-stagger>
       {services.map((s) => (
         <a class={`svc3 svc3--${s.color || "blue"}`} href={s.link || "#"}>
-          <div class="svc3__img media"><img src={svcImg(s)} alt={s.title} /></div>
+          <div class="svc3__img media"><ServiceArtwork num={s.num} title={s.title} fallback={svcImg(s)} /></div>
           <div class="svc3__panel">
             <span class="svc3__num">{s.num}</span>
             <h3 class="svc3__title" set:html={s.title}></h3>
@@ -195,6 +196,6 @@ const ringColor = ["blue", "magenta", "teal"];
 
 </main>
 
-<script src="/js/v3.js?v=29" is:inline defer></script>
+<script src="/js/v3.js?v=30" is:inline defer></script>
 </body>
 </html>

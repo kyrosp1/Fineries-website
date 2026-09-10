@@ -194,6 +194,36 @@
     void brandCursor; void bi;
   }
 
+  /* ---- Service artwork: pointer depth + touch-device entrance ---- */
+  var serviceArt = document.querySelectorAll("[data-service-art]");
+  if (serviceArt.length && !reduced) {
+    if (window.matchMedia("(hover: hover)").matches) {
+      serviceArt.forEach(function (art) {
+        art.addEventListener("pointermove", function (event) {
+          var rect = art.getBoundingClientRect();
+          var x = (event.clientX - rect.left) / rect.width - 0.5;
+          var y = (event.clientY - rect.top) / rect.height - 0.5;
+          art.style.setProperty("--art-x", (x * 4).toFixed(2) + "deg");
+          art.style.setProperty("--art-y", (y * -4).toFixed(2) + "deg");
+        });
+        art.addEventListener("pointerleave", function () {
+          art.style.setProperty("--art-x", "0deg");
+          art.style.setProperty("--art-y", "0deg");
+        });
+      });
+    } else if ("IntersectionObserver" in window) {
+      var artObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-seen");
+            artObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.45 });
+      serviceArt.forEach(function (art) { artObserver.observe(art); });
+    }
+  }
+
   /* ---- Video modal ---- */
   var openBtn = document.querySelector("[data-open-video]");
   var modal = document.querySelector("[data-video-modal]");
