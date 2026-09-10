@@ -697,3 +697,12 @@ body.mnav-open { overflow: hidden; }
   .mnav__links a { opacity: 1; transform: none; }
   .mnav__foot { opacity: 1; transform: none; }
 }
+
+/* ---------- Service-page SVG hero (full-bleed animated artwork) ---------- */
+.svghero{position:relative;width:100%;overflow:hidden;background:var(--v3-blue);line-height:0}
+.svghero__art{width:100%;height:clamp(420px,72vh,760px)}
+.svghero__art .svc-art{width:100%;height:100%;position:relative}
+.svghero__art .svc-art__svg{display:block;width:100%;height:100%}
+/* keep the fixed nav legible over any artwork colour */
+.svghero::before{content:"";position:absolute;left:0;right:0;top:0;height:170px;z-index:3;pointer-events:none;background:linear-gradient(to bottom,rgba(10,12,40,.5),rgba(10,12,40,0))}
+@media(max-width:640px){.svghero__art{height:clamp(260px,52vh,460px)}}

@@ -1,6 +1,7 @@
 ---
 import SiteNav from "./SiteNav.astro";
 import SiteFooter from "./SiteFooter.astro";
+import ServiceArtwork from "./ServiceArtwork.astro";
 import { getCapabilityServices } from "../data/capabilities.js";
 const { home = {}, settings = {}, services = [] } = Astro.props;
 
@@ -53,7 +54,7 @@ const pageDesc = home.dpt_seo_description || "We use strategy, creativity and te
 <title>{pageTitle}</title>
 <meta name="description" content={pageDesc} />
 <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
-<link rel="stylesheet" href="/css/v3.css?v=49" />
+<link rel="stylesheet" href="/css/v3.css?v=50" />
 <link rel="stylesheet" href="/css/home.css?v=47" />
 <link rel="stylesheet" href="/css/dpt.css?v=3" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
@@ -66,6 +67,11 @@ const pageDesc = home.dpt_seo_description || "We use strategy, creativity and te
 <SiteNav navItems={navItems} settings={settings} active="/what-we-do" />
 
 <main id="main">
+
+<!-- SVG HERO (full-bleed artwork) -->
+<section class="svghero svghero--digital">
+  <div class="svghero__art"><ServiceArtwork num="04" title={home.dpt_hero_eyebrow || "Digital Products & Technology"} /></div>
+</section>
 
 <!-- HERO -->
 <section class="dpthero">

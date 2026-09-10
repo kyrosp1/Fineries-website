@@ -1,6 +1,7 @@
 ---
 import SiteNav from "./SiteNav.astro";
 import SiteFooter from "./SiteFooter.astro";
+import ServiceArtwork from "./ServiceArtwork.astro";
 
 const { home = {}, settings = {}, services = [], page } = Astro.props;
 const get = (name, fallback = "") => home[`${page.prefix}_${name}`] || fallback;
@@ -36,9 +37,9 @@ const legalLinks = settings.legal_links?.length ? settings.legal_links : [
   <title>{get("seo_title", `${page.name} | Fineries Digital`)}</title>
   <meta name="description" content={get("seo_description", page.seoDescription)} />
   <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
-  <link rel="stylesheet" href="/css/v3.css?v=49" />
+  <link rel="stylesheet" href="/css/v3.css?v=50" />
   <link rel="stylesheet" href="/css/home.css?v=47" />
-  <link rel="stylesheet" href="/css/capability-page.css?v=1" />
+  <link rel="stylesheet" href="/css/capability-page.css?v=2" />
   <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
@@ -47,6 +48,12 @@ const legalLinks = settings.legal_links?.length ? settings.legal_links : [
 <body>
   <SiteNav navItems={navItems} settings={settings} active="/what-we-do" />
   <main id="main">
+    {page.num && (
+      <section class={`svghero svghero--${page.accent}`}>
+        <div class="svghero__art"><ServiceArtwork num={page.num} title={page.name} /></div>
+      </section>
+    )}
+
     <section class={`cphero cphero--${page.accent}`}>
       <div class="wrap cphero__inner on-blue">
         <div class="cphero__copy" data-rv>

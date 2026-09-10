@@ -1,6 +1,7 @@
 ---
 import SiteNav from "./SiteNav.astro";
 import SiteFooter from "./SiteFooter.astro";
+import ServiceArtwork from "./ServiceArtwork.astro";
 import { getCapabilityServices } from "../data/capabilities.js";
 const { home = {}, settings = {}, services = [] } = Astro.props;
 const ctaWords = home.cta_words && home.cta_words.length ? home.cta_words : ["a brand", "a product", "content"];
@@ -37,9 +38,9 @@ const pageDesc = home.bs_seo_description || "Brand research, strategy, positioni
 <title>{pageTitle}</title>
 <meta name="description" content={pageDesc} />
 <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
-<link rel="stylesheet" href="/css/v3.css?v=49" />
+<link rel="stylesheet" href="/css/v3.css?v=50" />
 <link rel="stylesheet" href="/css/home.css?v=47" />
-<link rel="stylesheet" href="/css/brand-strategy.css?v=3" />
+<link rel="stylesheet" href="/css/brand-strategy.css?v=4" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
@@ -48,6 +49,10 @@ const pageDesc = home.bs_seo_description || "Brand research, strategy, positioni
 <body>
 <SiteNav navItems={navItems} settings={settings} active="/what-we-do" />
 <main id="main">
+  <section class="svghero svghero--brand">
+    <div class="svghero__art"><ServiceArtwork num="01" title={home.bs_hero_eyebrow || "Brand & Strategy"} /></div>
+  </section>
+
   <section class="bshero on-blue">
     <div class="wrap bshero__inner">
       <div class="bshero__copy" data-rv>
