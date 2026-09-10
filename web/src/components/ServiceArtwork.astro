@@ -37,10 +37,13 @@ const supported = ["01", "02", "03", "04", "05"].includes(key);
   )}
   {key === "04" && (
     <svg class="svc-art__svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label={`${title} animated illustration`}>
-      <defs><pattern id="stripes-04" width="23" height="23" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="10" height="23" fill="#3c4099"/></pattern></defs>
+      <defs>
+        <pattern id="stripes-04" width="24" height="24" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="11" height="24" fill="#3c4099"/></pattern>
+        <clipPath id="route-04"><path d="M210 58H445V295H355V148H210Z"/></clipPath>
+      </defs>
       <rect class="art-bg" width="600" height="400" rx="2" fill="#ffca09"/>
-      <path class="art-route" d="M214 86H445V276" fill="none" stroke="url(#stripes-04)" stroke-width="78" stroke-linejoin="miter"/>
-      <g class="art-arrow" fill="#3c4099"><path d="M144 270 275 139l74 74-131 131z"/><path d="m128 286 118-36-82-82z"/></g>
+      <g class="art-route" clip-path="url(#route-04)"><rect class="art-route-stripes" x="180" y="28" width="310" height="310" fill="url(#stripes-04)"/></g>
+      <path class="art-arrow" d="M126 304 204 226 235 257 354 138 409 193 290 312 321 343 201 384Z" fill="#3c4099"/>
     </svg>
   )}
   {key === "05" && (
