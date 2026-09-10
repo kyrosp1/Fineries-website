@@ -31,9 +31,11 @@
 .cf__two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .cf__field{display:grid;gap:6px;margin:0}
 .cf__field small{font-size:12px;color:var(--v3-text-2)}
-.contact .cf input,.contact .cf textarea{width:100%;border:1px solid #cfd2e0;border-radius:8px;background:#fff;padding:13px 14px;font:inherit;font-size:15px;color:var(--v3-ink);outline:none;transition:border-color .2s,box-shadow .2s}
+.contact .cf input,.contact .cf textarea,.contact .cf select{width:100%;border:1px solid #cfd2e0;border-radius:8px;background:#fff;padding:13px 14px;font:inherit;font-size:15px;color:var(--v3-ink);outline:none;transition:border-color .2s,box-shadow .2s}
 .contact .cf textarea{min-height:150px;resize:vertical}
-.contact .cf input:focus,.contact .cf textarea:focus{border-color:var(--v3-blue);box-shadow:0 0 0 3px rgba(60,64,153,.13)}
+.contact .cf select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A8CA0' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;cursor:pointer}
+.contact .cf input:focus,.contact .cf textarea:focus,.contact .cf select:focus{border-color:var(--v3-blue);box-shadow:0 0 0 3px rgba(60,64,153,.13)}
+.contact .cf .contact__choices{margin-top:2px}
 .cf__count{font-size:12px;color:var(--v3-text-2)}
 .cf__submit{justify-self:start;padding:13px 34px;border:0;border-radius:8px;background:var(--v3-blue);color:#fff;font:inherit;font-weight:700;font-size:15px;letter-spacing:.02em;cursor:pointer;transition:background .2s}
 .cf__submit:hover{background:var(--v3-blue-dd,#012879)}

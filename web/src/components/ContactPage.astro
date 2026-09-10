@@ -7,11 +7,12 @@ const navItems = settings.nav_items?.length ? settings.nav_items : [{label:"Home
 const companyLinks = settings.footer_company_links?.length ? settings.footer_company_links : [{label:"About",link:"/about"},{label:"Work",link:"#"},{label:"Insights",link:"#"},{label:"Careers",link:"#"},{label:"Contact",link:"/contact"}];
 const legalLinks = settings.legal_links?.length ? settings.legal_links : [{label:"Privacy",link:"#"},{label:"Terms",link:"#"}];
 const phone = settings.phone || settings.contact_phone || settings.phone_number || "";
+const serviceChoices = ["Brand & Strategy","Marketing & Growth","Content & Production","Digital Products & Technology","Executive & Personal Branding","Something else / Not sure yet"];
 ---
 <!DOCTYPE html><html lang="en"><head>
   <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>{home.contact_seo_title || "Contact Fineries | Start a Conversation"}</title><meta name="description" content={home.contact_seo_description || "Tell Fineries about the brand, campaign, product or business challenge you want to solve."}/>
-  <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg"/><link rel="stylesheet" href="/css/v3.css?v=50"/><link rel="stylesheet" href="/css/home.css?v=47"/><link rel="stylesheet" href="/css/about-contact.css?v=3"/>
+  <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg"/><link rel="stylesheet" href="/css/v3.css?v=50"/><link rel="stylesheet" href="/css/home.css?v=47"/><link rel="stylesheet" href="/css/about-contact.css?v=4"/>
   <script src="https://unpkg.com/lucide@latest" is:inline defer></script><script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script><script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script><script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" is:inline defer></script>
 </head><body><SiteNav navItems={navItems} settings={settings} active="/contact"/>
 <main id="main">
@@ -32,45 +33,32 @@ const phone = settings.phone || settings.contact_phone || settings.phone_number 
       </div>
     </div>
     <form class="contact__form cf" data-contact-form data-email={email} data-rv>
-      <div class="cf__group">
-        <span class="cf__label">Name <em>(Required)</em></span>
-        <div class="cf__two">
-          <label class="cf__field"><small>First</small><input required name="first" autocomplete="given-name"/></label>
-          <label class="cf__field"><small>Last</small><input required name="last" autocomplete="family-name"/></label>
-        </div>
+      <div class="cf__two">
+        <div class="cf__group"><span class="cf__label">What should we call you? <em>(Required)</em></span><label class="cf__field"><input required name="name" autocomplete="name" placeholder="Your name"/></label></div>
+        <div class="cf__group"><span class="cf__label">Where do you work?</span><label class="cf__field"><input name="company" autocomplete="organization" placeholder="Company or organisation"/></label></div>
       </div>
+      <div class="cf__group"><span class="cf__label">What's your email? <em>(Required)</em></span><label class="cf__field"><input required type="email" name="email" autocomplete="email" placeholder="you@company.com"/></label></div>
       <div class="cf__group">
-        <span class="cf__label">Email <em>(Required)</em></span>
-        <div class="cf__two">
-          <label class="cf__field"><small>Enter Email</small><input required type="email" name="email" autocomplete="email"/></label>
-          <label class="cf__field"><small>Confirm Email</small><input required type="email" name="email_confirm"/></label>
-        </div>
+        <span class="cf__label">What would you like to work on? <em>Select all that apply.</em></span>
+        <div class="contact__choices">{serviceChoices.map((choice)=><label><input type="checkbox" name="service" value={choice}/><span>{choice}</span></label>)}</div>
       </div>
-      <div class="cf__group">
-        <span class="cf__label">Phone <em>(Required)</em></span>
-        <label class="cf__field"><input required type="tel" name="phone" autocomplete="tel"/></label>
+      <div class="cf__group"><span class="cf__label">Tell us a little about the challenge. <em>(Required)</em></span><label class="cf__field"><textarea required name="challenge" rows="5" placeholder="What are you trying to change, create or achieve?"></textarea></label></div>
+      <div class="cf__two">
+        <div class="cf__group"><span class="cf__label">What kind of budget are you working with?</span><label class="cf__field"><select name="budget"><option value="">Select a range</option><option>Under ₦5m</option><option>₦5m – ₦15m</option><option>₦15m – ₦50m</option><option>₦50m+</option><option>Not sure yet</option></select></label></div>
+        <div class="cf__group"><span class="cf__label">When would you like to start?</span><label class="cf__field"><select name="timeline"><option value="">Select timing</option><option>As soon as possible</option><option>Within 1–3 months</option><option>Within 3–6 months</option><option>Later this year</option><option>Not sure yet</option></select></label></div>
       </div>
-      <div class="cf__group">
-        <span class="cf__label">Message <em>(Required)</em></span>
-        <label class="cf__field"><small>Please enter your message here.</small><textarea required name="challenge" maxlength="600"></textarea></label>
-        <div class="cf__count"><span data-char-count>0</span> of 600 max characters</div>
-      </div>
-      <button class="cf__submit" type="submit">{home.contact_submit_label || "Submit"}</button>
-      <p class="cf__note">Submitting opens your email app with the details ready to send.</p>
+      <button class="cf__submit" type="submit">{home.contact_submit_label || "Send Enquiry"}</button>
+      <p class="cf__note">Submitting opens your email app with the project details ready to send.</p>
     </form>
   </div></section>
   <SiteFooter settings={settings} services={services} companyLinks={companyLinks} legalLinks={legalLinks}/>
 </main><script src="/js/v3.js?v=29" is:inline defer></script>
 <script is:inline>
-  const cform=document.querySelector("[data-contact-form]");
-  cform?.addEventListener("submit", (event) => {
+  document.querySelector("[data-contact-form]")?.addEventListener("submit", (event) => {
     event.preventDefault(); const form=event.currentTarget; const data=new FormData(form);
-    if((data.get("email")||"") !== (data.get("email_confirm")||"")){ alert("The email addresses don't match. Please check and try again."); return; }
-    const name=`${data.get("first")||""} ${data.get("last")||""}`.trim();
-    const subject=`Enquiry from ${name || "Fineries website"}`;
-    const body=[`Name: ${name}`,`Email: ${data.get("email")||""}`,`Phone: ${data.get("phone")||""}`,"",String(data.get("challenge")||"")].join("\n");
+    const subject=`Project enquiry from ${data.get("name") || "Fineries website"}`;
+    const selectedServices=data.getAll("service").filter(Boolean).join(", ");
+    const body=[`Name: ${data.get("name") || ""}`,`Company: ${data.get("company") || ""}`,`Email: ${data.get("email") || ""}`,`Services: ${selectedServices}`,`Budget: ${data.get("budget") || ""}`,`Timeline: ${data.get("timeline") || ""}`,"",String(data.get("challenge") || "")].join("\n");
     window.location.href=`mailto:${form.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
-  const cta=cform?.querySelector('textarea[name="challenge"]'); const ccount=cform?.querySelector('[data-char-count]');
-  if(cta && ccount){ cta.addEventListener("input", () => { ccount.textContent=String(cta.value.length); }); }
 </script></body></html>
