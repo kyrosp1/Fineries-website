@@ -117,6 +117,29 @@
       });
     });
 
+    /* ---- Brand Love image: track right as the page scrolls (desktop only) ---- */
+    var rightSlideMedia = gsap.matchMedia();
+    rightSlideMedia.add("(min-width: 901px)", function () {
+      document.querySelectorAll("[data-scroll-right]").forEach(function (img) {
+        var frame = img.closest(".media") || img;
+        gsap.fromTo(img, {
+          xPercent: -10,
+          scale: 1.22,
+          transformOrigin: "50% 50%"
+        }, {
+          xPercent: 10,
+          scale: 1.22,
+          ease: "none",
+          scrollTrigger: {
+            trigger: frame,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 0.65
+          }
+        });
+      });
+    });
+
     /* ---- Sticky process timeline ---- */
     var processTimeline = document.querySelector("[data-process-timeline]");
     if (processTimeline) {
