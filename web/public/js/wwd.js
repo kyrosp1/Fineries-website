@@ -8,6 +8,11 @@
     const counter = story.querySelector("[data-cap-counter]");
     let active = story.dataset.capActive || chapters[0]?.dataset.capChapter || "";
     const exitTimers = new WeakMap();
+    // Sequenced stage swap: the current artwork animates fully OUT before the next
+    // animates IN (elegant, non-overlapping). EXIT_MS ~ the exit's visible duration.
+    const EXIT_MS = 470;
+    let enterTimer = null;
+    let shownArt = artworks.find((artwork) => artwork.classList.contains("is-active")) || null;
 
     const activate = (num) => {
       if (!num || active === num) return;
@@ -22,26 +27,39 @@
       story.dataset.capActive = num;
       chapters.forEach((chapter) => chapter.classList.toggle("is-active", chapter.dataset.capChapter === num));
 
-      if (oldArtwork && oldArtwork !== newArtwork) {
-        const priorTimer = exitTimers.get(oldArtwork);
-        if (priorTimer) window.clearTimeout(priorTimer);
-        oldArtwork.classList.remove("is-active", "is-entering-forward", "is-entering-backward", "is-exiting-forward", "is-exiting-backward");
-        oldArtwork.classList.add(`is-exiting-${direction}`);
-        exitTimers.set(oldArtwork, window.setTimeout(() => {
-          oldArtwork.classList.remove("is-exiting-forward", "is-exiting-backward");
-        }, 900));
-      }
+      if (newArtwork && newArtwork !== shownArt) {
+        if (enterTimer) { window.clearTimeout(enterTimer); enterTimer = null; }
+        const leaving = shownArt;
 
-      if (newArtwork && oldArtwork !== newArtwork) {
-        const priorTimer = exitTimers.get(newArtwork);
-        if (priorTimer) window.clearTimeout(priorTimer);
-        newArtwork.classList.remove("is-active", "is-entering-forward", "is-entering-backward", "is-exiting-forward", "is-exiting-backward");
+        // 1) Send the currently shown artwork out of the stage.
+        if (leaving) {
+          const priorTimer = exitTimers.get(leaving);
+          if (priorTimer) window.clearTimeout(priorTimer);
+          leaving.classList.remove("is-active", "is-entering-forward", "is-entering-backward");
+          leaving.classList.add(`is-exiting-${direction}`);
+          exitTimers.set(leaving, window.setTimeout(() => {
+            leaving.classList.remove("is-exiting-forward", "is-exiting-backward");
+          }, 900));
+        }
+
+        // 2) Pre-position the incoming artwork off-stage (hidden), then bring it in
+        //    only AFTER the outgoing one has cleared.
+        const priorNewTimer = exitTimers.get(newArtwork);
+        if (priorNewTimer) window.clearTimeout(priorNewTimer);
+        newArtwork.classList.remove("is-active", "is-exiting-forward", "is-exiting-backward", "is-entering-forward", "is-entering-backward");
         newArtwork.classList.add(`is-entering-${direction}`);
         void newArtwork.offsetWidth;
-        window.requestAnimationFrame(() => {
-          newArtwork.classList.remove("is-entering-forward", "is-entering-backward");
-          newArtwork.classList.add("is-active");
-        });
+
+        const target = newArtwork;
+        enterTimer = window.setTimeout(() => {
+          // is-entering was painted EXIT_MS ago, so we can flip straight to is-active
+          // and the base transition animates it in (no rAF needed — avoids getting
+          // stuck if the tab is backgrounded mid-transition).
+          target.classList.remove("is-entering-forward", "is-entering-backward");
+          target.classList.add("is-active");
+          shownArt = target;
+          enterTimer = null;
+        }, leaving ? EXIT_MS : 0);
       }
       const position = Math.max(0, chapters.findIndex((chapter) => chapter.dataset.capChapter === num));
       if (counter) counter.textContent = `${String(position + 1).padStart(2, "0")} / ${String(chapters.length).padStart(2, "0")}`;
