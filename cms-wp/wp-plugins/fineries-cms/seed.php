@@ -183,19 +183,19 @@ update_field('nav_items', [
   ['label' => 'Home', 'link' => '/'],
   ['label' => 'What We Do', 'link' => '/what-we-do'],
   ['label' => 'Work', 'link' => '#'],
-  ['label' => 'About', 'link' => '#'],
+  ['label' => 'About', 'link' => '/about'],
   ['label' => 'Insights', 'link' => '#'],
-  ['label' => 'Contact', 'link' => '#'],
+  ['label' => 'Contact', 'link' => '/contact'],
 ], 'option');
 update_field('footer_tagline', 'We build brands, products, content people love.', 'option');
 update_field('footer_services_heading', 'What We Do', 'option');
 update_field('footer_company_heading', 'Company', 'option');
 update_field('footer_company_links', [
-  ['label' => 'About', 'link' => '#'],
+  ['label' => 'About', 'link' => '/about'],
   ['label' => 'Work', 'link' => '#'],
   ['label' => 'Insights', 'link' => '#'],
   ['label' => 'Careers', 'link' => '#'],
-  ['label' => 'Contact', 'link' => '#'],
+  ['label' => 'Contact', 'link' => '/contact'],
 ], 'option');
 update_field('footer_contact_heading', 'Get in Touch', 'option');
 update_field('footer_copyright', 'Fineries Digital Limited. All rights reserved.', 'option');

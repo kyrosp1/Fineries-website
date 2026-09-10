@@ -1,6 +1,16 @@
 ---
 // Shared site header + mobile menu. Nav items are CMS-driven (settings.nav_items).
 const { navItems = [], settings = {}, active = "" } = Astro.props;
+const canonicalLinks = {
+  "Home": "/",
+  "What We Do": "/what-we-do",
+  "About": "/about",
+  "Contact": "/contact",
+};
+const resolvedNavItems = navItems.map((item) => ({
+  ...item,
+  link: canonicalLinks[item.label] || item.link || "#",
+}));
 const isActive = (n) => (active && (n.link === active || n.label === active)) || (!active && n.link === "/");
 ---
 <header class="nav3">
@@ -10,7 +20,7 @@ const isActive = (n) => (active && (n.link === active || n.label === active)) ||
       <img class="logo-blue" src="/assets/fineries-logo-blue-3x.png" alt="Fineries Digital" />
     </a>
     <nav class="nav3__links" aria-label="Primary">
-      {navItems.map((n) => (
+      {resolvedNavItems.map((n) => (
         <a class={`nav3__link${isActive(n) ? " nav3__link--active" : ""}`} href={n.link || "#"}>{n.label}</a>
       ))}
     </nav>
@@ -31,7 +41,7 @@ const isActive = (n) => (active && (n.link === active || n.label === active)) ||
       </button>
     </div>
     <nav class="mnav__links" aria-label="Mobile">
-      {navItems.map((n, i) => (
+      {resolvedNavItems.map((n, i) => (
         <a href={n.link || "#"}><span>{n.label}</span><em>{String(i + 1).padStart(2, "0")}</em></a>
       ))}
     </nav>
@@ -47,4 +57,3 @@ const isActive = (n) => (active && (n.link === active || n.label === active)) ||
     </div>
     </div>
   </div>
-
