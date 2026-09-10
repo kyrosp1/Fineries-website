@@ -33,8 +33,9 @@
 .wwdhero__body p { font-size: 16px; line-height: 1.75; color: rgba(255,255,255,.82); }
 .wwdhero__body p + p { margin-top: 14px; }
 .wwdhero__cta { margin-top: clamp(28px,3.5vw,40px); align-self: flex-start; }
-/* solid teal button, no white outline (overrides the .on-blue .btn3 border) */
-.wwdhero__text .wwdhero__cta { border-color: transparent; }
+/* transparent hero CTA; teal fill and outline on hover */
+.wwdhero__text .wwdhero__cta { background: transparent; border-color: #fff; color: #fff; }
+.wwdhero__text .wwdhero__cta:hover { background: var(--v3-teal); border-color: var(--v3-teal); color: #fff; }
 
 /* ---------- Strategy before services (blue band) ---------- */
 .wwdstrat { background: var(--v3-blue-dd); color: #fff; }
