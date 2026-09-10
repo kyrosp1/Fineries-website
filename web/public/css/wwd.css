@@ -182,7 +182,16 @@
 .caprow2__overview { max-width: 48ch; margin: 0; color: #2c2e3d; font-size: 15px; line-height: 1.65; }
 .caprow2__skills { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 22px 0 26px; padding: 0; }
 .caprow2__skills li { padding: 7px 12px; border: 1px solid rgba(27,29,69,.15); border-radius: 999px; color: var(--v3-ink); font-size: 12px; line-height: 1; font-weight: 700; }
-.caprow2__more { color: var(--v3-text-2) !important; }
+.caprow2__skill--extra[hidden] { display: none; }
+.caprow2__more { padding: 0 !important; border: 0 !important; }
+.caprow2__more button {
+  appearance: none; padding: 7px 12px; border: 1px solid rgba(27,29,69,.15); border-radius: 999px;
+  background: transparent; color: var(--v3-text-2); font: inherit; line-height: 1; cursor: pointer;
+  transition: border-color .25s ease, background .25s ease, color .25s ease;
+}
+.caprow2__more button:hover, .caprow2__more button:focus-visible {
+  border-color: var(--v3-teal); background: rgba(8,188,179,.1); color: var(--v3-ink);
+}
 .caprow2__link { display: inline-flex; align-items: center; gap: 14px; color: var(--v3-ink); font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .caprow2__arrow { display: grid; width: 42px; height: 42px; place-items: center; border: 1.5px solid rgba(27,29,69,.25); border-radius: 50%; transition: transform .35s ease, background .3s ease, color .3s ease; }
 .caprow2__arrow svg { width: 16px; height: 16px; }

@@ -1,0 +1,67 @@
+// Canonical capability lists from Fineries_Website_Content.docx.
+// Keep service names here so the What We Do page and every capability page stay aligned.
+export const capabilityServices = {
+  "01": [
+    { icon: "search", title: "Research & Insights", description: "Understand your audience, market, competitors and opportunities." },
+    { icon: "compass", title: "Brand Strategy", description: "Define the thinking that guides the brand." },
+    { icon: "map-pin", title: "Brand Positioning", description: "Own a meaningful place in people's minds." },
+    { icon: "network", title: "Brand Architecture", description: "Create clarity across brands, products and services." },
+    { icon: "shapes", title: "Brand Identity", description: "Turn strategy into a distinctive visual and verbal system." },
+    { icon: "palette", title: "Visual Identity Systems" },
+    { icon: "signature", title: "Naming" },
+    { icon: "message-square", title: "Brand Messaging", description: "Find the words that make what you do matter." },
+    { icon: "quote", title: "Verbal Identity" },
+    { icon: "book-open", title: "Brand Guidelines" },
+  ],
+  "02": [
+    { icon: "chart-no-axes-combined", title: "Marketing Strategy" },
+    { icon: "megaphone", title: "Campaign Strategy" },
+    { icon: "mouse-pointer-click", title: "Digital Marketing" },
+    { icon: "badge-dollar-sign", title: "Performance Advertising" },
+    { icon: "messages-square", title: "Social Media Marketing" },
+    { icon: "users", title: "Influencer Marketing" },
+    { icon: "search", title: "SEO" },
+    { icon: "notebook-tabs", title: "Content Marketing" },
+    { icon: "radio-tower", title: "Media Planning & Buying" },
+    { icon: "sliders-horizontal", title: "Campaign Management" },
+  ],
+  "03": [
+    { icon: "lightbulb", title: "Creative Direction" },
+    { icon: "megaphone", title: "Campaign Concepts" },
+    { icon: "film", title: "Video Production" },
+    { icon: "camera", title: "Photography" },
+    { icon: "move-3d", title: "Motion Design" },
+    { icon: "wand-sparkles", title: "Animation" },
+    { icon: "smartphone", title: "Social Content" },
+    { icon: "pen-line", title: "Copywriting" },
+    { icon: "badge", title: "Branded Content" },
+    { icon: "sparkles", title: "AI-assisted Content Production" },
+  ],
+  "04": [
+    { icon: "globe", title: "Websites" },
+    { icon: "panels-top-left", title: "Web Applications" },
+    { icon: "smartphone", title: "Mobile Applications" },
+    { icon: "layout-dashboard", title: "Digital Platforms" },
+    { icon: "shopping-cart", title: "E-commerce" },
+    { icon: "user-round-cog", title: "Customer Portals" },
+    { icon: "wrench", title: "Internal Tools" },
+    { icon: "workflow", title: "Business Systems" },
+    { icon: "panel-top", title: "UI/UX Design" },
+    { icon: "brain-circuit", title: "AI Solutions" },
+    { icon: "refresh-cw", title: "Workflow Automation" },
+    { icon: "blocks", title: "Systems Integration" },
+  ],
+  "05": [
+    { icon: "target", title: "Executive Positioning" },
+    { icon: "fingerprint", title: "Personal Brand Strategy" },
+    { icon: "lightbulb", title: "Thought Leadership" },
+    { icon: "notebook-tabs", title: "Content Strategy" },
+    { icon: "linkedin", title: "LinkedIn Strategy" },
+    { icon: "pen-tool", title: "Executive Content" },
+    { icon: "shapes", title: "Visual Identity" },
+    { icon: "award", title: "Reputation Building" },
+  ],
+};
+
+export const getCapabilityServices = (num) => capabilityServices[num] || [];
+

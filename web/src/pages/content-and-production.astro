@@ -1,6 +1,7 @@
 ---
 import CapabilityPage from "../components/CapabilityPage.astro";
 import { getHomeBundle } from "../lib/wp.js";
+import { getCapabilityServices } from "../data/capabilities.js";
 const { home, settings, services } = await getHomeBundle();
 const page = {
   prefix: "cp", name: "Content & Production", accent: "magenta",
@@ -9,9 +10,7 @@ const page = {
   introEyebrow: "Our Approach", introHeading: "Ideas first. Production second.",
   introBody: "<p>We don't begin with the camera. We begin with what needs to be communicated, who needs to care and what could make them stop.</p><p>Then we find the right way to bring the idea to life.</p>",
   servicesHeading: "What we create.",
-  services: [
-    ["megaphone","Campaigns"],["film","Films & Commercials"],["camera","Photography"],["smartphone","Social Content"],["move-3d","Motion Graphics"],["wand-sparkles","Animation"],["badge","Branded Content"],["pen-line","Copywriting"],["sparkles","AI-assisted Content"]
-  ].map(([icon,title])=>({icon,title})),
+  services: getCapabilityServices("03"),
   principleEyebrow: "From Thought to Impact", principleHeading: "Think. Make. Move.", principleBody: "<p>One connected team carries the idea from strategy through production and into the world.</p>",
   steps: [{title:"Think",description:"Strategy and creative concept."},{title:"Make",description:"Production, design, writing and technology."},{title:"Move",description:"Distribution, optimisation and amplification."}],
   seoDescription: "Creative direction, campaigns, video, photography, motion, social content and copywriting built around ideas worth noticing."

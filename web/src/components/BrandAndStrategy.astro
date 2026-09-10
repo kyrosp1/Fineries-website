@@ -1,6 +1,7 @@
 ---
 import SiteNav from "./SiteNav.astro";
 import SiteFooter from "./SiteFooter.astro";
+import { getCapabilityServices } from "../data/capabilities.js";
 const { home = {}, settings = {}, services = [] } = Astro.props;
 const ctaWords = home.cta_words && home.cta_words.length ? home.cta_words : ["a brand", "a product", "content"];
 const heroImg = home.hero_image || "";
@@ -24,15 +25,7 @@ const legalLinks = (settings.legal_links && settings.legal_links.length) ? setti
 const questions = typeof home.bs_problem_questions === "string" && home.bs_problem_questions.trim()
   ? home.bs_problem_questions.split(/\r?\n/).map((q) => q.trim()).filter(Boolean)
   : ["What should we say?", "Who should we speak to?", "How should we look?", "Where should we compete?", "Why should anyone choose us?"];
-const serviceFallback = [
-  { icon: "search", title: "Research & Insights", description: "Understand your audience, market, competitors and opportunities." },
-  { icon: "compass", title: "Brand Strategy", description: "Define the thinking that guides the brand." },
-  { icon: "map-pin", title: "Positioning", description: "Own a meaningful place in people's minds." },
-  { icon: "network", title: "Brand Architecture", description: "Create clarity across brands, products and services." },
-  { icon: "shapes", title: "Identity", description: "Turn strategy into a distinctive visual and verbal system." },
-  { icon: "message-square", title: "Messaging", description: "Find the words that make what you do matter." },
-];
-const brandServices = Array.isArray(home.bs_services) && home.bs_services.length ? home.bs_services : serviceFallback;
+const brandServices = getCapabilityServices("01");
 const pageTitle = home.bs_seo_title || "Brand & Strategy | Fineries Digital";
 const pageDesc = home.bs_seo_description || "Brand research, strategy, positioning, architecture, identity and messaging that give people a reason to choose you.";
 ---
@@ -104,7 +97,7 @@ const pageDesc = home.bs_seo_description || "Brand research, strategy, positioni
             <span class="bservice__num">{String(index + 1).padStart(2, "0")}</span>
             <span class="bservice__icon"><i data-lucide={service.icon || "circle"}></i></span>
             <h3>{service.title}</h3>
-            <p>{service.description}</p>
+            {service.description && <p>{service.description}</p>}
           </article>
         ))}
       </div>

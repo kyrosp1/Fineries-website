@@ -8,8 +8,7 @@ Last updated: 2026-09-10
 - Production frontend: `https://fineries-website.vercel.app`.
 - CMS: headless WordPress at `https://cms.fineries.net`.
 - Production branch: `main`; pushes trigger the Vercel deployment.
-- Latest completed feature: scroll-led animated SVG capability story on `/what-we-do`.
-- Latest known-good commit when this note was created: `a080409`.
+- Latest completed feature: canonical capability service lists shared by `/what-we-do` and all five individual capability pages.
 - No known incomplete implementation work.
 
 ## Key architecture
@@ -18,10 +17,13 @@ Last updated: 2026-09-10
 - `cms-wp/wp-plugins/fineries-cms/fineries-cms.php` defines CMS fields and the REST response.
 - `web/src/components/HomePage.astro` renders the homepage.
 - `web/src/components/WhatWeDo.astro` renders the What We Do page.
+- `web/src/data/capabilities.js` is the single frontend source of truth for every capability's sub-service names and icons. The lists were transcribed from the What We Do section of `Fineries_Website_Content.docx`.
 - `web/src/components/ServiceArtwork.astro` embeds and scopes the layered service SVGs.
 - `web/public/css/home.css` contains the shared service-art animation language.
 - `web/public/css/wwd.css` contains the What We Do page and sticky capability-story layout.
 - `web/public/js/wwd.js` switches capability chapters and artwork using GSAP ScrollTrigger, with an IntersectionObserver fallback.
+
+The What We Do cards initially show six sub-services. Their accessible `+ more` buttons reveal the remaining canonical items and switch to `Show less`. Brand & Strategy and Digital Products & Technology have custom page components; the other three share `CapabilityPage.astro`, but all five import the same canonical data module.
 
 ## Service artwork
 

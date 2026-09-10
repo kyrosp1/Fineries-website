@@ -1,6 +1,7 @@
 ---
 import CapabilityPage from "../components/CapabilityPage.astro";
 import { getHomeBundle } from "../lib/wp.js";
+import { getCapabilityServices } from "../data/capabilities.js";
 const { home, settings, services } = await getHomeBundle();
 const page = {
   prefix: "mg", name: "Marketing & Growth", accent: "gold",
@@ -9,9 +10,7 @@ const page = {
   introEyebrow: "The Opportunity", introHeading: "Reach the right people. Give them a reason to act.",
   introBody: "<p>We combine strategy, creative thinking, content, media and data to build marketing programmes designed around what the business actually needs to achieve.</p>",
   servicesHeading: "Turn attention into measurable growth.",
-  services: [
-    ["megaphone","Campaign Strategy"],["panels-top-left","Integrated Campaigns"],["mouse-pointer-click","Digital Marketing"],["messages-square","Social Media Marketing"],["badge-dollar-sign","Performance Advertising"],["users","Influencer Marketing"],["search","SEO"],["notebook-tabs","Content Marketing"],["radio-tower","Media Planning & Buying"],["user-plus","Lead Generation"],["sliders-horizontal","Campaign Optimisation"],["chart-no-axes-combined","Analytics & Reporting"]
-  ].map(([icon,title])=>({icon,title})),
+  services: getCapabilityServices("02"),
   principleEyebrow: "Our Thinking", principleHeading: "Don't just chase attention.",
   principleBody: "<p>Build demand. Build relevance. Build preference. Build a reason to choose.</p>", steps: [],
   seoDescription: "Integrated marketing strategy, campaigns, content, media and performance programmes designed to turn attention into measurable growth."

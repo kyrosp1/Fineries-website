@@ -1,6 +1,7 @@
 ---
 import CapabilityPage from "../components/CapabilityPage.astro";
 import { getHomeBundle } from "../lib/wp.js";
+import { getCapabilityServices } from "../data/capabilities.js";
 const { home, settings, services } = await getHomeBundle();
 const page = {
   prefix: "epb", name: "Executive & Personal Branding", accent: "teal",
@@ -9,9 +10,7 @@ const page = {
   introEyebrow: "What We Do", introHeading: "Turn expertise into influence.",
   introBody: "<p>We help founders, executives and subject-matter experts turn what they know into a clear, credible and distinctive public presence.</p>",
   servicesHeading: "Build a credible public presence.",
-  services: [
-    ["target","Executive Positioning"],["fingerprint","Personal Brand Strategy"],["lightbulb","Thought Leadership Strategy"],["linkedin","LinkedIn Strategy"],["notebook-tabs","Content Strategy"],["pen-tool","Executive Content"],["shapes","Visual Identity"],["mic-2","Speaking & Visibility Strategy"]
-  ].map(([icon,title])=>({icon,title})),
+  services: getCapabilityServices("05"),
   principleEyebrow: "Our Thinking", principleHeading: "Don't manufacture authority. Reveal it.",
   principleBody: "<p>The strongest personal brands aren't characters. They're clear expressions of what someone genuinely knows, believes and brings to the conversation.</p>", steps: [],
   seoDescription: "Executive positioning, thought leadership, LinkedIn strategy and content that turn genuine expertise into a clear, credible public presence."

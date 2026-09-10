@@ -10,9 +10,7 @@ const mediaBase = "https://cms.fineries.net/wp-content/plugins/fineries-cms/asse
 const heroVideo = get("hero_video_desktop", `${mediaBase}/web-app-hero-landscape.mp4`);
 const heroVideoMobile = get("hero_video_mobile", `${mediaBase}/web-app-hero-mobile.mp4`);
 const heroPoster = get("hero_poster", `${mediaBase}/web-app-hero-poster.png`);
-const pageServices = Array.isArray(home[`${page.prefix}_services`]) && home[`${page.prefix}_services`].length
-  ? home[`${page.prefix}_services`]
-  : page.services;
+const pageServices = page.services;
 const pageSteps = Array.isArray(home[`${page.prefix}_steps`]) && home[`${page.prefix}_steps`].length
   ? home[`${page.prefix}_steps`]
   : page.steps;

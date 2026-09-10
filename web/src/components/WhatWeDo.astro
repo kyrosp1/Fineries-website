@@ -2,6 +2,7 @@
 import SiteNav from "./SiteNav.astro";
 import SiteFooter from "./SiteFooter.astro";
 import ServiceArtwork from "./ServiceArtwork.astro";
+import { getCapabilityServices } from "../data/capabilities.js";
 const { home = {}, settings = {}, services = [] } = Astro.props;
 
 const ctaWords = home.cta_words && home.cta_words.length ? home.cta_words : ["a brand", "a product", "content"];
@@ -28,31 +29,31 @@ const capData = {
   "01": {
     tagline: "Build a brand people understand, remember and choose.",
     overview: "We help organisations define who they are, where they belong and why people should care.",
-    skills: ["Research & Insights", "Brand Strategy", "Brand Positioning", "Brand Architecture", "Brand Identity", "Visual Identity Systems", "Naming", "Brand Messaging", "Verbal Identity", "Brand Guidelines"],
+    skills: getCapabilityServices("01").map((service) => service.title),
     explore: "Explore Brand & Strategy", icon: "box",
   },
   "02": {
     tagline: "Turn attention into action.",
     overview: "We create integrated marketing programmes that help brands reach the right audiences, create demand and drive measurable growth.",
-    skills: ["Marketing Strategy", "Campaign Strategy", "Digital Marketing", "Performance Advertising", "Social Media Marketing", "Influencer Marketing", "SEO", "Content Marketing", "Media Planning & Buying", "Campaign Management"],
+    skills: getCapabilityServices("02").map((service) => service.title),
     explore: "Explore Marketing & Growth", icon: "megaphone",
   },
   "03": {
     tagline: "Make something worth paying attention to.",
     overview: "From an idea on a page to something people watch, read, share and remember.",
-    skills: ["Creative Direction", "Campaign Concepts", "Video Production", "Photography", "Motion Design", "Animation", "Social Content", "Copywriting", "Branded Content", "AI-assisted Content Production"],
+    skills: getCapabilityServices("03").map((service) => service.title),
     explore: "Explore Content & Production", icon: "play-circle",
   },
   "04": {
     tagline: "Build what the business needs next.",
     overview: "We design and build digital products, experiences and systems that help organisations serve customers better, operate more efficiently and create new opportunities.",
-    skills: ["Websites", "Web Applications", "Mobile Applications", "Digital Platforms", "E-commerce", "Customer Portals", "Internal Tools", "Business Systems", "UI/UX Design", "AI Solutions", "Workflow Automation", "Systems Integration"],
+    skills: getCapabilityServices("04").map((service) => service.title),
     explore: "Explore Digital Products & Technology", icon: "monitor",
   },
   "05": {
     tagline: "Become known for what you know.",
     overview: "We help founders, executives and leaders turn their expertise and perspective into influence.",
-    skills: ["Executive Positioning", "Personal Brand Strategy", "Thought Leadership", "Content Strategy", "LinkedIn Strategy", "Executive Content", "Visual Identity", "Reputation Building"],
+    skills: getCapabilityServices("05").map((service) => service.title),
     explore: "Explore Executive & Personal Branding", icon: "user",
   },
 };
@@ -70,9 +71,6 @@ const capsRaw = (services && services.length) ? services : fallbackCaps;
 const caps = capsRaw.map((s) => {
   const num = s.num || "01";
   const d = capData[num] || {};
-  const skillsFromCms = typeof s.cap_skills === "string" && s.cap_skills.trim()
-    ? s.cap_skills.split(/\r?\n/).map((x) => x.trim()).filter(Boolean)
-    : null;
   return {
     num,
     title: s.title || "",
@@ -82,7 +80,7 @@ const caps = capsRaw.map((s) => {
     image: s.image || "",
     tagline: s.cap_tagline || d.tagline || "",
     overview: s.cap_overview || d.overview || "",
-    skills: skillsFromCms || d.skills || [],
+    skills: d.skills || [],
     explore: s.cap_explore || d.explore || (s.title ? `Explore ${s.title}` : "Explore"),
   };
 });
@@ -100,7 +98,7 @@ const pageDesc = home.wwd_seo_description || "Brand & strategy, marketing & grow
 <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
 <link rel="stylesheet" href="/css/v3.css?v=47" />
 <link rel="stylesheet" href="/css/home.css?v=65" />
-<link rel="stylesheet" href="/css/wwd.css?v=40" />
+<link rel="stylesheet" href="/css/wwd.css?v=41" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
@@ -170,7 +168,14 @@ const pageDesc = home.wwd_seo_description || "Brand & strategy, marketing & grow
             <p class="caprow2__overview">{c.overview}</p>
             <ul class="caprow2__skills">
               {c.skills.slice(0, 6).map((sk) => <li>{sk}</li>)}
-              {c.skills.length > 6 && <li class="caprow2__more">+ {c.skills.length - 6} more</li>}
+              {c.skills.slice(6).map((sk) => <li class="caprow2__skill--extra" hidden>{sk}</li>)}
+              {c.skills.length > 6 && (
+                <li class="caprow2__more">
+                  <button type="button" data-cap-more aria-expanded="false" data-more-count={c.skills.length - 6}>
+                    + {c.skills.length - 6} more
+                  </button>
+                </li>
+              )}
             </ul>
             <a class="caprow2__link" href={c.link}>
               <span>{c.explore}</span>
@@ -208,5 +213,29 @@ const pageDesc = home.wwd_seo_description || "Brand & strategy, marketing & grow
 </main>
 
 <script src="/js/v3.js?v=25" is:inline defer></script>
+<script is:inline>
+  (() => {
+    document.querySelectorAll("[data-cap-more]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const row = button.closest(".caprow2");
+        if (!row) return;
+        const wasExpanded = button.getAttribute("aria-expanded") === "true";
+        const startHeight = row.getBoundingClientRect().height;
+        row.querySelectorAll(".caprow2__skill--extra").forEach((item) => {
+          item.hidden = wasExpanded;
+        });
+        button.setAttribute("aria-expanded", String(!wasExpanded));
+        button.textContent = wasExpanded ? `+ ${button.dataset.moreCount} more` : "Show less";
+        const endHeight = row.getBoundingClientRect().height;
+        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && startHeight !== endHeight) {
+          row.animate(
+            [{ height: `${startHeight}px` }, { height: `${endHeight}px` }],
+            { duration: 420, easing: "cubic-bezier(.22,1,.36,1)" },
+          );
+        }
+      });
+    });
+  })();
+</script>
 </body>
 </html>

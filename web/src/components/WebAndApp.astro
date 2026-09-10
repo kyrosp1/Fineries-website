@@ -1,6 +1,7 @@
 ---
 import SiteNav from "./SiteNav.astro";
 import SiteFooter from "./SiteFooter.astro";
+import { getCapabilityServices } from "../data/capabilities.js";
 const { home = {}, settings = {}, services = [] } = Astro.props;
 
 const ctaWords = home.cta_words && home.cta_words.length ? home.cta_words : ["a brand", "a product", "content"];
@@ -36,23 +37,7 @@ const valueItems = (Array.isArray(home.dpt_value_items) && home.dpt_value_items.
   ? home.dpt_value_items.map((v) => ({ icon: v.icon || "circle", title: v.title, description: v.description }))
   : valueItemsFallback;
 
-// "What we build" — fallback blocks (services stored one-per-line in CMS)
-const buildFallback = [
-  { icon: "globe", title: "Digital experiences", description: "Websites and digital platforms that communicate value, build trust and drive action.", services: ["Corporate websites", "E-commerce", "Campaign platforms", "Landing pages", "Digital redesigns"] },
-  { icon: "layout-dashboard", title: "Digital products", description: "Web applications that transform processes, services and business models.", services: ["Customer portals", "Dashboards", "SaaS", "Marketplaces", "Business systems", "Platforms"] },
-  { icon: "smartphone", title: "Mobile experiences", description: "Mobile apps that put products, services and communities directly in customers' hands.", services: ["Customer apps", "Fintech", "Commerce", "Service platforms"] },
-  { icon: "rocket", title: "New digital ventures", description: "Turn new ideas into digital products and platforms — from concept to launch.", services: ["Product strategy", "MVPs", "Prototyping", "Product design", "Development", "Launch"] },
-];
-const buildItems = (Array.isArray(home.dpt_build_items) && home.dpt_build_items.length)
-  ? home.dpt_build_items.map((b) => ({
-      icon: b.icon || "circle",
-      title: b.title,
-      description: b.description,
-      services: typeof b.services === "string" && b.services.trim()
-        ? b.services.split(/\r?\n/).map((s) => s.trim()).filter(Boolean)
-        : [],
-    }))
-  : buildFallback;
+const buildItems = getCapabilityServices("04");
 const buildColor = ["blue", "magenta", "teal", "gold"];
 
 const deImg = home.dpt_de_image || heroImg;
@@ -168,12 +153,7 @@ const pageDesc = home.dpt_seo_description || "We use strategy, creativity and te
         <article class={`bcard bcard--${buildColor[i % buildColor.length]}`}>
           <span class="bcard__icon"><i data-lucide={b.icon}></i></span>
           <h3 class="bcard__title">{b.title}</h3>
-          <p class="bcard__desc">{b.description}</p>
-          {b.services && b.services.length > 0 && (
-            <ul class="bcard__services">
-              {b.services.map((s) => <li>{s}</li>)}
-            </ul>
-          )}
+          {b.description && <p class="bcard__desc">{b.description}</p>}
         </article>
       ))}
     </div>
