@@ -1,12 +1,21 @@
 ---
 import yellowArtworkSource from "../assets/yellow.svg?raw";
+import executiveArtworkSource from "../assets/executive.svg?raw";
 const { num = "", title = "", fallback = "" } = Astro.props;
 const key = String(num).padStart(2, "0");
 const supported = ["01", "02", "03", "04", "05"].includes(key);
 const yellowArtwork = yellowArtworkSource
   .replace(/<\?xml[\s\S]*?\?>\s*/i, "")
   .replace(/<!DOCTYPE[\s\S]*?>\s*/i, "")
+  .replace(/\.fil/g, ".yellow-fil")
+  .replace(/class="fil/g, 'class="yellow-fil')
   .replace("<svg ", '<svg class="svc-art__svg svc-art__svg--yellow" preserveAspectRatio="xMidYMid slice" ');
+const executiveArtwork = executiveArtworkSource
+  .replace(/<\?xml[\s\S]*?\?>\s*/i, "")
+  .replace(/<!DOCTYPE[\s\S]*?>\s*/i, "")
+  .replace(/\.fil/g, ".executive-fil")
+  .replace(/class="fil/g, 'class="executive-fil')
+  .replace("<svg ", '<svg class="svc-art__svg svc-art__svg--executive" preserveAspectRatio="xMidYMid slice" ');
 ---
 <div class={`svc-art svc-art--${key}`} data-service-art aria-hidden="true">
   {fallback && <img class={`svc-art__fallback${supported ? " svc-art__fallback--hidden" : ""}`} src={fallback} alt="" />}
@@ -44,17 +53,6 @@ const yellowArtwork = yellowArtworkSource
     <Fragment set:html={yellowArtwork} />
   )}
   {key === "05" && (
-    <svg class="svc-art__svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label={`${title} animated illustration`}>
-      <defs><pattern id="stripes-05" width="22" height="22" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="10" height="22" fill="#3c4099"/></pattern></defs>
-      <rect class="art-bg" width="600" height="400" rx="2" fill="#10bdb7"/>
-      <g class="art-star" transform="translate(300 200)">
-        <g class="art-spoke art-spoke--nw" transform="rotate(-45)"><rect class="art-spoke__shape art-spoke__shape--out" x="-36" y="-166" width="72" height="166" fill="#3c4099"/></g>
-        <g class="art-spoke art-spoke--sw" transform="rotate(45)"><rect class="art-spoke__shape art-spoke__shape--down" x="-36" y="0" width="72" height="166" fill="#3c4099"/></g>
-        <g class="art-spoke art-spoke--north"><rect class="art-spoke__shape art-spoke__shape--out" x="-36" y="-166" width="72" height="166" fill="#3c4099"/></g>
-        <g class="art-spoke art-spoke--se" transform="rotate(-45)"><rect class="art-spoke__shape art-spoke__shape--down" x="-36" y="0" width="72" height="166" fill="url(#stripes-05)"/></g>
-        <g class="art-spoke art-spoke--south"><rect class="art-spoke__shape art-spoke__shape--down" x="-36" y="0" width="72" height="166" fill="#e00083"/></g>
-        <g class="art-spoke art-spoke--ne" transform="rotate(45)"><rect class="art-spoke__shape art-spoke__shape--out" x="-36" y="-166" width="72" height="166" fill="#e00083"/></g>
-      </g>
-    </svg>
+    <Fragment set:html={executiveArtwork} />
   )}
 </div>
