@@ -52,7 +52,7 @@ const pageDesc = home.bs_seo_description || "Brand research, strategy, positioni
 <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
 <link rel="stylesheet" href="/css/v3.css?v=51" />
 <link rel="stylesheet" href="/css/home.css?v=47" />
-<link rel="stylesheet" href="/css/brand-strategy.css?v=12" />
+<link rel="stylesheet" href="/css/brand-strategy.css?v=13" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
@@ -113,29 +113,7 @@ const pageDesc = home.bs_seo_description || "Brand research, strategy, positioni
             data-sub-full={service.full || service.description}
             aria-label={`Read more about ${service.title}`}
           >
-            {index === 0 && !service.image ? (
-              <div class="svc3__img media ss-research">
-                <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                  <rect width="600" height="400" fill="#01D2CF"/>
-                  <g class="ss-dots" fill="#00245F">
-                    <circle class="ss-dot" cx="372" cy="96"  r="13"/><circle class="ss-dot" cx="412" cy="96"  r="13"/><circle class="ss-dot" cx="452" cy="96"  r="13"/>
-                    <circle class="ss-dot" cx="372" cy="136" r="13"/><circle class="ss-dot" cx="412" cy="136" r="13"/><circle class="ss-dot" cx="452" cy="136" r="13"/>
-                    <circle class="ss-dot" cx="372" cy="176" r="13"/><circle class="ss-dot" cx="412" cy="176" r="13"/><circle class="ss-dot" cx="452" cy="176" r="13"/>
-                  </g>
-                  <g class="ss-mag">
-                    <clipPath id="ss-lens"><circle cx="250" cy="185" r="74"/></clipPath>
-                    <g clip-path="url(#ss-lens)" fill="#F5028A">
-                      <rect x="192" y="105" width="12" height="160"/><rect x="212" y="105" width="12" height="160"/>
-                      <rect x="232" y="105" width="12" height="160"/><rect x="252" y="105" width="12" height="160"/>
-                    </g>
-                    <circle cx="250" cy="185" r="92" fill="none" stroke="#00245F" stroke-width="34"/>
-                    <rect x="300" y="246" width="118" height="46" rx="8" fill="#F5028A" transform="rotate(45 300 246)"/>
-                  </g>
-                </svg>
-              </div>
-            ) : (
-              <div class="svc3__img media"><img src={service.image || subFallbackArt[index % subFallbackArt.length]} alt="" /></div>
-            )}
+            <div class="svc3__img media"><img src={service.image || subFallbackArt[index % subFallbackArt.length]} alt="" /></div>
             <div class="svc3__panel">
               <span class="svc3__num">{String(index + 1).padStart(2, "0")}</span>
               <h3 class="svc3__title" set:html={service.title}></h3>

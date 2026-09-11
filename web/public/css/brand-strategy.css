@@ -63,39 +63,17 @@
 @media(max-width:900px){.bsservices .svc3__grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.bsservices .svc3__grid{grid-template-columns:1fr}}
 
-/* Subservice card artwork — no idle motion; animate only on hover, on the
-   img/container so it persists regardless of which SVG is uploaded via the CMS. */
-.bsservices .svc3__img{overflow:hidden;transition:transform .5s var(--v3-ease)}
-.bsservices .svc3__img img{transform-origin:center}
-.bsservices .svc3:hover .svc3__img{transform:scale(1.07)}
+/* Subservice card artwork — no idle motion. On hover the uploaded image (whatever
+   SVG/PNG is set) scales up and rotates. Animation lives on the img, so it persists
+   regardless of which artwork is uploaded via the CMS. */
+.bsservices .svc3__img{overflow:hidden}
+.bsservices .svc3__img img{transform-origin:center;transition:transform .55s cubic-bezier(.34,1.56,.44,1)}
+.bsservices .svc3:hover .svc3__img img{transform:scale(1.14) rotate(5deg)}
+/* Card 1 (Research & Insights) — a touch more pronounced */
+.bsservices .svc3:first-child:hover .svc3__img img{transform:scale(1.18) rotate(-6deg)}
 @media(prefers-reduced-motion:reduce){
-  .bsservices .svc3:hover .svc3__img{transform:none}
-}
-
-/* Card 1 (Research & Insights) — contextual "search" animation on hover.
-   The magnifier scans (rotates around the lens) and the result-dots pulse in sequence. */
-.bsservices .svc3:first-child .svc3__img{transition:transform .55s cubic-bezier(.22,1,.36,1)}
-.bsservices .svc3:first-child:hover .svc3__img{transform:scale(1.12)}
-.ss-research svg{display:block;width:100%;height:100%}
-.ss-mag{transform-box:view-box;transform-origin:250px 185px;transition:transform .5s var(--v3-ease)}
-.ss-dot{transform-box:fill-box;transform-origin:center}
-.bsservices .svc3:first-child:hover .ss-mag{animation:ssScan 1.6s ease-in-out infinite}
-.bsservices .svc3:first-child:hover .ss-dot{animation:ssDot 1.2s ease-in-out infinite}
-.ss-dot:nth-child(1){animation-delay:0s}   .ss-dot:nth-child(2){animation-delay:.08s} .ss-dot:nth-child(3){animation-delay:.16s}
-.ss-dot:nth-child(4){animation-delay:.24s} .ss-dot:nth-child(5){animation-delay:.32s} .ss-dot:nth-child(6){animation-delay:.40s}
-.ss-dot:nth-child(7){animation-delay:.48s} .ss-dot:nth-child(8){animation-delay:.56s} .ss-dot:nth-child(9){animation-delay:.64s}
-@keyframes ssScan{
-  0%   {transform:rotate(0deg)}
-  22%  {transform:rotate(-11deg)}
-  55%  {transform:rotate(8deg)}
-  80%  {transform:rotate(-3deg)}
-  100% {transform:rotate(0deg)}
-}
-@keyframes ssDot{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.55);opacity:1}}
-@media(prefers-reduced-motion:reduce){
-  .bsservices .svc3:first-child:hover .svc3__img{transform:none}
-  .bsservices .svc3:first-child:hover .ss-mag,
-  .bsservices .svc3:first-child:hover .ss-dot{animation:none}
+  .bsservices .svc3:hover .svc3__img img,
+  .bsservices .svc3:first-child:hover .svc3__img img{transform:none}
 }
 
 /* Subservice cards are clickable (open the pop-up) */
