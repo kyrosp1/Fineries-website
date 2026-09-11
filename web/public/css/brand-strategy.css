@@ -102,3 +102,14 @@
 .submodal__copy p{margin:0 0 14px;font-size:16px;line-height:1.7;color:var(--v3-text)}
 .submodal__copy p:last-child{margin-bottom:0}
 @media(prefers-reduced-motion:reduce){.submodal__panel{animation:none}}
+
+/* Icons shown at ~60% within a matching teal field (tiles carry their own teal bg,
+   so the smaller image sits seamlessly on the same colour). */
+.bsservices .svc3__img{background:#01D2CE}
+.bsservices .svc3__img img{object-fit:cover;transform:scale(.6)}
+.bsservices .svc3:hover .svc3__img img{transform:scale(.72) rotate(5deg)}
+.bsservices .svc3:first-child:hover .svc3__img img{transform:scale(.76) rotate(-6deg)}
+@media(prefers-reduced-motion:reduce){
+  .bsservices .svc3:hover .svc3__img img,
+  .bsservices .svc3:first-child:hover .svc3__img img{transform:scale(.6)}
+}
