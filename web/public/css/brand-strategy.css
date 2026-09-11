@@ -78,3 +78,30 @@
 @media(prefers-reduced-motion:reduce){
   .bsservices .svc3:first-child:hover .svc3__img{transform:none}
 }
+
+/* Subservice cards are clickable (open the pop-up) */
+.bsservices .svc3{cursor:pointer}
+.svc3__more{display:inline-flex;align-items:center;gap:10px;margin-top:auto;padding-top:16px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--v3-blue)}
+.bsservices .svc3--magenta .svc3__more{color:var(--v3-magenta)}
+.bsservices .svc3--teal .svc3__more{color:var(--v3-teal-d)}
+.bsservices .svc3--gold .svc3__more{color:#b88b00}
+.svc3__more-arrow{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--v3-line);color:inherit;transition:background .25s,color .25s,border-color .25s}
+.svc3__more-arrow svg{width:14px;height:14px}
+.bsservices .svc3--blue:hover .svc3__more-arrow{background:var(--v3-blue);border-color:var(--v3-blue);color:#fff}
+.bsservices .svc3--magenta:hover .svc3__more-arrow{background:var(--v3-magenta);border-color:var(--v3-magenta);color:#fff}
+.bsservices .svc3--teal:hover .svc3__more-arrow{background:var(--v3-teal);border-color:var(--v3-teal);color:#fff}
+.bsservices .svc3--gold:hover .svc3__more-arrow{background:var(--v3-gold);border-color:var(--v3-gold);color:var(--v3-ink)}
+
+/* Subservice pop-up modal */
+.submodal{position:fixed;inset:0;z-index:600;display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,48px)}
+.submodal[hidden]{display:none}
+.submodal__backdrop{position:absolute;inset:0;background:rgba(16,14,45,.62);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.submodal__panel{position:relative;z-index:1;width:min(620px,100%);max-height:86vh;overflow:auto;background:#fff;border-radius:18px;padding:clamp(30px,4vw,54px);box-shadow:0 40px 120px rgba(0,0,0,.35);animation:submodalIn .3s var(--v3-ease)}
+@keyframes submodalIn{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+.submodal__close{position:absolute;top:14px;right:16px;width:40px;height:40px;border:0;border-radius:50%;background:var(--v3-mist);color:var(--v3-ink);font-size:24px;line-height:1;cursor:pointer;transition:background .2s,color .2s}
+.submodal__close:hover{background:var(--v3-blue);color:#fff}
+.submodal__eyebrow{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--v3-teal)}
+.submodal__title{margin:12px 0 16px;font-family:var(--font-display);font-weight:800;font-size:clamp(24px,3vw,34px);line-height:1.12;color:var(--v3-ink)}
+.submodal__copy p{margin:0 0 14px;font-size:16px;line-height:1.7;color:var(--v3-text)}
+.submodal__copy p:last-child{margin-bottom:0}
+@media(prefers-reduced-motion:reduce){.submodal__panel{animation:none}}

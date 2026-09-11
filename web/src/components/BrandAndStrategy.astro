@@ -52,7 +52,7 @@ const pageDesc = home.bs_seo_description || "Brand research, strategy, positioni
 <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
 <link rel="stylesheet" href="/css/v3.css?v=51" />
 <link rel="stylesheet" href="/css/home.css?v=47" />
-<link rel="stylesheet" href="/css/brand-strategy.css?v=10" />
+<link rel="stylesheet" href="/css/brand-strategy.css?v=11" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
@@ -106,18 +106,36 @@ const pageDesc = home.bs_seo_description || "Brand research, strategy, positioni
       </div>
       <div class="svc3__grid" data-rv-stagger>
         {brandServices.map((service, index) => (
-          <article class={`svc3 svc3--${subColors[index % subColors.length]}`}>
+          <article
+            class={`svc3 svc3--${subColors[index % subColors.length]}`}
+            data-sub-open role="button" tabindex="0"
+            data-sub-title={service.title}
+            data-sub-full={service.full || service.description}
+            aria-label={`Read more about ${service.title}`}
+          >
             <div class="svc3__img media"><img src={service.image || subFallbackArt[index % subFallbackArt.length]} alt="" /></div>
             <div class="svc3__panel">
               <span class="svc3__num">{String(index + 1).padStart(2, "0")}</span>
               <h3 class="svc3__title" set:html={service.title}></h3>
               <p class="svc3__desc">{service.description}</p>
+              <span class="svc3__more"><span>Read more</span><span class="svc3__more-arrow"><i data-lucide="arrow-right"></i></span></span>
             </div>
           </article>
         ))}
       </div>
     </div>
   </section>
+
+  <!-- Subservice modal -->
+  <div class="submodal" data-sub-modal hidden aria-hidden="true">
+    <div class="submodal__backdrop" data-sub-close></div>
+    <div class="submodal__panel" role="dialog" aria-modal="true" aria-labelledby="submodal-title">
+      <button class="submodal__close" type="button" data-sub-close aria-label="Close">&times;</button>
+      <span class="submodal__eyebrow">{home.bs_hero_eyebrow || "Brand & Strategy"}</span>
+      <h3 class="submodal__title" id="submodal-title"></h3>
+      <div class="submodal__copy"></div>
+    </div>
+  </div>
 
   <section class="cta3 ctahome" id="contact">
     <div class="wrap cta3__inner on-blue">
@@ -154,6 +172,37 @@ const pageDesc = home.bs_seo_description || "Brand research, strategy, positioni
     };
     selectVideo();
     mobile.addEventListener("change", selectVideo);
+  })();
+</script>
+<script is:inline>
+  (() => {
+    const modal = document.querySelector("[data-sub-modal]");
+    if (!modal) return;
+    const titleEl = modal.querySelector(".submodal__title");
+    const copyEl = modal.querySelector(".submodal__copy");
+    let lastFocus = null;
+    const open = (title, full) => {
+      titleEl.textContent = title || "";
+      copyEl.innerHTML = "";
+      String(full || "").split(/\n{2,}|\n/).map((s) => s.trim()).filter(Boolean).forEach((par) => {
+        const p = document.createElement("p"); p.textContent = par; copyEl.appendChild(p);
+      });
+      modal.hidden = false; modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      modal.querySelector(".submodal__close").focus();
+    };
+    const close = () => {
+      modal.hidden = true; modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      if (lastFocus) lastFocus.focus();
+    };
+    document.querySelectorAll("[data-sub-open]").forEach((card) => {
+      const trigger = () => { lastFocus = card; open(card.dataset.subTitle, card.dataset.subFull); };
+      card.addEventListener("click", trigger);
+      card.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); trigger(); } });
+    });
+    modal.querySelectorAll("[data-sub-close]").forEach((el) => el.addEventListener("click", close));
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.hidden) close(); });
   })();
 </script>
 </body>

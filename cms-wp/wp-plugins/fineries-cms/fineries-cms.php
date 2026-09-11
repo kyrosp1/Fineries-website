@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fineries CMS
  * Description: Headless content model for the Fineries Digital site — custom post types (Services, Work), ACF field groups, options pages, and a clean REST endpoint for the Astro front-end.
- * Version: 1.15.0
+ * Version: 1.16.0
  * Author: Fineries
  * Requires Plugins: advanced-custom-fields-pro
  */
@@ -376,7 +376,8 @@ add_action('acf/init', function () {
       ['key' => 'f_cap_subservices', 'name' => 'cap_subservices', 'label' => 'Subservices', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Add subservice', 'sub_fields' => [
         ['key' => 'f_cap_sub_icon', 'name' => 'icon', 'label' => 'Icon (Lucide name)', 'type' => 'text'],
         ['key' => 'f_cap_sub_title', 'name' => 'title', 'label' => 'Title', 'type' => 'text'],
-        ['key' => 'f_cap_sub_description', 'name' => 'description', 'label' => 'Short description', 'type' => 'textarea', 'rows' => 2],
+        ['key' => 'f_cap_sub_description', 'name' => 'description', 'label' => 'Short description (card)', 'type' => 'textarea', 'rows' => 2],
+        ['key' => 'f_cap_sub_full', 'name' => 'full', 'label' => 'Full copy (shown in the pop-up)', 'type' => 'textarea', 'rows' => 5],
         ['key' => 'f_cap_sub_image', 'name' => 'image', 'label' => 'Image / SVG (card artwork)', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium'],
       ]],
     ],
