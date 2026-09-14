@@ -1,0 +1,100 @@
+---
+import SiteNav from "../components/SiteNav.astro";
+import { getHomeBundle } from "../lib/wp.js";
+
+const { home = {}, settings = {} } = await getHomeBundle();
+const heroImg = home.hero_image || "";
+const heroWords = (home.hero_words && home.hero_words.length) ? home.hero_words : ["brands", "products", "content"];
+
+const navItems = (settings.nav_items && settings.nav_items.length) ? settings.nav_items : [
+  { label: "Home", link: "/" }, { label: "What We Do", link: "/what-we-do" },
+  { label: "Work", link: "#" }, { label: "About", link: "/about" },
+  { label: "Insights", link: "#" }, { label: "Contact", link: "/contact" },
+];
+
+// Privacy-minimal, low-branding YouTube embed
+const ytId = "tqEVQ-MSepc";
+const ytBase = `https://www.youtube-nocookie.com/embed/${ytId}`;
+const ytParams = "enablejsapi=1&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&color=white&fs=1&cc_load_policy=0";
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hero (YouTube) — test | Fineries Digital</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
+<link rel="stylesheet" href="/css/v3.css?v=51" />
+<link rel="stylesheet" href="/css/home.css?v=66" />
+<script src="https://unpkg.com/lucide@latest" is:inline defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" is:inline defer></script>
+<style>
+  .vmodal__frame--yt { width: min(1040px, 92vw); aspect-ratio: 16 / 9; max-height: 86vh; background: #000; }
+  .vmodal__frame--yt iframe { width: 100%; height: 100%; border: 0; display: block; border-radius: inherit; }
+</style>
+</head>
+<body>
+
+<SiteNav navItems={navItems} settings={settings} active="/" />
+
+<main id="main">
+  <!-- HERO (duplicate of homepage, YouTube-served video) -->
+  <section class="hero3" style={`--v3-hero-bg:${home.hero_bg_color || "#3C4099"}`}>
+    <img class="hero3__couple" src={heroImg} alt="A couple in Nigerian formal wear sharing a dance" />
+    <div class="wrap hero3__inner">
+      <h1 class="hero3__title">{home.hero_lead_in || "We build"} <span class="hero3__rot" id="hero-rot" data-words={JSON.stringify(heroWords)}>{heroWords[0]}</span> {home.hero_lead_out || "people love"}</h1>
+      <button class="hero3__watch" type="button" data-open-yt>
+        <span>{home.hero_watch_label || "Watch our story"}</span>
+        <span class="play"><i data-lucide="play"></i></span>
+      </button>
+    </div>
+  </section>
+
+  <div class="vmodal" data-yt-modal aria-hidden="true">
+    <div class="vmodal__frame vmodal__frame--yt">
+      <button class="vmodal__close" type="button" data-yt-close aria-label="Close video">&times;</button>
+      <iframe
+        data-yt-iframe
+        title="Fineries story"
+        src="about:blank"
+        allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+    </div>
+  </div>
+</main>
+
+<script src="/js/v3.js?v=31" is:inline defer></script>
+<script is:inline define:vars={{ ytBase, ytParams }}>
+  (() => {
+    const openBtn = document.querySelector("[data-open-yt]");
+    const modal = document.querySelector("[data-yt-modal]");
+    const iframe = modal && modal.querySelector("[data-yt-iframe]");
+    if (!openBtn || !modal || !iframe) return;
+    const open = () => {
+      iframe.src = `${ytBase}?autoplay=1&${ytParams}`;
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    };
+    const close = () => {
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      iframe.src = "about:blank"; // stop playback
+    };
+    openBtn.addEventListener("click", open);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal || e.target.hasAttribute("data-yt-close")) close();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("is-open")) close();
+    });
+  })();
+</script>
+</body>
+</html>
