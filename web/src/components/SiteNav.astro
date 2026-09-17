@@ -17,7 +17,7 @@ const isActive = (n) => (active && (n.link === active || n.label === active)) ||
 const cfBeaconToken = settings.cf_analytics_token || import.meta.env.PUBLIC_CF_BEACON_TOKEN || "";
 ---
 {cfBeaconToken && (
-  <script type="text/javascript" defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: cfBeaconToken })}></script>
+  <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: cfBeaconToken })}></script>
 )}
 <header class="nav3">
   <div class="nav3__inner">
