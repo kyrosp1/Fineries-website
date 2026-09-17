@@ -5,6 +5,8 @@ import vercel from "@astrojs/vercel/serverless";
 // (PUBLIC_WP_URL). Local dev still uses `astro dev` the same way.
 export default defineConfig({
   output: "server",
-  adapter: vercel(),
+  // webAnalytics injects Vercel Web Analytics on every page (enable it once in the
+  // Vercel dashboard: Project → Analytics → Enable Web Analytics).
+  adapter: vercel({ webAnalytics: { enabled: true } }),
   server: { port: 4321, host: true },
 });
