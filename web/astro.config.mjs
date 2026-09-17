@@ -5,8 +5,9 @@ import vercel from "@astrojs/vercel/serverless";
 // (PUBLIC_WP_URL). Local dev still uses `astro dev` the same way.
 export default defineConfig({
   output: "server",
-  // webAnalytics injects Vercel Web Analytics on every page (enable it once in the
-  // Vercel dashboard: Project → Analytics → Enable Web Analytics).
-  adapter: vercel({ webAnalytics: { enabled: true } }),
+  // Analytics is handled by Cloudflare Web Analytics (beacon in SiteNav, token in CMS
+  // Site Settings → cf_analytics_token). Vercel Web Analytics intentionally left off to
+  // avoid double-counting.
+  adapter: vercel(),
   server: { port: 4321, host: true },
 });
