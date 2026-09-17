@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fineries CMS
  * Description: Headless content model for the Fineries Digital site — custom post types (Services, Work), ACF field groups, options pages, and a clean REST endpoint for the Astro front-end.
- * Version: 1.16.0
+ * Version: 1.17.0
  * Author: Fineries
  * Requires Plugins: advanced-custom-fields-pro
  */
@@ -351,6 +351,7 @@ add_action('acf/init', function () {
       $txt('social_linkedin', 'LinkedIn URL'),
       $txt('social_instagram', 'Instagram URL'),
       $txt('social_x', 'X URL'),
+      $txt('cf_analytics_token', 'Cloudflare Analytics token (from dash.cloudflare.com → Web Analytics)'),
     ],
   ]);
 
