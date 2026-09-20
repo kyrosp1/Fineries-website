@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fineries CMS
  * Description: Headless content model for the Fineries Digital site — custom post types (Services, Work), ACF field groups, options pages, and a clean REST endpoint for the Astro front-end.
- * Version: 1.19.2
+ * Version: 1.20.0
  * Author: Fineries
  * Requires Plugins: advanced-custom-fields-pro
  */
@@ -567,8 +567,16 @@ function fineries_handle_enquiry(WP_REST_Request $req) {
   if (is_string($services)) $services = array_filter(array_map('trim', explode(',', $services)));
   $services  = array_map('sanitize_text_field', (array) $services);
 
-  if ($name === '' || !is_email($email) || $challenge === '') {
-    return new WP_Error('invalid', 'Please provide your name, a valid email and a message.', ['status' => 422]);
+  if (!is_email($email)) {
+    return new WP_Error('invalid', 'Please provide a valid email address.', ['status' => 422]);
+  }
+  // All fields are required.
+  if ($name === '' || $company === '' || $budget === '' || $timeline === '' || $challenge === '' || empty($services)) {
+    return new WP_Error('invalid', 'Please fill in all fields.', ['status' => 422]);
+  }
+  // Reject disposable / temporary email addresses.
+  if (fineries_is_disposable_email($email)) {
+    return new WP_Error('disposable', 'Please use a permanent email address (disposable addresses aren\'t accepted).', ['status' => 422]);
   }
 
   // Simple per-IP rate limit (max 5 / 10 min) to blunt spam.
@@ -653,6 +661,31 @@ function fineries_zeptomail_post($to, $subject, $html, $text, $reply_to = null) 
   if (is_wp_error($res)) return false;
   $code = wp_remote_retrieve_response_code($res);
   return $code >= 200 && $code < 300;
+}
+function fineries_is_disposable_email($email) {
+  static $set = null;
+  $at = strrchr($email, '@');
+  if ($at === false) return false;
+  $domain = strtolower(substr($at, 1));
+  if ($domain === '') return false;
+  if ($set === null) {
+    $set = [];
+    $file = __DIR__ . '/disposable-domains.txt';
+    if (is_readable($file)) {
+      foreach (file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $d) {
+        $d = trim(strtolower($d));
+        if ($d !== '' && $d[0] !== '#') $set[$d] = true;
+      }
+    }
+  }
+  if (isset($set[$domain])) return true;
+  // catch subdomains of a listed domain (e.g. inbox.mailinator.com)
+  $parts = explode('.', $domain);
+  while (count($parts) > 2) {
+    array_shift($parts);
+    if (isset($set[implode('.', $parts)])) return true;
+  }
+  return false;
 }
 function fineries_enquiry_recipients() {
   $raw = function_exists('get_field') ? (string) get_field('enquiry_notify_emails', 'option') : '';

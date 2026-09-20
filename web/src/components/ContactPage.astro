@@ -37,17 +37,17 @@ const serviceChoices = ["Brand & Strategy","Marketing & Growth","Content & Produ
     <form class="contact__form cf" id="form" data-contact-form data-email={email} data-rv>
       <div class="cf__two">
         <div class="cf__group"><span class="cf__label">What should we call you? <em>(Required)</em></span><label class="cf__field"><input required name="name" autocomplete="name" placeholder="Your name"/></label></div>
-        <div class="cf__group"><span class="cf__label">Where do you work?</span><label class="cf__field"><input name="company" autocomplete="organization" placeholder="Company or organisation"/></label></div>
+        <div class="cf__group"><span class="cf__label">Where do you work? <em>(Required)</em></span><label class="cf__field"><input required name="company" autocomplete="organization" placeholder="Company or organisation"/></label></div>
       </div>
       <div class="cf__group"><span class="cf__label">What's your email? <em>(Required)</em></span><label class="cf__field"><input required type="email" name="email" autocomplete="email" placeholder="you@company.com"/></label></div>
       <div class="cf__group">
-        <span class="cf__label">What would you like to work on? <em>Select all that apply.</em></span>
+        <span class="cf__label">What would you like to work on? <em>(Required — select all that apply)</em></span>
         <div class="contact__choices">{serviceChoices.map((choice)=><label><input type="checkbox" name="service" value={choice}/><span>{choice}</span></label>)}</div>
       </div>
       <div class="cf__group"><span class="cf__label">Tell us a little about the challenge. <em>(Required)</em></span><label class="cf__field"><textarea required name="challenge" rows="5" placeholder="What are you trying to change, create or achieve?"></textarea></label></div>
       <div class="cf__two">
-        <div class="cf__group"><span class="cf__label">What kind of budget are you working with?</span><label class="cf__field"><select name="budget"><option value="">Select a range</option><option>Under ₦5m</option><option>₦5m – ₦15m</option><option>₦15m – ₦50m</option><option>₦50m+</option><option>Not sure yet</option></select></label></div>
-        <div class="cf__group"><span class="cf__label">When would you like to start?</span><label class="cf__field"><select name="timeline"><option value="">Select timing</option><option>As soon as possible</option><option>Within 1–3 months</option><option>Within 3–6 months</option><option>Later this year</option><option>Not sure yet</option></select></label></div>
+        <div class="cf__group"><span class="cf__label">What kind of budget are you working with? <em>(Required)</em></span><label class="cf__field"><select required name="budget"><option value="">Select a range</option><option>Under ₦5m</option><option>₦5m – ₦15m</option><option>₦15m – ₦50m</option><option>₦50m+</option><option>Not sure yet</option></select></label></div>
+        <div class="cf__group"><span class="cf__label">When would you like to start? <em>(Required)</em></span><label class="cf__field"><select required name="timeline"><option value="">Select timing</option><option>As soon as possible</option><option>Within 1–3 months</option><option>Within 3–6 months</option><option>Later this year</option><option>Not sure yet</option></select></label></div>
       </div>
       <input type="text" name="company_url" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
       <button class="cf__submit" type="submit">{home.contact_submit_label || "Send Enquiry"}</button>
@@ -74,6 +74,11 @@ const serviceChoices = ["Brand & Strategy","Marketing & Growth","Content & Produ
     };
     const btn = form.querySelector(".cf__submit");
     const note = form.querySelector(".cf__note");
+    if (!payload.service.length) {
+      if (note) { note.textContent = "Please select at least one option for what you'd like to work on."; note.style.color = "var(--v3-magenta)"; }
+      form.querySelector('input[name="service"]')?.focus();
+      return;
+    }
     const original = btn.textContent;
     btn.disabled = true; btn.textContent = "Sending…";
     if (note) { note.style.color = ""; note.textContent = "We usually reply within one business day."; }
