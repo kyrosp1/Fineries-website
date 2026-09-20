@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fineries CMS
  * Description: Headless content model for the Fineries Digital site — custom post types (Services, Work), ACF field groups, options pages, and a clean REST endpoint for the Astro front-end.
- * Version: 1.17.0
+ * Version: 1.18.0
  * Author: Fineries
  * Requires Plugins: advanced-custom-fields-pro
  */
@@ -52,7 +52,30 @@ add_action('init', function () {
     'supports' => ['title', 'page-attributes'],
     'has_archive' => false,
   ]);
+  // Contact-form submissions (private: admin-only, never public / not in public REST).
+  register_post_type('enquiry', [
+    'label' => 'Enquiries',
+    'labels' => ['name' => 'Enquiries', 'singular_name' => 'Enquiry', 'menu_name' => 'Enquiries'],
+    'public' => false,
+    'show_ui' => true,
+    'show_in_menu' => true,
+    'show_in_rest' => false,
+    'menu_icon' => 'dashicons-email-alt',
+    'supports' => ['title'],
+    'capabilities' => ['create_posts' => 'do_not_allow'], // created only via the form endpoint
+    'map_meta_cap' => true,
+    'has_archive' => false,
+  ]);
 });
+
+// Admin list columns for Enquiries (email + submitted date at a glance).
+add_filter('manage_enquiry_posts_columns', function ($cols) {
+  return ['cb' => $cols['cb'] ?? '', 'title' => 'Name', 'enq_email' => 'Email', 'enq_company' => 'Company', 'date' => 'Received'];
+});
+add_action('manage_enquiry_posts_custom_column', function ($col, $post_id) {
+  if ($col === 'enq_email') echo esc_html(get_post_meta($post_id, 'email', true));
+  if ($col === 'enq_company') echo esc_html(get_post_meta($post_id, 'company', true));
+}, 10, 2);
 
 /* =========================================================
    2) ACF OPTIONS PAGES  (singletons: Home + Site Settings)
@@ -352,6 +375,12 @@ add_action('acf/init', function () {
       $txt('social_instagram', 'Instagram URL'),
       $txt('social_x', 'X URL'),
       $txt('cf_analytics_token', 'Cloudflare Analytics token (from dash.cloudflare.com → Web Analytics)'),
+      // --- Contact enquiries & email (ZeptoMail). These are stripped from the public REST. ---
+      $area('enquiry_notify_emails', 'Enquiry notification email(s) — one per line (who receives contact-form submissions)'),
+      $txt('zeptomail_token', 'ZeptoMail Send Mail token (Zoho-enczapikey …) — keep secret'),
+      $txt('zeptomail_from_email', 'ZeptoMail "from" address (must be a verified sender/domain in ZeptoMail, e.g. noreply@fineries.net)'),
+      $txt('zeptomail_from_name', 'ZeptoMail "from" name (e.g. Fineries Website)'),
+      $txt('zeptomail_api_domain', 'ZeptoMail API domain (default: api.zeptomail.com; EU accounts use api.zeptomail.eu)'),
     ],
   ]);
 
@@ -439,6 +468,10 @@ add_action('rest_api_init', function () {
       if (!function_exists('get_field')) return new WP_Error('acf_missing', 'ACF not active', ['status' => 500]);
 
       $home = get_fields('option') ?: [];
+      // never expose server-only / secret settings to the public front-end
+      foreach (['zeptomail_token', 'zeptomail_from_email', 'zeptomail_from_name', 'zeptomail_api_domain', 'enquiry_notify_emails'] as $secret) {
+        unset($home[$secret]);
+      }
       // comma strings → arrays (hero + CTA rotating words)
       foreach (['hero_words', 'cta_words'] as $wf) {
         if (!empty($home[$wf]) && is_string($home[$wf])) {
@@ -482,4 +515,124 @@ add_action('rest_api_init', function () {
       ];
     },
   ]);
+
+  // ---- Contact form: store submission + notify via ZeptoMail ----
+  register_rest_route('fineries/v1', '/enquiry', [
+    'methods' => 'POST',
+    'permission_callback' => '__return_true',
+    'callback' => 'fineries_handle_enquiry',
+  ]);
 });
+
+function fineries_handle_enquiry(WP_REST_Request $req) {
+  $p = $req->get_json_params();
+  if (!is_array($p)) $p = $req->get_params();
+
+  // Honeypot: real users leave this empty; bots fill it. Pretend success, store nothing.
+  if (!empty($p['company_url'])) return ['ok' => true];
+
+  $name      = sanitize_text_field($p['name'] ?? '');
+  $email     = sanitize_email($p['email'] ?? '');
+  $company   = sanitize_text_field($p['company'] ?? '');
+  $budget    = sanitize_text_field($p['budget'] ?? '');
+  $timeline  = sanitize_text_field($p['timeline'] ?? '');
+  $challenge = sanitize_textarea_field($p['challenge'] ?? '');
+  $services  = $p['service'] ?? ($p['services'] ?? []);
+  if (is_string($services)) $services = array_filter(array_map('trim', explode(',', $services)));
+  $services  = array_map('sanitize_text_field', (array) $services);
+
+  if ($name === '' || !is_email($email) || $challenge === '') {
+    return new WP_Error('invalid', 'Please provide your name, a valid email and a message.', ['status' => 422]);
+  }
+
+  // Simple per-IP rate limit (max 5 / 10 min) to blunt spam.
+  $ip = $_SERVER['REMOTE_ADDR'] ?? '';
+  if ($ip) {
+    $key = 'fnr_enq_' . md5($ip);
+    $n = (int) get_transient($key);
+    if ($n >= 5) return new WP_Error('rate', 'Too many submissions. Please try again later.', ['status' => 429]);
+    set_transient($key, $n + 1, 10 * MINUTE_IN_SECONDS);
+  }
+
+  $svc_list = $services ? implode(', ', $services) : '—';
+  $lines = [
+    'Name: ' . $name,
+    'Email: ' . $email,
+    'Company: ' . ($company ?: '—'),
+    'Services: ' . $svc_list,
+    'Budget: ' . ($budget ?: '—'),
+    'Timeline: ' . ($timeline ?: '—'),
+    '',
+    $challenge,
+  ];
+  $body_text = implode("\n", $lines);
+
+  // Store as an Enquiry post (admin-only CPT).
+  $post_id = wp_insert_post([
+    'post_type'   => 'enquiry',
+    'post_status' => 'publish',
+    'post_title'  => $name . ' — ' . ($company ?: $email),
+    'post_content'=> $body_text,
+  ], true);
+  if (is_wp_error($post_id)) {
+    return new WP_Error('store_failed', 'Could not save the enquiry.', ['status' => 500]);
+  }
+  foreach (compact('name', 'email', 'company', 'budget', 'timeline', 'challenge') as $k => $v) {
+    update_post_meta($post_id, $k, $v);
+  }
+  update_post_meta($post_id, 'services', $svc_list);
+  update_post_meta($post_id, 'submitted_at', current_time('mysql'));
+  update_post_meta($post_id, 'source_ip', $ip);
+
+  // Notify via ZeptoMail (if configured).
+  $sent = fineries_send_zeptomail($name, $email, $svc_list, $budget, $timeline, $challenge, $company, $body_text);
+
+  return ['ok' => true, 'id' => $post_id, 'emailed' => $sent];
+}
+
+function fineries_send_zeptomail($name, $email, $svc_list, $budget, $timeline, $challenge, $company, $body_text) {
+  $token = function_exists('get_field') ? trim((string) get_field('zeptomail_token', 'option')) : '';
+  $from  = function_exists('get_field') ? trim((string) get_field('zeptomail_from_email', 'option')) : '';
+  $from_name = function_exists('get_field') ? trim((string) get_field('zeptomail_from_name', 'option')) : 'Fineries Website';
+  $domain = function_exists('get_field') ? trim((string) get_field('zeptomail_api_domain', 'option')) : '';
+  $recipients_raw = function_exists('get_field') ? (string) get_field('enquiry_notify_emails', 'option') : '';
+  if ($domain === '') $domain = 'api.zeptomail.com';
+
+  $recipients = array_values(array_filter(array_map('trim', preg_split('/[\r\n,]+/', $recipients_raw)), 'is_email'));
+  if ($token === '' || $from === '' || empty($recipients)) return false; // not configured yet
+
+  $safe = fn($s) => htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8');
+  $html = '<h2 style="margin:0 0 12px">New enquiry from the Fineries website</h2>'
+    . '<table cellpadding="6" style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:14px">'
+    . '<tr><td><strong>Name</strong></td><td>' . $safe($name) . '</td></tr>'
+    . '<tr><td><strong>Email</strong></td><td>' . $safe($email) . '</td></tr>'
+    . '<tr><td><strong>Company</strong></td><td>' . $safe($company ?: '—') . '</td></tr>'
+    . '<tr><td><strong>Services</strong></td><td>' . $safe($svc_list) . '</td></tr>'
+    . '<tr><td><strong>Budget</strong></td><td>' . $safe($budget ?: '—') . '</td></tr>'
+    . '<tr><td><strong>Timeline</strong></td><td>' . $safe($timeline ?: '—') . '</td></tr>'
+    . '</table>'
+    . '<p style="font-family:Arial,sans-serif;font-size:14px;white-space:pre-wrap;margin-top:14px"><strong>Message:</strong><br>' . nl2br($safe($challenge)) . '</p>';
+
+  $to = array_map(fn($e) => ['email_address' => ['address' => $e]], $recipients);
+  $payload = [
+    'from' => ['address' => $from, 'name' => $from_name ?: 'Fineries Website'],
+    'to' => $to,
+    'reply_to' => [['address' => $email, 'name' => $name]],
+    'subject' => 'New website enquiry — ' . $name . ($company ? ' (' . $company . ')' : ''),
+    'htmlbody' => $html,
+    'textbody' => $body_text,
+  ];
+
+  $res = wp_remote_post('https://' . $domain . '/v1.1/email', [
+    'timeout' => 15,
+    'headers' => [
+      'Authorization' => 'Zoho-enczapikey ' . $token,
+      'Content-Type'  => 'application/json',
+      'Accept'        => 'application/json',
+    ],
+    'body' => wp_json_encode($payload),
+  ]);
+  if (is_wp_error($res)) return false;
+  $code = wp_remote_retrieve_response_code($res);
+  return $code >= 200 && $code < 300;
+}
