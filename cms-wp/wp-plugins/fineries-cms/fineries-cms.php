@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fineries CMS
  * Description: Headless content model for the Fineries Digital site — custom post types (Services, Work), ACF field groups, options pages, and a clean REST endpoint for the Astro front-end.
- * Version: 1.19.1
+ * Version: 1.19.2
  * Author: Fineries
  * Requires Plugins: advanced-custom-fields-pro
  */
@@ -697,18 +697,12 @@ function fineries_send_autoreply($name, $email) {
     $html = '<p>Hi {name},</p><p>Thanks for reaching out to Fineries — we\'ve received your message and one of our team will get back to you shortly.</p><p>— The Fineries Team</p>';
   }
 
-  // Personalisation. The form collects one full-name field, so first-name tokens use the
-  // first word. Supports {name}/[name] (full) and [First Name]/{first_name} etc. (first).
-  $first = trim(preg_split('/\s+/', trim($name))[0] ?? $name);
-  $first_tokens = ['[First Name]', '[First name]', '[first name]', '[FirstName]', '{first_name}', '{first name}', '{firstname}', '{FirstName}'];
-  $full_tokens  = ['[Full Name]', '[Name]', '[name]', '{name}', '{full_name}', '{Name}'];
-  $safe_first = htmlspecialchars($first, ENT_QUOTES, 'UTF-8');
-  $safe_full  = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
-
-  $subject = str_ireplace($first_tokens, $first, $subject);
-  $subject = str_ireplace($full_tokens, $name, $subject);
-  $html = str_ireplace($first_tokens, $safe_first, $html);
-  $html = str_ireplace($full_tokens, $safe_full, $html);
+  // Personalisation: the form collects one full-name field, and we use it as supplied.
+  // All name tokens resolve to the full name: [First Name], {first_name}, [name], {name}, etc.
+  $name_tokens = ['[First Name]', '[First name]', '[first name]', '[FirstName]', '{first_name}', '{first name}', '{firstname}', '{FirstName}', '[Full Name]', '[Name]', '[name]', '{name}', '{full_name}', '{Name}'];
+  $safe_full = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
+  $subject = str_ireplace($name_tokens, $name, $subject);
+  $html = str_ireplace($name_tokens, $safe_full, $html);
   $text = wp_strip_all_tags($html);
 
   // Replies to the auto-reply should reach a monitored inbox.
