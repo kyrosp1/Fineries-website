@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fineries CMS
  * Description: Headless content model for the Fineries Digital site — custom post types (Services, Work), ACF field groups, options pages, and a clean REST endpoint for the Astro front-end.
- * Version: 1.18.0
+ * Version: 1.19.0
  * Author: Fineries
  * Requires Plugins: advanced-custom-fields-pro
  */
@@ -76,6 +76,28 @@ add_action('manage_enquiry_posts_custom_column', function ($col, $post_id) {
   if ($col === 'enq_email') echo esc_html(get_post_meta($post_id, 'email', true));
   if ($col === 'enq_company') echo esc_html(get_post_meta($post_id, 'company', true));
 }, 10, 2);
+
+// Details panel on the Enquiry edit screen (the CPT only supports a title, so show the
+// submitted fields here).
+add_action('add_meta_boxes', function () {
+  add_meta_box('fnr_enquiry_details', 'Enquiry details', function ($post) {
+    $rows = [
+      'name' => 'Name', 'email' => 'Email', 'company' => 'Company', 'services' => 'Services',
+      'budget' => 'Budget', 'timeline' => 'Timeline', 'challenge' => 'Message',
+      'submitted_at' => 'Submitted', 'source_ip' => 'IP address',
+    ];
+    echo '<table class="widefat striped" style="margin-top:6px"><tbody>';
+    foreach ($rows as $k => $label) {
+      $v = get_post_meta($post->ID, $k, true);
+      $cell = $k === 'challenge' ? nl2br(esc_html($v)) : esc_html($v);
+      if ($k === 'email' && $v) $cell = '<a href="mailto:' . esc_attr($v) . '">' . esc_html($v) . '</a>';
+      echo '<tr><th style="width:150px;text-align:left;vertical-align:top">' . esc_html($label) . '</th><td>' . ($cell ?: '—') . '</td></tr>';
+    }
+    echo '</tbody></table>';
+    $email = get_post_meta($post->ID, 'email', true);
+    if ($email) echo '<p style="margin-top:12px"><a class="button button-primary" href="mailto:' . esc_attr($email) . '">Reply by email</a></p>';
+  }, 'enquiry', 'normal', 'high');
+});
 
 /* =========================================================
    2) ACF OPTIONS PAGES  (singletons: Home + Site Settings)
@@ -381,6 +403,10 @@ add_action('acf/init', function () {
       $txt('zeptomail_from_email', 'ZeptoMail "from" address (must be a verified sender/domain in ZeptoMail, e.g. noreply@fineries.net)'),
       $txt('zeptomail_from_name', 'ZeptoMail "from" name (e.g. Fineries Website)'),
       $txt('zeptomail_api_domain', 'ZeptoMail API domain (default: api.zeptomail.com; EU accounts use api.zeptomail.eu)'),
+      // --- Auto-reply to the person who submitted (optional) ---
+      ['key' => 'f_enquiry_autoreply_enabled', 'name' => 'enquiry_autoreply_enabled', 'label' => 'Send an auto-reply to the person who submitted?', 'type' => 'true_false', 'ui' => 1, 'default_value' => 0],
+      $txt('enquiry_autoreply_subject', 'Auto-reply — subject (you can use {name})'),
+      $wys('enquiry_autoreply_body', 'Auto-reply — message (you can use {name})'),
     ],
   ]);
 
@@ -469,7 +495,7 @@ add_action('rest_api_init', function () {
 
       $home = get_fields('option') ?: [];
       // never expose server-only / secret settings to the public front-end
-      foreach (['zeptomail_token', 'zeptomail_from_email', 'zeptomail_from_name', 'zeptomail_api_domain', 'enquiry_notify_emails'] as $secret) {
+      foreach (['zeptomail_token', 'zeptomail_from_email', 'zeptomail_from_name', 'zeptomail_api_domain', 'enquiry_notify_emails', 'enquiry_autoreply_enabled', 'enquiry_autoreply_subject', 'enquiry_autoreply_body'] as $secret) {
         unset($home[$secret]);
       }
       // comma strings → arrays (hero + CTA rotating words)
@@ -584,22 +610,58 @@ function fineries_handle_enquiry(WP_REST_Request $req) {
   update_post_meta($post_id, 'submitted_at', current_time('mysql'));
   update_post_meta($post_id, 'source_ip', $ip);
 
-  // Notify via ZeptoMail (if configured).
+  // Notify internal recipients + optional auto-reply to the submitter (via ZeptoMail).
   $sent = fineries_send_zeptomail($name, $email, $svc_list, $budget, $timeline, $challenge, $company, $body_text);
+  fineries_send_autoreply($name, $email);
 
   return ['ok' => true, 'id' => $post_id, 'emailed' => $sent];
 }
 
-function fineries_send_zeptomail($name, $email, $svc_list, $budget, $timeline, $challenge, $company, $body_text) {
-  $token = function_exists('get_field') ? trim((string) get_field('zeptomail_token', 'option')) : '';
-  $from  = function_exists('get_field') ? trim((string) get_field('zeptomail_from_email', 'option')) : '';
-  $from_name = function_exists('get_field') ? trim((string) get_field('zeptomail_from_name', 'option')) : 'Fineries Website';
-  $domain = function_exists('get_field') ? trim((string) get_field('zeptomail_api_domain', 'option')) : '';
-  $recipients_raw = function_exists('get_field') ? (string) get_field('enquiry_notify_emails', 'option') : '';
-  if ($domain === '') $domain = 'api.zeptomail.com';
+// Low-level ZeptoMail send used by both the internal notification and the auto-reply.
+function fineries_zeptomail_creds() {
+  if (!function_exists('get_field')) return null;
+  $token = preg_replace('/^Zoho-enczapikey\s+/i', '', trim((string) get_field('zeptomail_token', 'option')));
+  $from  = trim((string) get_field('zeptomail_from_email', 'option'));
+  if ($token === '' || $from === '') return null;
+  return [
+    'token' => $token,
+    'from' => $from,
+    'from_name' => trim((string) get_field('zeptomail_from_name', 'option')) ?: 'Fineries Website',
+    'domain' => trim((string) get_field('zeptomail_api_domain', 'option')) ?: 'api.zeptomail.com',
+  ];
+}
+function fineries_zeptomail_post($to, $subject, $html, $text, $reply_to = null) {
+  $c = fineries_zeptomail_creds();
+  if (!$c || empty($to)) return false;
+  $payload = [
+    'from' => ['address' => $c['from'], 'name' => $c['from_name']],
+    'to' => $to,
+    'subject' => $subject,
+    'htmlbody' => $html,
+    'textbody' => $text,
+  ];
+  if ($reply_to) $payload['reply_to'] = [$reply_to];
+  $res = wp_remote_post('https://' . $c['domain'] . '/v1.1/email', [
+    'timeout' => 20,
+    'headers' => [
+      'Authorization' => 'Zoho-enczapikey ' . $c['token'],
+      'Content-Type' => 'application/json',
+      'Accept' => 'application/json',
+    ],
+    'body' => wp_json_encode($payload),
+  ]);
+  if (is_wp_error($res)) return false;
+  $code = wp_remote_retrieve_response_code($res);
+  return $code >= 200 && $code < 300;
+}
+function fineries_enquiry_recipients() {
+  $raw = function_exists('get_field') ? (string) get_field('enquiry_notify_emails', 'option') : '';
+  return array_values(array_filter(array_map('trim', preg_split('/[\r\n,]+/', $raw)), 'is_email'));
+}
 
-  $recipients = array_values(array_filter(array_map('trim', preg_split('/[\r\n,]+/', $recipients_raw)), 'is_email'));
-  if ($token === '' || $from === '' || empty($recipients)) return false; // not configured yet
+function fineries_send_zeptomail($name, $email, $svc_list, $budget, $timeline, $challenge, $company, $body_text) {
+  $recipients = fineries_enquiry_recipients();
+  if (empty($recipients)) return false;
 
   $safe = fn($s) => htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8');
   $html = '<h2 style="margin:0 0 12px">New enquiry from the Fineries website</h2>'
@@ -614,25 +676,34 @@ function fineries_send_zeptomail($name, $email, $svc_list, $budget, $timeline, $
     . '<p style="font-family:Arial,sans-serif;font-size:14px;white-space:pre-wrap;margin-top:14px"><strong>Message:</strong><br>' . nl2br($safe($challenge)) . '</p>';
 
   $to = array_map(fn($e) => ['email_address' => ['address' => $e]], $recipients);
-  $payload = [
-    'from' => ['address' => $from, 'name' => $from_name ?: 'Fineries Website'],
-    'to' => $to,
-    'reply_to' => [['address' => $email, 'name' => $name]],
-    'subject' => 'New website enquiry — ' . $name . ($company ? ' (' . $company . ')' : ''),
-    'htmlbody' => $html,
-    'textbody' => $body_text,
-  ];
+  return fineries_zeptomail_post(
+    $to,
+    'New website enquiry — ' . $name . ($company ? ' (' . $company . ')' : ''),
+    $html,
+    $body_text,
+    ['address' => $email, 'name' => $name] // reply goes straight to the enquirer
+  );
+}
 
-  $res = wp_remote_post('https://' . $domain . '/v1.1/email', [
-    'timeout' => 15,
-    'headers' => [
-      'Authorization' => 'Zoho-enczapikey ' . $token,
-      'Content-Type'  => 'application/json',
-      'Accept'        => 'application/json',
-    ],
-    'body' => wp_json_encode($payload),
-  ]);
-  if (is_wp_error($res)) return false;
-  $code = wp_remote_retrieve_response_code($res);
-  return $code >= 200 && $code < 300;
+// Optional auto-reply to the person who submitted (subject/body editable in Site Settings).
+function fineries_send_autoreply($name, $email) {
+  if (!function_exists('get_field')) return false;
+  if (!get_field('enquiry_autoreply_enabled', 'option')) return false;
+  if (!is_email($email)) return false;
+
+  $subject = trim((string) get_field('enquiry_autoreply_subject', 'option')) ?: 'Thanks for reaching out to Fineries';
+  $html = (string) get_field('enquiry_autoreply_body', 'option');
+  if (trim($html) === '') {
+    $html = '<p>Hi {name},</p><p>Thanks for reaching out to Fineries — we\'ve received your message and one of our team will get back to you shortly.</p><p>— The Fineries Team</p>';
+  }
+  $subject = str_replace('{name}', $name, $subject);
+  $html = str_replace('{name}', htmlspecialchars($name, ENT_QUOTES, 'UTF-8'), $html);
+  $text = wp_strip_all_tags($html);
+
+  // Replies to the auto-reply should reach a monitored inbox.
+  $recipients = fineries_enquiry_recipients();
+  $reply_to = !empty($recipients) ? ['address' => $recipients[0], 'name' => 'Fineries'] : null;
+
+  $to = [['email_address' => ['address' => $email, 'name' => $name]]];
+  return fineries_zeptomail_post($to, $subject, $html, $text, $reply_to);
 }
