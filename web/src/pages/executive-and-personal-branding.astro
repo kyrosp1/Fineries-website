@@ -1,6 +1,4 @@
 ---
-import ExecutiveAuthority from "../components/ExecutiveAuthority.astro";
-import { getHomeBundle } from "../lib/wp.js";
-const { home, settings, services } = await getHomeBundle();
+// Old slug retained → permanent redirect to the new URL.
+return Astro.redirect("/executive-authority", 301);
 ---
-<ExecutiveAuthority home={home} settings={settings} services={services} />

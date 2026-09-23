@@ -277,7 +277,7 @@ if (!get_posts(['post_type' => 'service', 'numberposts' => 1])) {
     ['Marketing & Growth', '02', 'Reach the right people. Turn attention into action.', '/marketing-and-growth', 'gold', 'https://images.unsplash.com/photo-1573497019236-17f8177b81e8?auto=format&fit=crop&w=800&q=75'],
     ['Content & Production', '03', 'Create work worth noticing, remembering and sharing.', '/content-and-production', 'magenta', 'https://images.unsplash.com/photo-1594751543129-6701ad444259?auto=format&fit=crop&w=800&q=75'],
     ['Digital Products & Technology', '04', 'Build digital experiences, products and systems that make the business better.', '/digital-and-tech', 'teal', 'https://images.unsplash.com/photo-1573167243872-43c6433b9d40?auto=format&fit=crop&w=800&q=75'],
-    ['Executive & Personal Branding', '05', 'Help leaders become known for what they know and what they stand for.', '/executive-and-personal-branding', 'blue', 'https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?auto=format&fit=crop&w=800&q=75'],
+    ['Executive Authority', '05', 'Help leaders become known for what they know and what they stand for.', '/executive-authority', 'blue', 'https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?auto=format&fit=crop&w=800&q=75'],
   ];
   $o = 1;
   foreach ($services as $s) {

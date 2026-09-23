@@ -1,0 +1,6 @@
+---
+import ExecutiveAuthority from "../components/ExecutiveAuthority.astro";
+import { getHomeBundle } from "../lib/wp.js";
+const { home, settings, services } = await getHomeBundle();
+---
+<ExecutiveAuthority home={home} settings={settings} services={services} />

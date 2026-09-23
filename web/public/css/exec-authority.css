@@ -3,7 +3,7 @@
    Loads after v3.css + home.css. Fineries palette only:
    navy #1B1D45 / deep #14163A, teal #08BCB3, magenta #C01891, gold #FFC80C.
    ============================================================ */
-:root { --ea-navy: #14163a; --ea-navy2: #1b1d54; }
+:root { --ea-navy: var(--v3-blue); --ea-navy2: var(--v3-blue-d); }
 
 .ea-h { color: var(--v3-ink); letter-spacing: -.02em; }
 .ea-body p { font-size: 16px; line-height: 1.75; color: var(--v3-text); }
