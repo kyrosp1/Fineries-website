@@ -37,7 +37,7 @@ const legalLinks = settings.legal_links?.length ? settings.legal_links : [
   <title>{get("seo_title", `${page.name} | Fineries Digital`)}</title>
   <meta name="description" content={get("seo_description", page.seoDescription)} />
   <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
-  <link rel="stylesheet" href="/css/v3.css?v=51" />
+  <link rel="stylesheet" href="/css/v3.css?v=52" />
   <link rel="stylesheet" href="/css/home.css?v=47" />
   <link rel="stylesheet" href="/css/capability-page.css?v=2" />
   <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
@@ -46,7 +46,7 @@ const legalLinks = settings.legal_links?.length ? settings.legal_links : [
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" is:inline defer></script>
 </head>
 <body>
-  <SiteNav navItems={navItems} settings={settings} active="/what-we-do" />
+  <SiteNav navItems={navItems} settings={settings} services={services} active="/what-we-do" />
   <main id="main">
     <section class={`cphero cphero--${page.accent}`}>
       <div class="wrap cphero__inner on-blue">

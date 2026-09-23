@@ -1,6 +1,8 @@
 ---
-// Shared site header + mobile menu. Nav items are CMS-driven (settings.nav_items).
-const { navItems = [], settings = {}, active = "" } = Astro.props;
+// Shared site header + mobile menu + "What We Do" mega-menu. Nav items are CMS-driven
+// (settings.nav_items); the mega-menu is built from the services (CMS service CPT).
+import ServiceArtwork from "./ServiceArtwork.astro";
+const { navItems = [], settings = {}, services = [], active = "" } = Astro.props;
 const canonicalLinks = {
   "Home": "/",
   "What We Do": "/what-we-do",
@@ -12,8 +14,19 @@ const resolvedNavItems = navItems.map((item) => ({
   link: canonicalLinks[item.label] || item.link || "#",
 }));
 const isActive = (n) => (active && (n.link === active || n.label === active)) || (!active && n.link === "/");
-// Cloudflare Web Analytics beacon token (CMS Site Settings → "Cloudflare Analytics token",
-// or PUBLIC_CF_BEACON_TOKEN env var). Beacon renders on every page only when set.
+
+const fallbackServices = [
+  { num: "01", title: "Brand & Strategy", link: "/brand-and-strategy", description: "Find the right position. Build a brand with something to say." },
+  { num: "02", title: "Marketing & Growth", link: "/marketing-and-growth", description: "Reach the right people. Turn attention into action." },
+  { num: "03", title: "Content & Production", link: "/content-and-production", description: "Create work worth noticing, remembering and sharing." },
+  { num: "04", title: "Digital Products & Technology", link: "/digital-and-tech", description: "Build digital experiences, products and systems that make the business better." },
+  { num: "05", title: "Executive Authority", link: "/executive-authority", description: "Help leaders become known for what they know and what they stand for." },
+];
+const menuServices = (services && services.length)
+  ? services.filter((s) => s.num && s.title).sort((a, b) => String(a.num).localeCompare(String(b.num)))
+      .map((s) => ({ num: s.num, title: s.title, link: s.link || "#", description: s.description || "" }))
+  : fallbackServices;
+
 const cfBeaconToken = settings.cf_analytics_token || import.meta.env.PUBLIC_CF_BEACON_TOKEN || "";
 ---
 {cfBeaconToken && (
@@ -27,12 +40,40 @@ const cfBeaconToken = settings.cf_analytics_token || import.meta.env.PUBLIC_CF_B
     </a>
     <nav class="nav3__links" aria-label="Primary">
       {resolvedNavItems.map((n) => (
-        <a class={`nav3__link${isActive(n) ? " nav3__link--active" : ""}`} href={n.link || "#"}>{n.label}</a>
+        n.label === "What We Do" ? (
+          <span class="nav3__item nav3__item--mega" data-mega>
+            <a class={`nav3__link${isActive(n) ? " nav3__link--active" : ""}`} href={n.link || "#"} data-mega-link aria-haspopup="true" aria-expanded="false">{n.label}</a>
+          </span>
+        ) : (
+          <a class={`nav3__link${isActive(n) ? " nav3__link--active" : ""}`} href={n.link || "#"}>{n.label}</a>
+        )
       ))}
     </nav>
     <button class="nav3__burger" aria-label="Open menu" aria-expanded="false"><i data-lucide="menu"></i></button>
   </div>
 </header>
+
+<!-- What We Do mega-menu (kept OUTSIDE <header> so the nav's transform/backdrop-filter
+     never becomes the containing block; positioned under the bar by JS). -->
+<div class="megamenu" data-mega-panel aria-label="What We Do">
+  <div class="wrap megamenu__inner">
+    <div class="megamenu__head">
+      <span class="eyebrow">What We Do</span>
+      <a class="megamenu__all" href="/what-we-do">Explore all capabilities <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="megamenu__grid">
+      {menuServices.map((s) => (
+        <a class="megacard" href={s.link}>
+          <span class="megacard__art"><ServiceArtwork num={s.num} title={s.title} /></span>
+          <span class="megacard__num">{s.num}</span>
+          <span class="megacard__title" set:html={s.title}></span>
+          <span class="megacard__desc">{s.description}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</div>
+
 <!-- Mobile menu kept OUTSIDE <header> so the nav's transform/backdrop-filter
      (is-hidden / is-solid) never becomes the containing block for this fixed overlay. -->
 <div class="mnav" data-mnav aria-hidden="true">
@@ -48,7 +89,14 @@ const cfBeaconToken = settings.cf_analytics_token || import.meta.env.PUBLIC_CF_B
     </div>
     <nav class="mnav__links" aria-label="Mobile">
       {resolvedNavItems.map((n, i) => (
-        <a href={n.link || "#"}><span>{n.label}</span><em>{String(i + 1).padStart(2, "0")}</em></a>
+        n.label === "What We Do" ? (
+          <div class="mnav__group">
+            <a href={n.link || "#"}><span>{n.label}</span><em>{String(i + 1).padStart(2, "0")}</em></a>
+            <div class="mnav__sub">{menuServices.map((s) => <a class="mnav__subitem" href={s.link}>{s.title}</a>)}</div>
+          </div>
+        ) : (
+          <a href={n.link || "#"}><span>{n.label}</span><em>{String(i + 1).padStart(2, "0")}</em></a>
+        )
       ))}
     </nav>
     <div class="mnav__foot">
@@ -63,3 +111,35 @@ const cfBeaconToken = settings.cf_analytics_token || import.meta.env.PUBLIC_CF_B
     </div>
     </div>
   </div>
+
+<script is:inline>
+  (() => {
+    const desktop = window.matchMedia("(min-width: 861px)");
+    const header = document.querySelector(".nav3");
+    const item = document.querySelector("[data-mega]");
+    const panel = document.querySelector("[data-mega-panel]");
+    if (!header || !item || !panel) return;
+    const link = item.querySelector("[data-mega-link]");
+    let hideTimer = null;
+    const place = () => { panel.style.top = Math.round(header.getBoundingClientRect().bottom) + "px"; };
+    const open = () => {
+      if (!desktop.matches) return;
+      clearTimeout(hideTimer); place();
+      panel.classList.add("is-open");
+      if (link) link.setAttribute("aria-expanded", "true");
+    };
+    const close = () => {
+      panel.classList.remove("is-open");
+      if (link) link.setAttribute("aria-expanded", "false");
+    };
+    const scheduleClose = () => { hideTimer = setTimeout(close, 160); };
+    item.addEventListener("mouseenter", open);
+    item.addEventListener("mouseleave", scheduleClose);
+    panel.addEventListener("mouseenter", () => clearTimeout(hideTimer));
+    panel.addEventListener("mouseleave", scheduleClose);
+    item.addEventListener("focusin", open);
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+    window.addEventListener("scroll", () => { if (panel.classList.contains("is-open")) place(); }, { passive: true });
+    desktop.addEventListener("change", close);
+  })();
+</script>

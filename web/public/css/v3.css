@@ -704,3 +704,26 @@ body.mnav-open { overflow: hidden; }
 .svghero__art .svc-art{width:100%;height:100%;position:relative}
 .svghero__art .svc-art__svg{display:block;width:100%;height:100%}
 @media(max-width:640px){.svghero__art{height:clamp(260px,52vh,460px)}}
+
+/* ---------- What We Do mega-menu ---------- */
+.nav3__item--mega { display: inline-flex; align-items: center; }
+.megamenu { position: fixed; left: 0; right: 0; top: 70px; z-index: 199; background: #fff; border-top: 1px solid var(--v3-line); box-shadow: 0 30px 60px rgba(27,29,69,.16); opacity: 0; visibility: hidden; transform: translateY(-10px); transition: opacity .28s var(--v3-ease), transform .28s var(--v3-ease), visibility .28s; }
+.megamenu.is-open { opacity: 1; visibility: visible; transform: translateY(0); }
+.megamenu__inner { padding: 26px 0 32px; }
+.megamenu__head { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 20px; }
+.megamenu__all { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--v3-teal); }
+.megamenu__all svg { transition: transform .25s var(--v3-ease); }
+.megamenu__all:hover svg { transform: translateX(4px); }
+.megamenu__grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+.megacard { display: grid; gap: 5px; padding: 12px; border-radius: 16px; text-decoration: none; transition: background .2s var(--v3-ease), transform .2s var(--v3-ease); }
+.megacard:hover { background: var(--v3-mist); transform: translateY(-3px); }
+.megacard__art { display: block; height: 104px; border-radius: 12px; overflow: hidden; margin-bottom: 6px; }
+.megacard__art .svc-art, .megacard__art .svc-art__svg { width: 100%; height: 100%; display: block; }
+.megacard__num { font-family: var(--font-mono, monospace); font-size: 11px; font-weight: 700; color: var(--v3-text-2); }
+.megacard__title { font-family: var(--font-display); font-weight: 800; font-size: 15px; line-height: 1.15; color: var(--v3-ink); }
+.megacard__desc { font-size: 12.5px; line-height: 1.45; color: var(--v3-text-2); }
+@media (max-width: 860px) { .megamenu { display: none !important; } }
+/* mobile: services under What We Do */
+.mnav__sub { display: flex; flex-direction: column; gap: 2px; margin: 0 0 8px; }
+.mnav__sub a { display: block !important; font-size: 15px !important; font-weight: 600 !important; letter-spacing: 0 !important; text-transform: none !important; color: rgba(255,255,255,.66) !important; padding: 7px 0 !important; border: 0 !important; }
+.mnav__sub a::after { display: none !important; }
