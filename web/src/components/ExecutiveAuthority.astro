@@ -15,11 +15,11 @@ const legalLinks = (settings.legal_links && settings.legal_links.length) ? setti
   { label: "Privacy", link: "#" }, { label: "Terms", link: "#" },
 ];
 
-// Image slots are CMS-editable; empty ones show a branded placeholder until real photos are uploaded.
-const heroImg = home.ea_hero_image || "";
-const gapImg = home.ea_gap_image || "";
-const orgImg = home.ea_org_image || "";
-const indImg = home.ea_ind_image || "";
+// Image slots are CMS-editable; defaults below ship with the page, empty ones show a branded placeholder.
+const heroImg = home.ea_hero_image || "/assets/exec/hero.webp";
+const gapImg = home.ea_gap_image || "/assets/exec/experience.webp";
+const orgImg = home.ea_org_image || "/assets/exec/organisations.webp";
+const indImg = home.ea_ind_image || "/assets/exec/individuals.webp";
 
 const heroWords = (typeof home.ea_hero_side_words === "string" && home.ea_hero_side_words.trim())
   ? home.ea_hero_side_words.split(/\r?\n/).map((w) => w.trim()).filter(Boolean)
@@ -80,7 +80,7 @@ const pageDesc = home.ea_seo_description || "Fineries Executive Authority helps 
 <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
 <link rel="stylesheet" href="/css/v3.css?v=51" />
 <link rel="stylesheet" href="/css/home.css?v=47" />
-<link rel="stylesheet" href="/css/exec-authority.css?v=5" />
+<link rel="stylesheet" href="/css/exec-authority.css?v=6" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
