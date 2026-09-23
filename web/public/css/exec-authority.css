@@ -6,9 +6,10 @@
 :root { --ea-navy: var(--v3-blue); --ea-navy2: var(--v3-blue-d); }
 
 .ea-h { color: var(--v3-ink); letter-spacing: -.02em; }
+.ea-body { font-size: 16px; line-height: 1.75; color: var(--v3-text); }
 .ea-body p { font-size: 16px; line-height: 1.75; color: var(--v3-text); }
 .ea-body p + p { margin-top: 12px; }
-.ea-body--light p { color: rgba(255,255,255,.82); }
+.ea-body--light, .ea-body--light p { color: rgba(255,255,255,.82); }
 .ea-body--light strong { color: #fff; }
 .ea-strong { margin: 16px 0 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(17px,1.7vw,20px); line-height: 1.4; color: var(--v3-ink); }
 .ea-muted { color: var(--v3-text-2); font-size: 14px; }
