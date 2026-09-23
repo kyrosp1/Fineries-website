@@ -723,7 +723,13 @@ body.mnav-open { overflow: hidden; }
 .megacard__title { font-family: var(--font-display); font-weight: 800; font-size: 15px; line-height: 1.15; color: var(--v3-ink); }
 .megacard__desc { font-size: 12.5px; line-height: 1.45; color: var(--v3-text-2); }
 @media (max-width: 860px) { .megamenu { display: none !important; } }
-/* mobile: services under What We Do */
-.mnav__sub { display: flex; flex-direction: column; gap: 2px; margin: 0 0 8px; }
-.mnav__sub a { display: block !important; font-size: 15px !important; font-weight: 600 !important; letter-spacing: 0 !important; text-transform: none !important; color: rgba(255,255,255,.66) !important; padding: 7px 0 !important; border: 0 !important; }
+/* mobile: collapsible services under What We Do */
+.mnav__grouptoggle { display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%; padding: clamp(13px,2vh,19px) 0; background: none; border: 0; cursor: pointer; text-align: left; font-family: var(--font-display); font-weight: 700; font-size: clamp(30px,8.6vw,40px); line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+.mnav__grouptoggle .mnav__row-right { display: inline-flex; align-items: center; gap: 14px; flex-shrink: 0; }
+.mnav__grouptoggle em { font-family: var(--font-text); font-style: normal; font-weight: 500; font-size: 13px; letter-spacing: .06em; color: rgba(255,255,255,.4); }
+.mnav__chev { color: rgba(255,255,255,.6); transition: transform .3s var(--v3-ease); }
+.mnav__group.is-open .mnav__chev { transform: rotate(180deg); }
+.mnav__sub { display: flex; flex-direction: column; overflow: hidden; max-height: 0; opacity: 0; transition: max-height .38s var(--v3-ease), opacity .3s var(--v3-ease), margin .38s var(--v3-ease); margin: 0; }
+.mnav__group.is-open .mnav__sub { max-height: 60vh; opacity: 1; margin: 2px 0 10px; }
+.mnav__sub a { display: block !important; font-size: 17px !important; font-weight: 600 !important; letter-spacing: 0 !important; text-transform: none !important; color: rgba(255,255,255,.7) !important; padding: 8px 0 !important; border: 0 !important; }
 .mnav__sub a::after { display: none !important; }

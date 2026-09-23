@@ -90,9 +90,15 @@ const cfBeaconToken = settings.cf_analytics_token || import.meta.env.PUBLIC_CF_B
     <nav class="mnav__links" aria-label="Mobile">
       {resolvedNavItems.map((n, i) => (
         n.label === "What We Do" ? (
-          <div class="mnav__group">
-            <a href={n.link || "#"}><span>{n.label}</span><em>{String(i + 1).padStart(2, "0")}</em></a>
-            <div class="mnav__sub">{menuServices.map((s) => <a class="mnav__subitem" href={s.link}>{s.title}</a>)}</div>
+          <div class="mnav__group" data-mgroup>
+            <button class="mnav__grouptoggle" type="button" aria-expanded="false" data-mgroup-toggle>
+              <span>{n.label}</span>
+              <span class="mnav__row-right">
+                <svg class="mnav__chev" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                <em>{String(i + 1).padStart(2, "0")}</em>
+              </span>
+            </button>
+            <div class="mnav__sub" data-mgroup-sub>{menuServices.map((s) => <a class="mnav__subitem" href={s.link} set:html={s.title}></a>)}</div>
           </div>
         ) : (
           <a href={n.link || "#"}><span>{n.label}</span><em>{String(i + 1).padStart(2, "0")}</em></a>
@@ -141,5 +147,16 @@ const cfBeaconToken = settings.cf_analytics_token || import.meta.env.PUBLIC_CF_B
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
     window.addEventListener("scroll", () => { if (panel.classList.contains("is-open")) place(); }, { passive: true });
     desktop.addEventListener("change", close);
+  })();
+  // Mobile: collapse services under "What We Do" — tap to expand.
+  (() => {
+    document.querySelectorAll("[data-mgroup-toggle]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const grp = btn.closest("[data-mgroup]");
+        if (!grp) return;
+        const isOpen = grp.classList.toggle("is-open");
+        btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      });
+    });
   })();
 </script>
