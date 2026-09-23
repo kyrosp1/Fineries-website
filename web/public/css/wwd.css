@@ -26,7 +26,7 @@
 }
 .wwdhero__title {
   font-family: var(--font-display); font-weight: 800;
-  font-size: clamp(30px, 3.6vw, 53px); line-height: 1.06; letter-spacing: -.03em;
+  font-size: clamp(24px, 3.6vw, 53px); line-height: 1.08; letter-spacing: -.03em;
   margin: 16px 0 0; max-width: 15ch;
 }
 .wwdhero__body { margin-top: clamp(20px,2.6vw,30px); max-width: 54ch; }
