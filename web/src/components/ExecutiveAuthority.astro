@@ -1,0 +1,291 @@
+---
+import SiteNav from "./SiteNav.astro";
+import SiteFooter from "./SiteFooter.astro";
+const { home = {}, settings = {}, services = [] } = Astro.props;
+
+const navItems = (settings.nav_items && settings.nav_items.length) ? settings.nav_items : [
+  { label: "Home", link: "/" }, { label: "What We Do", link: "/what-we-do" },
+  { label: "Work", link: "#" }, { label: "About", link: "/about" },
+  { label: "Insights", link: "#" }, { label: "Contact", link: "/contact" },
+];
+const companyLinks = (settings.footer_company_links && settings.footer_company_links.length) ? settings.footer_company_links : [
+  { label: "About", link: "/about" }, { label: "Work", link: "#" }, { label: "Insights", link: "#" }, { label: "Careers", link: "#" }, { label: "Contact", link: "/contact" },
+];
+const legalLinks = (settings.legal_links && settings.legal_links.length) ? settings.legal_links : [
+  { label: "Privacy", link: "#" }, { label: "Terms", link: "#" },
+];
+
+const heroImg = home.ea_hero_image || "/assets/exec/hero.webp";
+const gapImg = home.ea_gap_image || "/assets/exec/feature.webp";
+const orgImg = home.ea_org_image || "";
+const indImg = home.ea_ind_image || "";
+
+const heroWords = (typeof home.ea_hero_side_words === "string" && home.ea_hero_side_words.trim())
+  ? home.ea_hero_side_words.split(/\r?\n/).map((w) => w.trim()).filter(Boolean)
+  : ["People", "Ideas", "Industry", "Opportunity"];
+
+const blueprintItems = (Array.isArray(home.ea_blueprint_items) && home.ea_blueprint_items.length) ? home.ea_blueprint_items : [
+  { icon: "crosshair", title: "Positioning", description: "What should you be known for?" },
+  { icon: "users", title: "Audience", description: "Who needs to know you?" },
+  { icon: "lightbulb", title: "Thought leadership", description: "What ideas and subjects should you own?" },
+  { icon: "message-square", title: "Narrative", description: "How should your experience and perspective be communicated?" },
+  { icon: "eye", title: "Visibility", description: "Which media, platforms, events and industry conversations matter?" },
+  { icon: "map", title: "Roadmap", description: "What should happen over the next 12 months?" },
+];
+const buildItems = (Array.isArray(home.ea_build_items) && home.ea_build_items.length) ? home.ea_build_items : [
+  { icon: "pen-line", color: "teal", title: "Thought leadership", description: "LinkedIn, articles, opinion pieces, commentary, video, newsletters and research." },
+  { icon: "mic", color: "magenta", title: "Media", description: "Relevant publications, interviews, podcasts, television, radio and expert commentary opportunities." },
+  { icon: "users", color: "gold", title: "Speaking", description: "Conferences, panels, fireside chats and other relevant industry platforms." },
+  { icon: "monitor", color: "teal", title: "Executive presence", description: "LinkedIn profiles, biographies, websites, photography, media kits and speaker profiles where required." },
+  { icon: "star", color: "gold", title: "Recognition", description: "Relevant awards, industry lists, associations and other professional opportunities." },
+  { icon: "file-text", color: "magenta", title: "Intellectual property", description: "Signature ideas, frameworks, reports, speeches, keynotes and books." },
+];
+const toList = (val, fallback) => {
+  if (Array.isArray(val) && val.length) return val.map((r) => (typeof r === "string" ? r : (r.text || r.item || ""))).filter(Boolean);
+  if (typeof val === "string" && val.trim()) return val.split(/\r?\n/).map((s) => s.trim()).filter(Boolean);
+  return fallback;
+};
+const orgBenefits = toList(home.ea_org_benefits, [
+  "Build trust with important stakeholders.",
+  "Give the organisation a stronger voice in its industry.",
+  "Put credible people behind the corporate brand.",
+  "Strengthen media and industry relationships.",
+  "Attract speaking and partnership opportunities.",
+  "Support employer reputation and talent attraction.",
+  "Build confidence around periods of growth, change or expansion.",
+  "Increase the visibility of the expertise that already exists inside the organisation.",
+]);
+const indBenefits = toList(home.ea_ind_benefits, [
+  "Speaking invitations.", "Board and advisory opportunities.", "Media requests.",
+  "Industry relationships.", "Partnerships.", "New business opportunities.",
+  "A stronger platform for whatever comes next.",
+]);
+const startQuestions = toList(home.ea_start_questions, [
+  "What should you be known for?", "Who needs to know you?",
+  "What do you have to say?", "Where should you be seen and heard?",
+]);
+
+const blueprintLink = home.ea_approach_cta_link || "/contact#form";
+const pageTitle = home.ea_seo_title || "Executive Authority | Fineries Digital";
+const pageDesc = home.ea_seo_description || "Fineries Executive Authority helps organisations and senior executives deliberately build the reputation, visibility and authority of their leaders.";
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{pageTitle}</title>
+<meta name="description" content={pageDesc} />
+<link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
+<link rel="stylesheet" href="/css/v3.css?v=51" />
+<link rel="stylesheet" href="/css/home.css?v=47" />
+<link rel="stylesheet" href="/css/exec-authority.css?v=1" />
+<script src="https://unpkg.com/lucide@latest" is:inline defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" is:inline defer></script>
+</head>
+<body>
+<SiteNav navItems={navItems} settings={settings} active="/what-we-do" />
+<main id="main">
+
+  <!-- HERO -->
+  <section class="ea-hero">
+    <div class="wrap ea-hero__grid">
+      <div class="ea-hero__copy" data-rv>
+        <span class="eyebrow ea-eyebrow--teal">{home.ea_hero_eyebrow || "Executive Authority"}</span>
+        <h1 class="ea-hero__title" set:html={home.ea_hero_heading || "Your company has a reputation. So do the people leading it."}></h1>
+        <div class="ea-hero__body">
+          {home.ea_hero_body
+            ? <Fragment set:html={home.ea_hero_body} />
+            : (<>
+                <p>Customers, investors, employees, partners and the media don't only pay attention to companies. They pay attention to the people behind them.</p>
+                <p>What your leaders say, what they are known for and where they show up can shape how people see the business.</p>
+              </>)}
+        </div>
+        <p class="ea-hero__lead" set:html={home.ea_hero_lead || "Fineries Executive Authority helps organisations and senior executives deliberately build the reputation, visibility and authority of their leaders."}></p>
+        <a class="ea-btn ea-btn--gold" href={home.ea_hero_cta_link || "/contact#form"}>{home.ea_hero_cta_label || "Build your executive reputation"} <i data-lucide="arrow-right"></i></a>
+      </div>
+      <div class="ea-hero__media" data-rv>
+        <span class="ea-hero__disc" aria-hidden="true"></span>
+        <div class="ea-hero__photo">{heroImg && <img src={heroImg} alt="" />}</div>
+        <ul class="ea-hero__words" aria-hidden="true">{heroWords.map((w) => <li>{w}</li>)}</ul>
+      </div>
+    </div>
+    <span class="ea-hero__stamp">{home.ea_hero_stamp || "Stronger leaders. Stronger businesses."}</span>
+  </section>
+
+  <!-- EXPERIENCE ALONE -->
+  <section class="ea-gap">
+    <div class="ea-gap__media">
+      <span class="ea-vlabel">{home.ea_gap_label || "Experience is a start. Reputation takes you further."}</span>
+      {gapImg && <img src={gapImg} alt="" />}
+    </div>
+    <div class="ea-gap__copy" data-rv>
+      <h2 class="h-lg ea-h">{home.ea_gap_heading || "Experience alone doesn't build reputation"}</h2>
+      <div class="ea-body">
+        {home.ea_gap_body
+          ? <Fragment set:html={home.ea_gap_body} />
+          : (<>
+              <p>An executive can spend 20 years building deep expertise and still be relatively unknown outside their immediate professional circle.</p>
+              <p>Their ideas rarely leave the boardroom.</p>
+              <p>Their experience isn't visible.</p>
+              <p>Their name isn't part of important industry conversations.</p>
+              <p>And when journalists, conference organisers, potential partners or other stakeholders look for credible voices in the industry, someone else gets the opportunity.</p>
+            </>)}
+      </div>
+      <p class="ea-strong">{home.ea_gap_bold1 || "Good work builds experience. Being known for that work builds reputation."}</p>
+      <p class="ea-body">{home.ea_gap_close || "We help close that gap."}</p>
+    </div>
+  </section>
+
+  <!-- WHAT SHOULD YOU BE KNOWN FOR + BLUEPRINT -->
+  <section class="sec ea-approach">
+    <div class="wrap ea-approach__grid">
+      <div class="ea-approach__intro" data-rv>
+        <span class="eyebrow">{home.ea_approach_eyebrow || "Our approach"}</span>
+        <h2 class="h-lg ea-h">{home.ea_approach_heading || "What should you be known for?"}</h2>
+        <div class="ea-body">
+          {home.ea_approach_body
+            ? <Fragment set:html={home.ea_approach_body} />
+            : (<>
+                <p class="ea-strong">That's where we start.</p>
+                <p>Not with posting more on LinkedIn.</p>
+                <p>We look at the executive's experience, expertise, ambitions, industry and existing reputation to identify where they can credibly build authority.</p>
+                <p>Then we develop a clear strategy for getting there.</p>
+              </>)}
+        </div>
+        <a class="ea-btn ea-btn--magenta" href={blueprintLink}>{home.ea_approach_cta_label || "Request an Executive Reputation Blueprint"} <i data-lucide="arrow-right"></i></a>
+      </div>
+      <div class="ea-approach__panel" data-rv>
+        <h3 class="ea-blueprint__title">{home.ea_blueprint_heading || "The Executive Reputation Blueprint"}</h3>
+        <p class="ea-muted">{home.ea_blueprint_intro || "Our starting engagement defines:"}</p>
+        <div class="ea-bp__grid">
+          {blueprintItems.map((it) => (
+            <article class="ea-bp">
+              <span class="ea-bp__icon"><i data-lucide={it.icon || "circle"}></i></span>
+              <h4>{it.title}</h4>
+              <p>{it.description}</p>
+            </article>
+          ))}
+        </div>
+        <p class="ea-muted ea-bp__note">{home.ea_blueprint_note || "The Blueprint can be commissioned as a standalone engagement or used as the foundation for an ongoing Executive Authority programme."}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THEN WE HELP BUILD -->
+  <section class="sec ea-build">
+    <div class="wrap ea-build__grid">
+      <div class="ea-build__intro on-blue" data-rv>
+        <span class="eyebrow">{home.ea_build_eyebrow || "From strategy to impact"}</span>
+        <h2 class="h-lg ea-h" style="color:#fff">{home.ea_build_heading || "Then we help build the reputation"}</h2>
+        <div class="ea-body ea-body--light">
+          {home.ea_build_body
+            ? <Fragment set:html={home.ea_build_body} />
+            : (<>
+                <p>Strategy is only the beginning.</p>
+                <p>Fineries can manage the work required to turn the Blueprint into a visible, credible executive reputation.</p>
+                <p><strong>We help with:</strong></p>
+              </>)}
+        </div>
+      </div>
+      <div class="ea-build__grid2" data-rv-stagger>
+        {buildItems.map((it) => (
+          <article class="ea-svc">
+            <span class={`ea-svc__icon ea-svc__icon--${it.color || "teal"}`}><i data-lucide={it.icon || "circle"}></i></span>
+            <h4>{it.title}</h4>
+            <p>{it.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY THIS MATTERS TO ORGANISATIONS -->
+  <section class="ea-org">
+    <div class="ea-org__copy" data-rv>
+      <span class="eyebrow">{home.ea_org_eyebrow || "For organisations"}</span>
+      <h2 class="h-lg ea-h">{home.ea_org_heading || "Why this matters to organisations"}</h2>
+      <p class="ea-strong">{home.ea_org_lead || "Your leaders are part of your corporate reputation."}</p>
+      <p class="ea-body">{home.ea_org_intro || "A credible, visible leadership team can help a business:"}</p>
+      <ul class="ea-checks">{orgBenefits.map((b) => <li><i data-lucide="check"></i><span>{b}</span></li>)}</ul>
+      <div class="ea-body">
+        {home.ea_org_body
+          ? <Fragment set:html={home.ea_org_body} />
+          : <p>For organisations with several senior leaders, we can build a coordinated programme where different executives become known for different areas of expertise.</p>}
+      </div>
+      <p class="ea-strong">{home.ea_org_bold || "One organisation. Multiple credible voices."}</p>
+      <a class="ea-btn ea-btn--gold" href={home.ea_org_cta_link || "/contact#form"}>{home.ea_org_cta_label || "Build your leadership authority"} <i data-lucide="arrow-right"></i></a>
+    </div>
+    <div class={`ea-org__media${orgImg ? "" : " ea-org__media--fill"}`}>
+      <span class="ea-vlabel ea-vlabel--light">{home.ea_org_image_label || "Credible leadership creates a stronger organisation."}</span>
+      {orgImg && <img src={orgImg} alt="" />}
+    </div>
+  </section>
+
+  <!-- FOR INDIVIDUAL EXECUTIVES -->
+  <section class="ea-ind">
+    <div class="ea-ind__copy on-blue" data-rv>
+      <span class="eyebrow">{home.ea_ind_eyebrow || "For individual executives"}</span>
+      <h2 class="h-lg ea-h" style="color:#fff">{home.ea_ind_heading || "Your job title will change. Your reputation can travel with you."}</h2>
+      <div class="ea-body ea-body--light">
+        {home.ea_ind_body
+          ? <Fragment set:html={home.ea_ind_body} />
+          : <p>For founders, CEOs, senior executives, investors and professionals, a strong reputation can create opportunities beyond the role you hold today.</p>}
+      </div>
+      <ul class="ea-checks ea-checks--light">{indBenefits.map((b) => <li><i data-lucide="check"></i><span>{b}</span></li>)}</ul>
+      <p class="ea-body ea-body--light">{home.ea_ind_objective || "The objective isn't to make you famous."}</p>
+      <p class="ea-strong" style="color:#fff">{home.ea_ind_bold || "It's to make you known for the right things, by the right people."}</p>
+    </div>
+    <div class={`ea-ind__media${indImg ? "" : " ea-ind__media--fill"}`}>
+      <span class="ea-vlabel ea-vlabel--light">{home.ea_ind_image_label || "A strong reputation creates a bigger tomorrow."}</span>
+      {indImg && <img src={indImg} alt="" />}
+    </div>
+  </section>
+
+  <!-- YOU DON'T NEED TO BECOME A CONTENT CREATOR -->
+  <section class="ea-creator">
+    <div class="ea-creator__copy" data-rv>
+      <span class="eyebrow">{home.ea_creator_eyebrow || "You don't need to do it all"}</span>
+      <h2 class="h-lg ea-h">{home.ea_creator_heading || "You don't need to become a content creator"}</h2>
+      <div class="ea-body">
+        {home.ea_creator_body
+          ? <Fragment set:html={home.ea_creator_body} />
+          : (<>
+              <p>You already have the raw material. Years of decisions, experiences, lessons, opinions and industry knowledge.</p>
+              <p>Our job is to get it out of your head and turn it into useful ideas, content and opportunities.</p>
+              <p>Through regular conversations with you, our team captures your thinking, develops it and manages the work around it.</p>
+              <p>You remain the expert.</p>
+            </>)}
+      </div>
+      <p class="ea-strong">{home.ea_creator_bold || "We build the system around your expertise."}</p>
+    </div>
+    <div class="ea-creator__panel">
+      <p>{home.ea_creator_panel || "Your expertise deserves a bigger audience."}</p>
+    </div>
+  </section>
+
+  <!-- START WITH THE BLUEPRINT -->
+  <section class="ea-start">
+    <div class="wrap ea-start__grid on-blue">
+      <div data-rv>
+        <span class="eyebrow">{home.ea_start_eyebrow || "Get started"}</span>
+        <h2 class="h-lg ea-h" style="color:#fff">{home.ea_start_heading || "Start with the Executive Reputation Blueprint"}</h2>
+        <p class="ea-body ea-body--light">{home.ea_start_body || "Before deciding what to publish or where to appear, we answer the questions that matter:"}</p>
+        <ul class="ea-checks ea-checks--light">{startQuestions.map((q) => <li><i data-lucide="check"></i><span>{q}</span></li>)}</ul>
+        <p class="ea-strong" style="color:#fff">{home.ea_start_close || "Then we build the plan."}</p>
+      </div>
+      <div class="ea-start__card" data-rv>
+        <h3>{home.ea_start_card_title || "Fineries Executive Authority"}</h3>
+        <p>{home.ea_start_card_sub || "Executive Reputation & Thought Leadership"}</p>
+        <a class="ea-btn ea-btn--magenta" href={home.ea_start_cta_link || "/contact#form"}>{home.ea_start_cta_label || "Request an Executive Reputation Blueprint"} <i data-lucide="arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <SiteFooter settings={settings} services={services} companyLinks={companyLinks} legalLinks={legalLinks} />
+</main>
+<script src="/js/v3.js?v=31" is:inline defer></script>
+</body>
+</html>

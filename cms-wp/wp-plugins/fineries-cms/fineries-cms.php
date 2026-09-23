@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fineries CMS
  * Description: Headless content model for the Fineries Digital site — custom post types (Services, Work), ACF field groups, options pages, and a clean REST endpoint for the Astro front-end.
- * Version: 1.20.0
+ * Version: 1.21.0
  * Author: Fineries
  * Requires Plugins: advanced-custom-fields-pro
  */
@@ -110,7 +110,7 @@ add_action('acf/init', function () {
   acf_add_options_page(['page_title' => 'Brand & Strategy Page', 'menu_title' => 'Brand & Strategy Page', 'menu_slug' => 'fineries-brand-strategy', 'icon_url' => 'dashicons-art', 'position' => 3]);
   acf_add_options_page(['page_title' => 'Marketing & Growth Page', 'menu_title' => 'Marketing & Growth Page', 'menu_slug' => 'fineries-marketing-growth', 'icon_url' => 'dashicons-megaphone', 'position' => 3]);
   acf_add_options_page(['page_title' => 'Content & Production Page', 'menu_title' => 'Content & Production Page', 'menu_slug' => 'fineries-content-production', 'icon_url' => 'dashicons-video-alt3', 'position' => 3]);
-  acf_add_options_page(['page_title' => 'Executive Branding Page', 'menu_title' => 'Executive Branding Page', 'menu_slug' => 'fineries-executive-branding', 'icon_url' => 'dashicons-businessperson', 'position' => 3]);
+  acf_add_options_page(['page_title' => 'Executive Authority Page', 'menu_title' => 'Executive Authority', 'menu_slug' => 'fineries-exec-authority', 'icon_url' => 'dashicons-businessperson', 'position' => 3]);
   acf_add_options_page(['page_title' => 'About Page', 'menu_title' => 'About Page', 'menu_slug' => 'fineries-about', 'icon_url' => 'dashicons-groups', 'position' => 3]);
   acf_add_options_page(['page_title' => 'Contact Page', 'menu_title' => 'Contact Page', 'menu_slug' => 'fineries-contact', 'icon_url' => 'dashicons-email-alt', 'position' => 3]);
   acf_add_options_page(['page_title' => 'Site Settings', 'menu_title' => 'Site Settings', 'menu_slug' => 'fineries-settings', 'icon_url' => 'dashicons-admin-settings', 'position' => 4]);
@@ -332,7 +332,101 @@ add_action('acf/init', function () {
   };
   $capability_page_group('mg', 'Marketing & Growth', 'fineries-marketing-growth');
   $capability_page_group('cp', 'Content & Production', 'fineries-content-production');
-  $capability_page_group('epb', 'Executive & Personal Branding', 'fineries-executive-branding');
+  // ---- EXECUTIVE AUTHORITY PAGE (bespoke) ----
+  acf_add_local_field_group([
+    'key' => 'group_ea_page',
+    'title' => 'Executive Authority Page',
+    'show_in_rest' => 1,
+    'location' => [[['param' => 'options_page', 'operator' => '==', 'value' => 'fineries-exec-authority']]],
+    'fields' => [
+      $txt('ea_hero_eyebrow', 'Hero — eyebrow'),
+      $txt('ea_hero_heading', 'Hero — heading'),
+      $wys('ea_hero_body', 'Hero — body'),
+      $area('ea_hero_lead', 'Hero — bold lead line'),
+      $txt('ea_hero_cta_label', 'Hero — CTA label'),
+      $txt('ea_hero_cta_link', 'Hero — CTA link'),
+      $img('ea_hero_image', 'Hero — image'),
+      $area('ea_hero_side_words', 'Hero — side words (one per line)'),
+      $txt('ea_hero_stamp', 'Hero — corner stamp'),
+
+      $txt('ea_gap_label', 'Experience section — image label'),
+      $img('ea_gap_image', 'Experience section — image'),
+      $txt('ea_gap_heading', 'Experience section — heading'),
+      $wys('ea_gap_body', 'Experience section — body'),
+      $area('ea_gap_bold1', 'Experience section — bold line'),
+      $txt('ea_gap_close', 'Experience section — closing line'),
+
+      $txt('ea_approach_eyebrow', 'Approach — eyebrow'),
+      $txt('ea_approach_heading', 'Approach — heading'),
+      $wys('ea_approach_body', 'Approach — body'),
+      $txt('ea_approach_cta_label', 'Approach — CTA label'),
+      $txt('ea_approach_cta_link', 'Approach — CTA link'),
+      $txt('ea_blueprint_heading', 'Blueprint — heading'),
+      $txt('ea_blueprint_intro', 'Blueprint — intro line'),
+      ['key' => 'f_ea_blueprint_items', 'name' => 'ea_blueprint_items', 'label' => 'Blueprint — items', 'type' => 'repeater', 'layout' => 'block', 'sub_fields' => [
+        ['key' => 'f_ea_bp_icon', 'name' => 'icon', 'label' => 'Icon (Lucide name)', 'type' => 'text'],
+        ['key' => 'f_ea_bp_title', 'name' => 'title', 'label' => 'Title', 'type' => 'text'],
+        ['key' => 'f_ea_bp_desc', 'name' => 'description', 'label' => 'Description', 'type' => 'textarea', 'rows' => 2],
+      ]],
+      $area('ea_blueprint_note', 'Blueprint — note'),
+
+      $txt('ea_build_eyebrow', 'Build — eyebrow'),
+      $txt('ea_build_heading', 'Build — heading'),
+      $wys('ea_build_body', 'Build — body'),
+      ['key' => 'f_ea_build_items', 'name' => 'ea_build_items', 'label' => 'Build — items', 'type' => 'repeater', 'layout' => 'block', 'sub_fields' => [
+        ['key' => 'f_ea_bd_icon', 'name' => 'icon', 'label' => 'Icon (Lucide name)', 'type' => 'text'],
+        ['key' => 'f_ea_bd_color', 'name' => 'color', 'label' => 'Colour', 'type' => 'select', 'choices' => ['teal' => 'Teal', 'magenta' => 'Magenta', 'gold' => 'Gold', 'blue' => 'Blue'], 'default_value' => 'teal'],
+        ['key' => 'f_ea_bd_title', 'name' => 'title', 'label' => 'Title', 'type' => 'text'],
+        ['key' => 'f_ea_bd_desc', 'name' => 'description', 'label' => 'Description', 'type' => 'textarea', 'rows' => 2],
+      ]],
+
+      $txt('ea_org_eyebrow', 'Organisations — eyebrow'),
+      $txt('ea_org_heading', 'Organisations — heading'),
+      $area('ea_org_lead', 'Organisations — bold lead'),
+      $txt('ea_org_intro', 'Organisations — intro line'),
+      ['key' => 'f_ea_org_benefits', 'name' => 'ea_org_benefits', 'label' => 'Organisations — benefits', 'type' => 'repeater', 'layout' => 'table', 'sub_fields' => [
+        ['key' => 'f_ea_org_b', 'name' => 'text', 'label' => 'Benefit', 'type' => 'text'],
+      ]],
+      $wys('ea_org_body', 'Organisations — body'),
+      $area('ea_org_bold', 'Organisations — bold line'),
+      $txt('ea_org_cta_label', 'Organisations — CTA label'),
+      $txt('ea_org_cta_link', 'Organisations — CTA link'),
+      $img('ea_org_image', 'Organisations — image'),
+      $txt('ea_org_image_label', 'Organisations — image label'),
+
+      $txt('ea_ind_eyebrow', 'Individuals — eyebrow'),
+      $txt('ea_ind_heading', 'Individuals — heading'),
+      $wys('ea_ind_body', 'Individuals — body'),
+      ['key' => 'f_ea_ind_benefits', 'name' => 'ea_ind_benefits', 'label' => 'Individuals — benefits', 'type' => 'repeater', 'layout' => 'table', 'sub_fields' => [
+        ['key' => 'f_ea_ind_b', 'name' => 'text', 'label' => 'Benefit', 'type' => 'text'],
+      ]],
+      $area('ea_ind_objective', 'Individuals — objective line'),
+      $area('ea_ind_bold', 'Individuals — bold line'),
+      $img('ea_ind_image', 'Individuals — image'),
+      $txt('ea_ind_image_label', 'Individuals — image label'),
+
+      $txt('ea_creator_eyebrow', 'Content creator — eyebrow'),
+      $txt('ea_creator_heading', 'Content creator — heading'),
+      $wys('ea_creator_body', 'Content creator — body'),
+      $area('ea_creator_bold', 'Content creator — bold line'),
+      $txt('ea_creator_panel', 'Content creator — yellow panel text'),
+
+      $txt('ea_start_eyebrow', 'Start — eyebrow'),
+      $txt('ea_start_heading', 'Start — heading'),
+      $area('ea_start_body', 'Start — body'),
+      ['key' => 'f_ea_start_qs', 'name' => 'ea_start_questions', 'label' => 'Start — questions', 'type' => 'repeater', 'layout' => 'table', 'sub_fields' => [
+        ['key' => 'f_ea_start_q', 'name' => 'text', 'label' => 'Question', 'type' => 'text'],
+      ]],
+      $txt('ea_start_close', 'Start — closing line'),
+      $txt('ea_start_card_title', 'Start — card title'),
+      $txt('ea_start_card_sub', 'Start — card subtitle'),
+      $txt('ea_start_cta_label', 'Start — CTA label'),
+      $txt('ea_start_cta_link', 'Start — CTA link'),
+
+      $txt('ea_seo_title', 'SEO — browser/tab title'),
+      $area('ea_seo_description', 'SEO — meta description'),
+    ],
+  ]);
 
   // ---- ABOUT PAGE ----
   acf_add_local_field_group([

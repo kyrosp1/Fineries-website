@@ -1,0 +1,133 @@
+/* ============================================================
+   FINERIES — Executive Authority page
+   Loads after v3.css + home.css. Fineries palette only:
+   navy #1B1D45 / deep #14163A, teal #08BCB3, magenta #C01891, gold #FFC80C.
+   ============================================================ */
+:root { --ea-navy: #14163a; --ea-navy2: #1b1d54; }
+
+.ea-h { color: var(--v3-ink); letter-spacing: -.02em; }
+.ea-body p { font-size: 16px; line-height: 1.75; color: var(--v3-text); }
+.ea-body p + p { margin-top: 12px; }
+.ea-body--light p { color: rgba(255,255,255,.82); }
+.ea-body--light strong { color: #fff; }
+.ea-strong { margin: 16px 0 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(17px,1.7vw,20px); line-height: 1.4; color: var(--v3-ink); }
+.ea-muted { color: var(--v3-text-2); font-size: 14px; }
+.eyebrow.ea-eyebrow--teal { color: var(--v3-teal); }
+
+/* Buttons */
+.ea-btn { display: inline-flex; align-items: center; gap: 10px; margin-top: clamp(22px,3vw,30px); padding: 15px 26px; border-radius: 999px; font-size: 13px; font-weight: 800; letter-spacing: .04em; cursor: pointer; transition: transform .25s var(--v3-ease), box-shadow .25s, filter .25s; }
+.ea-btn i, .ea-btn svg { width: 16px; height: 16px; }
+.ea-btn:hover { transform: translateY(-2px); }
+.ea-btn--gold { background: var(--v3-gold); color: var(--v3-ink); }
+.ea-btn--gold:hover { box-shadow: 0 14px 30px rgba(255,200,12,.3); }
+.ea-btn--magenta { background: var(--v3-magenta); color: #fff; }
+.ea-btn--magenta:hover { box-shadow: 0 14px 30px rgba(192,24,145,.32); }
+
+/* Vertical labels beside images */
+.ea-vlabel { writing-mode: vertical-rl; transform: rotate(180deg); position: absolute; left: clamp(14px,2vw,26px); top: clamp(20px,4vw,44px); z-index: 2;
+  font-size: 11px; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; color: var(--v3-ink); max-height: 78%; }
+.ea-vlabel--light { color: rgba(255,255,255,.85); }
+
+/* ---------- HERO ---------- */
+.ea-hero { background: var(--ea-navy); color: #fff; position: relative; overflow: hidden; padding-top: clamp(96px,12vh,140px); }
+.ea-hero__grid { display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,.95fr); gap: clamp(36px,6vw,90px); align-items: center; padding-bottom: clamp(48px,7vw,96px); }
+.ea-hero__copy { max-width: 40rem; }
+.ea-hero__title { font-family: var(--font-display); font-weight: 800; font-size: clamp(32px,4.4vw,60px); line-height: 1.04; letter-spacing: -.03em; margin: 16px 0 0; }
+.ea-hero__body { margin-top: clamp(18px,2.4vw,26px); max-width: 46ch; }
+.ea-hero__body p { color: rgba(255,255,255,.8); font-size: 16px; line-height: 1.75; }
+.ea-hero__body p + p { margin-top: 12px; }
+.ea-hero__lead { margin: 18px 0 0; max-width: 46ch; font-weight: 700; color: #fff; font-size: clamp(16px,1.6vw,18px); line-height: 1.55; }
+.ea-hero__media { position: relative; min-height: 360px; display: grid; place-items: center; }
+.ea-hero__disc { position: absolute; width: min(78%, 420px); aspect-ratio: 1; border-radius: 50%; background: var(--v3-teal); right: 6%; top: 4%; }
+.ea-hero__photo { position: relative; z-index: 1; width: min(86%, 460px); aspect-ratio: 3/4; border-radius: 16px; overflow: hidden; box-shadow: 0 40px 90px rgba(0,0,0,.45); }
+.ea-hero__photo img { width: 100%; height: 100%; object-fit: cover; }
+.ea-hero__words { position: absolute; right: -6px; top: 50%; transform: translateY(-50%); z-index: 2; list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; text-align: right; }
+.ea-hero__words li { font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.72); }
+.ea-hero__stamp { position: absolute; right: clamp(20px,4vw,56px); bottom: 22px; max-width: 12ch; text-align: right; font-size: 11px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--v3-teal); line-height: 1.5; }
+
+/* ---------- EXPERIENCE ALONE ---------- */
+.ea-gap { display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); align-items: stretch; background: #fff; }
+.ea-gap__media { position: relative; min-height: 420px; background: var(--v3-mist); overflow: hidden; }
+.ea-gap__media img { width: 100%; height: 100%; object-fit: cover; }
+.ea-gap__copy { padding: clamp(48px,7vw,110px) clamp(24px,5vw,90px); }
+.ea-gap__copy .ea-h { margin: 0 0 22px; max-width: 16ch; }
+
+/* ---------- APPROACH + BLUEPRINT ---------- */
+.ea-approach { background: #fff; }
+.ea-approach__grid { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); gap: clamp(36px,6vw,80px); align-items: start; }
+.ea-approach__intro .ea-h { margin: 14px 0 20px; max-width: 12ch; }
+.ea-approach__panel { background: var(--v3-mist); border-radius: 20px; padding: clamp(28px,3.5vw,44px); }
+.ea-blueprint__title { font-family: var(--font-display); font-weight: 800; font-size: clamp(20px,2.2vw,27px); color: var(--v3-ink); margin: 0 0 4px; }
+.ea-bp__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 28px; margin-top: 22px; }
+.ea-bp__icon { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 11px; background: #fff; color: var(--v3-blue); box-shadow: 0 6px 16px rgba(27,29,69,.08); }
+.ea-bp__icon svg { width: 20px; height: 20px; }
+.ea-bp h4 { font-family: var(--font-display); font-weight: 800; font-size: 16px; color: var(--v3-ink); margin: 12px 0 5px; }
+.ea-bp p { font-size: 14px; line-height: 1.5; color: var(--v3-text-2); margin: 0; }
+.ea-bp__note { margin-top: 26px; }
+
+/* ---------- THEN WE HELP BUILD (dark) ---------- */
+.ea-build { background: var(--ea-navy); }
+.ea-build__grid { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: clamp(36px,6vw,80px); align-items: start; }
+.ea-build__intro .ea-h { margin: 14px 0 20px; max-width: 12ch; }
+.ea-build__grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px,3vw,44px); }
+.ea-svc__icon { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; color: #fff; margin-bottom: 16px; }
+.ea-svc__icon svg { width: 24px; height: 24px; }
+.ea-svc__icon--teal { background: var(--v3-teal); }
+.ea-svc__icon--magenta { background: var(--v3-magenta); }
+.ea-svc__icon--gold { background: var(--v3-gold); color: var(--v3-ink); }
+.ea-svc__icon--blue { background: var(--v3-blue); }
+.ea-svc h4 { font-family: var(--font-display); font-weight: 800; font-size: clamp(17px,1.8vw,20px); color: #fff; margin: 0 0 8px; }
+.ea-svc p { font-size: 14.5px; line-height: 1.6; color: rgba(255,255,255,.72); margin: 0; }
+
+/* ---------- ORGANISATIONS ---------- */
+.ea-org { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr); background: #fff; align-items: stretch; }
+.ea-org__copy { padding: clamp(48px,7vw,110px) clamp(24px,5vw,90px); }
+.ea-org__copy .ea-h { margin: 14px 0 16px; }
+.ea-org__media { position: relative; min-height: 460px; overflow: hidden; background: var(--ea-navy); }
+.ea-org__media img { width: 100%; height: 100%; object-fit: cover; }
+.ea-org__media--fill { background: linear-gradient(150deg, var(--ea-navy), var(--ea-navy2)); }
+
+/* ---------- INDIVIDUAL EXECUTIVES (teal) ---------- */
+.ea-ind { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); background: var(--v3-teal); align-items: stretch; }
+.ea-ind__copy { padding: clamp(48px,7vw,110px) clamp(24px,5vw,90px); }
+.ea-ind__copy .eyebrow { color: rgba(255,255,255,.85); }
+.ea-ind__copy .ea-h { margin: 14px 0 18px; max-width: 16ch; }
+.ea-ind__media { position: relative; min-height: 460px; overflow: hidden; background: #0c8f88; }
+.ea-ind__media img { width: 100%; height: 100%; object-fit: cover; }
+.ea-ind__media--fill { background: linear-gradient(150deg, #0c8f88, #067a74); }
+
+/* Check lists */
+.ea-checks { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 12px; }
+.ea-checks li { display: grid; grid-template-columns: 24px 1fr; gap: 12px; align-items: start; font-size: 15.5px; line-height: 1.5; color: var(--v3-text); }
+.ea-checks li svg { width: 20px; height: 20px; color: var(--v3-teal); margin-top: 1px; }
+.ea-checks--light li { color: rgba(255,255,255,.9); }
+.ea-checks--light li svg { color: #fff; }
+
+/* ---------- CONTENT CREATOR (split light / yellow) ---------- */
+.ea-creator { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(0,.85fr); background: var(--v3-mist); align-items: stretch; }
+.ea-creator__copy { padding: clamp(48px,7vw,110px) clamp(24px,5vw,90px); }
+.ea-creator__copy .ea-h { margin: 14px 0 18px; }
+.ea-creator__panel { background: var(--v3-gold); display: flex; align-items: center; padding: clamp(48px,7vw,110px) clamp(28px,5vw,80px); }
+.ea-creator__panel p { font-family: var(--font-display); font-weight: 800; font-size: clamp(34px,4.4vw,60px); line-height: 1.02; letter-spacing: -.03em; color: var(--v3-ink); margin: 0; max-width: 12ch; }
+
+/* ---------- START WITH THE BLUEPRINT ---------- */
+.ea-start { background: var(--ea-navy); position: relative; overflow: hidden; }
+.ea-start__grid { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr); gap: clamp(36px,6vw,80px); align-items: center; }
+.ea-start__grid .ea-h { margin: 14px 0 18px; }
+.ea-start__card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.14); border-radius: 20px; padding: clamp(30px,4vw,48px); }
+.ea-start__card h3 { font-family: var(--font-display); font-weight: 800; font-size: clamp(24px,2.6vw,34px); color: #fff; margin: 0 0 8px; line-height: 1.1; }
+.ea-start__card p { color: rgba(255,255,255,.7); font-size: 15px; margin: 0; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .ea-hero__grid, .ea-gap, .ea-approach__grid, .ea-build__grid, .ea-org, .ea-ind, .ea-creator, .ea-start__grid { grid-template-columns: 1fr; }
+  .ea-bp__grid, .ea-build__grid2 { grid-template-columns: 1fr 1fr; }
+  .ea-gap__media, .ea-org__media, .ea-ind__media { min-height: 340px; }
+  .ea-org { direction: ltr; }
+  .ea-org__media, .ea-ind__media { order: 2; }
+  .ea-hero__stamp { position: static; display: block; margin: 8px 0 24px clamp(20px,4vw,56px); max-width: none; }
+}
+@media (max-width: 560px) {
+  .ea-bp__grid, .ea-build__grid2, .ea-creator, .ea-gap, .ea-org, .ea-ind { grid-template-columns: 1fr; }
+  .ea-vlabel { position: static; writing-mode: horizontal-tb; transform: none; display: block; padding: 16px 20px 0; max-height: none; }
+}
