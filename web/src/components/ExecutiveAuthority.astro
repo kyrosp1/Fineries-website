@@ -15,8 +15,9 @@ const legalLinks = (settings.legal_links && settings.legal_links.length) ? setti
   { label: "Privacy", link: "#" }, { label: "Terms", link: "#" },
 ];
 
-const heroImg = home.ea_hero_image || "/assets/exec/hero.webp";
-const gapImg = home.ea_gap_image || "/assets/exec/feature.webp";
+// Image slots are CMS-editable; empty ones show a branded placeholder until real photos are uploaded.
+const heroImg = home.ea_hero_image || "";
+const gapImg = home.ea_gap_image || "";
 const orgImg = home.ea_org_image || "";
 const indImg = home.ea_ind_image || "";
 
@@ -79,7 +80,7 @@ const pageDesc = home.ea_seo_description || "Fineries Executive Authority helps 
 <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg" />
 <link rel="stylesheet" href="/css/v3.css?v=51" />
 <link rel="stylesheet" href="/css/home.css?v=47" />
-<link rel="stylesheet" href="/css/exec-authority.css?v=1" />
+<link rel="stylesheet" href="/css/exec-authority.css?v=2" />
 <script src="https://unpkg.com/lucide@latest" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script>
@@ -117,8 +118,8 @@ const pageDesc = home.ea_seo_description || "Fineries Executive Authority helps 
 
   <!-- EXPERIENCE ALONE -->
   <section class="ea-gap">
-    <div class="ea-gap__media">
-      <span class="ea-vlabel">{home.ea_gap_label || "Experience is a start. Reputation takes you further."}</span>
+    <div class={`ea-gap__media${gapImg ? "" : " ea-gap__media--fill"}`}>
+      <span class={`ea-vlabel${gapImg ? "" : " ea-vlabel--light"}`}>{home.ea_gap_label || "Experience is a start. Reputation takes you further."}</span>
       {gapImg && <img src={gapImg} alt="" />}
     </div>
     <div class="ea-gap__copy" data-rv>
