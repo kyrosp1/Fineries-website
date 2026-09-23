@@ -12,7 +12,7 @@ const serviceChoices = ["Brand & Strategy","Marketing & Growth","Content & Produ
 <!DOCTYPE html><html lang="en"><head>
   <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>{home.contact_seo_title || "Contact Fineries | Start a Conversation"}</title><meta name="description" content={home.contact_seo_description || "Tell Fineries about the brand, campaign, product or business challenge you want to solve."}/>
-  <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg"/><link rel="stylesheet" href="/css/v3.css?v=53"/><link rel="stylesheet" href="/css/home.css?v=47"/><link rel="stylesheet" href="/css/about-contact.css?v=12"/>
+  <link rel="icon" type="image/jpeg" href="/assets/fineries-favicon.jpg"/><link rel="stylesheet" href="/css/v3.css?v=53"/><link rel="stylesheet" href="/css/home.css?v=47"/><link rel="stylesheet" href="/css/about-contact.css?v=13"/>
   <script src="https://unpkg.com/lucide@latest" is:inline defer></script><script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" is:inline defer></script><script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" is:inline defer></script><script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" is:inline defer></script>
 </head><body><SiteNav navItems={navItems} settings={settings} services={services} active="/contact"/>
 <main id="main">
@@ -23,15 +23,14 @@ const serviceChoices = ["Brand & Strategy","Marketing & Growth","Content & Produ
     <div class="contact__intro" data-rv>
       <span class="cin__icon"><i data-lucide="arrow-right"></i></span>
       <h2 class="cin__title">{home.contact_form_eyebrow || "Get in Touch"}</h2>
-      <svg class="cin__wave" width="118" height="14" viewBox="0 0 118 14" fill="none" aria-hidden="true"><path d="M2 8c8-8 16-8 22 0s16 8 22 0 16-8 22 0 16 8 22 0 16-8 22 0" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
       <p class="cin__lead">{home.contact_intro_body || "Tell us about the brand, campaign, product or business challenge you want to solve — and we'll get back to you."}</p>
       <div class="cin__block"><span>Office Address</span><p>{settings.address || "AHCN Towers, 38 CIPM Road, Alausa, Lagos, Nigeria"}</p></div>
       <div class="cin__block"><span>Email</span><a href={`mailto:${email}`}>{email}</a></div>
       {phone && <div class="cin__block"><span>Phone Number</span><p>{phone}</p></div>}
       <div class="cin__socials">
-        {settings.social_linkedin && <a href={settings.social_linkedin} aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>}
-        {settings.social_instagram && <a href={settings.social_instagram} aria-label="Instagram"><i data-lucide="instagram"></i></a>}
-        {settings.social_x && <a href={settings.social_x} aria-label="X"><i data-lucide="twitter"></i></a>}
+        {settings.social_linkedin && <a href={settings.social_linkedin} aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.76-2.05C20.4 8.65 21 11 21 14.1V21h-4v-6.1c0-1.45-.03-3.32-2.02-3.32-2.02 0-2.33 1.58-2.33 3.21V21H9z"/></svg></a>}
+        {settings.social_instagram && <a href={settings.social_instagram} aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>}
+        {settings.social_x && <a href={settings.social_x} aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.65l-5.22-6.82-5.97 6.82H1.66l7.73-8.84L1.25 2.25h6.82l4.71 6.23zm-1.16 17.52h1.83L7.01 4.13H5.05z"/></svg></a>}
       </div>
     </div>
     <form class="contact__form cf" id="form" data-contact-form data-email={email} data-rv>

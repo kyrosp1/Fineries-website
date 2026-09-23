@@ -14,8 +14,7 @@
 .contact__intro{padding-top:6px}
 .cin__icon{width:46px;height:46px;border-radius:50%;border:1.6px solid var(--v3-magenta);display:grid;place-items:center;color:var(--v3-magenta)}
 .cin__icon svg{width:20px;height:20px}
-.cin__title{margin:22px 0 0;font-family:var(--font-display);font-weight:800;font-size:clamp(30px,3.2vw,44px);letter-spacing:-.03em;color:var(--v3-ink)}
-.cin__wave{display:block;margin:14px 0 26px;color:var(--v3-magenta)}
+.cin__title{margin:22px 0 26px;font-family:var(--font-display);font-weight:800;font-size:clamp(30px,3.2vw,44px);letter-spacing:-.03em;color:var(--v3-ink)}
 .cin__lead{max-width:44ch;margin:0 0 30px;color:var(--v3-text-2);font-size:16px;line-height:1.7}
 .cin__block{padding:16px 0;border-top:1px solid var(--v3-line)}
 .cin__block:last-of-type{border-bottom:1px solid var(--v3-line)}
