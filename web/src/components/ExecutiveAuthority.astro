@@ -110,16 +110,13 @@ const pageDesc = home.ea_seo_description || "Fineries Executive Authority helps 
       <div class="ea-hero__media" data-rv>
         <span class="ea-hero__disc" aria-hidden="true"></span>
         <div class="ea-hero__photo">{heroImg && <img src={heroImg} alt="" />}</div>
-        <ul class="ea-hero__words" aria-hidden="true">{heroWords.map((w) => <li>{w}</li>)}</ul>
       </div>
     </div>
-    <span class="ea-hero__stamp">{home.ea_hero_stamp || "Stronger leaders. Stronger businesses."}</span>
   </section>
 
   <!-- EXPERIENCE ALONE -->
   <section class="ea-gap">
     <div class={`ea-gap__media${gapImg ? "" : " ea-gap__media--fill"}`}>
-      <span class={`ea-vlabel${gapImg ? "" : " ea-vlabel--light"}`}>{home.ea_gap_label || "Experience is a start. Reputation takes you further."}</span>
       {gapImg && <img src={gapImg} alt="" />}
     </div>
     <div class="ea-gap__copy" data-rv>
@@ -220,7 +217,6 @@ const pageDesc = home.ea_seo_description || "Fineries Executive Authority helps 
       <a class="ea-btn ea-btn--gold" href={home.ea_org_cta_link || "/contact#form"}>{home.ea_org_cta_label || "Build your leadership authority"} <i data-lucide="arrow-right"></i></a>
     </div>
     <div class={`ea-org__media${orgImg ? "" : " ea-org__media--fill"}`}>
-      <span class="ea-vlabel ea-vlabel--light">{home.ea_org_image_label || "Credible leadership creates a stronger organisation."}</span>
       {orgImg && <img src={orgImg} alt="" />}
     </div>
   </section>
@@ -240,7 +236,6 @@ const pageDesc = home.ea_seo_description || "Fineries Executive Authority helps 
       <p class="ea-strong" style="color:#fff">{home.ea_ind_bold || "It's to make you known for the right things, by the right people."}</p>
     </div>
     <div class={`ea-ind__media${indImg ? "" : " ea-ind__media--fill"}`}>
-      <span class="ea-vlabel ea-vlabel--light">{home.ea_ind_image_label || "A strong reputation creates a bigger tomorrow."}</span>
       {indImg && <img src={indImg} alt="" />}
     </div>
   </section>
